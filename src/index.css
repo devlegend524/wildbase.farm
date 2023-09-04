@@ -1,12 +1,67 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'NippoBold';
+  src: local('NippoBold'), url('assets/fonts//NippoBold.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'NippoExtralight';
+  src: local('NippoExtralight'),
+    url('assets/fonts//NippoExtralight.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'NippoLight';
+  src: local('NippoLight'),
+    url('assets/fonts//NippoLight.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'NippoMedium';
+  src: local('NippoMedium'),
+    url('assets/fonts//NippoMedium.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'NippoRegular';
+  src: local('NippoRegular'),
+    url('assets/fonts//NippoRegular.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'NippoVariable';
+  src: local('NippoVariable'),
+    url('assets/fonts//NippoVariable.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'OPTICopperplate';
+  src: local('OPTICopperplate'),
+    url('assets/fonts//OPTICopperplate.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'OPTICopperplate-Heavy';
+  src: local('OPTICopperplate-Heavy'),
+    url('assets/fonts//OPTICopperplate-Heavy.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'OPTICopperplate-Light';
+  src: local('OPTICopperplate-Light'),
+    url('assets/fonts//OPTICopperplate-Light.otf') format('opentype');
+}
+
+.bg-black {
+  background: black !important;
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background: #000000;
+  font-family: 'NippoLight' !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -14,4 +69,24 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.hero_banner {
+  font-family: 'OPTICopperplate' !important;
+  font-size: 90px;
+  font-weight: 700;
+  letter-spacing: 0.5rem;
+  color: #093a72;
+}
+
+.hero_title {
+  font-family: 'OPTICopperplate' !important;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: white;
+}
+.hero_strong {
+  font-family: 'OPTICopperplate' !important;
+  font-size: 40px;
 }
