@@ -1,12 +1,116 @@
-import React, { useState } from 'react'
-import { Line } from 'rc-progress'
-import { formatAddress } from 'utils/customHelpers'
-import { getPresaleAddress } from 'utils/addressHelpers'
-import { BASE_EXPLORER } from 'config/config'
+import React, { useState, useEffect } from 'react'
+
+import { usePresaleContract, useWildNFT } from 'hooks/useContract'
+import { useAccount, useNetwork } from 'wagmi'
+import { notify } from 'utils/toastHelper'
+import { useEthersSigner } from 'hooks/useEthers'
+import { CHAIN_ID } from 'config/config'
+import {
+  fromReadableAmount,
+  toReadableAmount,
+  didUserReject,
+} from 'utils/customHelpers'
+import PresaleDetail from 'components/PresaleDetail'
+import SaleComponent from 'components/SaleComponent'
+import ClaimComponent from 'components/ClaimComponent'
+
 export default function Presale() {
   const [active, setActive] = useState(0)
+  const [started, setStated] = useState(false)
+  const [finished, setFinished] = useState(false)
+  const [owned, setOwned] = useState(false)
+  const [myNFT, setMyNFT] = useState(null)
+  const [claimable, setClaimable] = useState(null)
+
+  const { address } = useAccount()
+  const { chain } = useNetwork()
+  const wildNFTContract = useWildNFT()
+  const presaleContract = usePresaleContract()
+  const [totalRaised, setTotalRaised] = useState(0)
+  const [userDeposited, setUserDeposited] = useState(0)
+
+  const signer = useEthersSigner()
+
+  const getMyNFT = async () => {
+    const myNFTs = await wildNFTContract.walletOfOwner(address)
+    if (myNFTs.length > 0) {
+      setOwned(true)
+      setMyNFT(myNFTs[0])
+      notify('info', 'You already minted a NFT.')
+    } else {
+      notify('warning', 'You must have an WILD NFT to buy token!')
+    }
+  }
+  const getTotal = async () => {
+    const totalDeposited = await presaleContract.getTotalRaised()
+    setTotalRaised(toReadableAmount(totalDeposited, 18))
+
+    const userDeposites = await presaleContract.getUserDeposits(address)
+    setUserDeposited(toReadableAmount(userDeposites, 18))
+
+    const enabled = await presaleContract.enabled()
+    setStated(enabled)
+
+    const sale_finalized = await presaleContract.sale_finalized()
+    setFinished(sale_finalized)
+
+    const userWILDOwned = await presaleContract.getWILDOwned(address)
+    console.log(userWILDOwned)
+    setClaimable(toReadableAmount(userWILDOwned, 18))
+  }
+
+  const buyWILDToken = async (amount) => {
+    try {
+      const tx = await presaleContract.buyWILD({
+        from: address,
+        value: fromReadableAmount(amount),
+      })
+      await tx.wait()
+      notify('success', 'You bought WILD TOKENs successfully')
+      notify('info', 'You can claim tokens after presale finished')
+    } catch (error) {
+      if (didUserReject(error)) {
+        notify('warning', 'User Rejected transaction')
+        return
+      } else {
+        notify('warning', 'Please check your network status or balance')
+        return
+      }
+    }
+  }
+
+  const claimWILD = async () => {
+    try {
+      const tx = await presaleContract.withdrawWILD({
+        from: address,
+      })
+      await tx.wait()
+      notify('success', 'You claimed tokens successfully')
+      notify('info', 'You can claim tokens again after 1 hours')
+      window.localStorage.setItem('lastClaimedTime', Date.now())
+    } catch (error) {
+      if (didUserReject(error)) {
+        notify('warning', 'User Rejected transaction')
+        return
+      } else {
+        notify(
+          'warning',
+          'Please check your network status or You are not available to claim tokens yet'
+        )
+        return
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (chain && chain.id === CHAIN_ID && address && signer) {
+      getMyNFT()
+      getTotal()
+    }
+  }, [address, signer, chain])
+
   return (
-    <div className='presale'>
+    <div className='presale mb-20'>
       <div className='presale_banner'>PRESALE WILD BASE</div>
       <div className='presale_content'>
         <div className='card'>
@@ -26,101 +130,30 @@ export default function Presale() {
               </div>
             </div>
             {active === 0 ? (
-              <div>
-                <div className='sale_percent_bar'>
-                  <div className='text'>0/100 ETH</div>
-                  <div className='text'>0%</div>
-                </div>
-                <Line
-                  percent={20}
-                  strokeWidth={3}
-                  strokeColor='#2a8710'
-                  trailColor='#00162fb0'
-                  trailWidth={3}
-                  style={{ margin: '17px 0 30px 0' }}
-                />
-                <div className='balance_form'>
-                  <div className='form_text'>Balance: 0 ETH</div>
-                  <div className='form_input'>
-                    <input type='number' placeholder='0' />
-                  </div>
-                </div>
-                <button className='btn buy_btn'>BUY</button>
-                <div className='commit_text'>
-                  <div>Your Commited</div>
-                  <div>0 ETH</div>
-                </div>
-              </div>
+              <SaleComponent
+                totalRaised={totalRaised}
+                isPrivateParticipant={owned && !myNFT && Number(myNFT) < 13}
+                userDeposited={userDeposited}
+                buyWILDToken={buyWILDToken}
+                hasNFT={owned}
+                started={started}
+                finished={finished}
+              />
             ) : (
-              <div className='claim_card'>
-                <div className='claim_list'>
-                  <div className='list_item'>
-                    <p>Your Commited</p>
-                    <p>0 ETH</p>
-                  </div>
-                  <div className='list_item'>
-                    <p>ETH to Refund</p>
-                    <p>0 ETH</p>
-                  </div>
-                  <div className='list_item'>
-                    <p>Claimable</p>
-                    <p>0 $</p>
-                  </div>
-                  <div className='list_item'>
-                    <p>Earned Farming Bonuese</p>
-                    <p>0 $</p>
-                  </div>
-                </div>
-                <button className='claim_btn'>CLAIM</button>
-              </div>
+              <ClaimComponent
+                claimWILD={claimWILD}
+                finished={finished}
+                userDeposited={userDeposited}
+                claimable={claimable}
+              />
             )}
           </div>
         </div>
-        <div className='card'>
-          <div className='presale_detail'>
-            <div className='annual_price'>
-              <p>Total Raised</p>
-              <h3>0 ETH</h3>
-            </div>
-            <div className='main_detail'>
-              <div className='detail_title'>Main Details</div>
-              <div className='detail_list'>
-                <div className='list_item'>
-                  <p>Token Sale Contract</p>
-                  <p>
-                    <a
-                      href={`${BASE_EXPLORER}/address/${getPresaleAddress()}`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >
-                      {formatAddress(getPresaleAddress(), 4)}
-                    </a>
-                  </p>
-                </div>
-                <div className='list_item'>
-                  <p>Price Per WILD</p>
-                  <p>$0.35 / $0.45</p>
-                </div>
-                <div className='list_item'>
-                  <p>Minimum Purchase:</p>
-                  <p>0.2 ETH / 0.1 ETH</p>
-                </div>
-                <div className='list_item'>
-                  <p>Maximum Purchase: </p>
-                  <p>2.7 ETH / 1.35 ETH</p>
-                </div>
-                <div className='list_item'>
-                  <p>Start Time</p>
-                  <p>TBA</p>
-                </div>
-                <div className='list_item'>
-                  <p>End Time</p>
-                  <p>TBA</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PresaleDetail
+          totalRaised={totalRaised}
+          isPrivateParticipant={owned && !myNFT && Number(myNFT) < 13}
+          userDeposited={userDeposited}
+        />
       </div>
     </div>
   )

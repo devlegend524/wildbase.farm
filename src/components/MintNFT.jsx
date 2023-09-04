@@ -5,6 +5,7 @@ import { notify } from 'utils/toastHelper'
 import { useEthersSigner } from 'hooks/useEthers'
 import { CHAIN_ID, privateNFTPrice, publicNFTPrice } from 'config/config'
 import { fromReadableAmount, didUserReject } from 'utils/customHelpers'
+
 export default function MintNFT() {
   const [owned, setOwned] = useState(false)
   const [totalSupply, setTotalSupply] = useState(null)

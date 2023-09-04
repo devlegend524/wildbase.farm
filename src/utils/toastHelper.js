@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 export const notify = (type, message) => {
   const options =
   {
-    position: toast.POSITION.TOP_RIGHT,
+    position: toast.POSITION.BOTTOM_RIGHT,
     theme: "dark",
     hideProgressBar: false,
     newestOnTop: false,

@@ -118,7 +118,8 @@ code {
   padding: 20px;
 }
 
-.presale_card, .presale_detail {
+.presale_card,
+.presale_detail {
   padding: 20px;
   border-radius: 5px;
   background-color: #032e5dd4;
@@ -183,7 +184,8 @@ code {
   display: none;
 }
 
-.buy_btn, .claim_btn {
+.buy_btn,
+.claim_btn {
   padding: 13px;
   background-color: #011121;
   width: 100%;
@@ -191,7 +193,8 @@ code {
   transition: 0.2s;
 }
 
-.buy_btn:hover, .claim_btn:hover {
+.buy_btn:hover,
+.claim_btn:hover {
   background-color: #00162f;
 }
 
@@ -208,7 +211,7 @@ code {
   justify-content: space-between;
   align-items: center;
   font-size: 17px;
-  padding: 25px 0;
+  padding: 23px 0;
   border-bottom: 1px solid #757575;
 }
 

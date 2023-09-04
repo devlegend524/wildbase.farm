@@ -1,9 +1,16 @@
 export const DEFAULT_GAS_LIMIT = 2000000
 export const DEFAULT_GAS_PRICE = 2
 export const CHAIN_ID = process.env.REACT_APP_CHAIN_ID || 8453
-
+export const START_PRESALE = process.env.START_PRESALE || 1693872000
 export const privateNFTPrice = 0.1
 export const publicNFTPrice = 0.05
+export const minPrivatePurchase = 0.2
+export const maxPrivatePurchase = 2.7
+export const maxPublicPurchase = 1.35
+export const minPublicPurchase = 0.1
+export const privateWILDPrice = 0.35
+export const publicWILDPrice = 0.45
+
 
 export const BASE_EXPLORER = "https://basescan.org"
 

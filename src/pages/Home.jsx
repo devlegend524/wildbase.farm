@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import CountDownComponent from 'components/CountDownComponent'
 import MintNFT from 'components/MintNFT'
 import moment from 'moment'
+import { START_PRESALE } from 'config/config'
 export default function Home() {
-  const [started, setStated] = useState(true)
-  const [startTime, setStartTime] = React.useState(1693872000) // 1693872000
+  const [started, setStated] = useState(false)
+  const [startTime, setStartTime] = React.useState(START_PRESALE) // 1693872000
   const completed = () => {
     setStated(true)
   }
