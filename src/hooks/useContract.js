@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useEthersProvider } from 'hooks/ethers'
+import { useEthersProvider, useEthersSigner } from 'hooks/useEthers'
 import { getBep20Contract, getWILDContract, getMasterchefContract, getErc721Contract, getPresaleContract, getWildNFTContract } from 'utils/contractHelpers'
 
 /**
@@ -30,10 +30,10 @@ export const useMasterchef = () => {
 }
 
 export const usePresaleContract = () => {
-  const provider = useEthersProvider()
-  return useMemo(() => getPresaleContract(provider), [provider])
+  const signer = useEthersSigner()
+  return useMemo(() => getPresaleContract(signer), [signer])
 }
 export const useWildNFT = () => {
-  const provider = useEthersProvider()
-  return useMemo(() => getWildNFTContract(provider), [provider])
+  const signer = useEthersSigner()
+  return useMemo(() => getWildNFTContract(signer), [signer])
 }

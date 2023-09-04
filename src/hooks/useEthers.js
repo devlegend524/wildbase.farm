@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useWalletClient, usePublicClient } from 'wagmi';
-import { ethers } from 'ethers';
+import { providers } from 'ethers';
 
 export function walletClientToSigner(walletClient) {
   const { account, chain, transport } = walletClient;
@@ -9,7 +9,7 @@ export function walletClientToSigner(walletClient) {
     name: chain.name,
     ensAddress: chain.contracts?.ensRegistry?.address,
   };
-  const provider = new ethers.JsonRpcProvider(transport, network);
+  const provider = new providers.Web3Provider(transport, network);
   const signer = provider.getSigner(account.address);
   return signer;
 }
@@ -31,12 +31,12 @@ export function publicClientToProvider(publicClient) {
     ensAddress: chain.contracts?.ensRegistry?.address,
   };
   if (transport.type === 'fallback')
-    return new ethers.JsonRpcProvider(
+    return new providers.JsonRpcProvider(
       transport.transports[0].value?.url,
       network
     );
 
-  return new ethers.JsonRpcProvider(transport.url, network);
+  return new providers.JsonRpcProvider(transport.url, network);
 }
 
 /** Hook to convert a viem Public Client to an ethers.js Provider. */

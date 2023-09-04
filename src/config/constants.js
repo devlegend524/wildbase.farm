@@ -9,7 +9,7 @@ export const contractAddresses = {
   },
   presaleContract: {
     8453: '0x61091e38f99f3b244073bCec14456E83cF3aEcC5',
-    84531: '',
+    84531: '0xEd44Bc1D2F56f7c37D3Fffe600264d021d324cA1',
   },
   multiCall: {
     8453: '0xC48cb0E0f5c9565d99062cAF2DC540313dD280b5',

@@ -3,7 +3,7 @@ import CountDownComponent from 'components/CountDownComponent'
 import MintNFT from 'components/MintNFT'
 import moment from 'moment'
 export default function Home() {
-  const [started, setStated] = useState(false)
+  const [started, setStated] = useState(true)
   const [startTime, setStartTime] = React.useState(1693872000) // 1693872000
   const completed = () => {
     setStated(true)

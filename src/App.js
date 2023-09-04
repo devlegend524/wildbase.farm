@@ -1,9 +1,10 @@
 import './App.css';
 import '@rainbow-me/rainbowkit/styles.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { RouterProvider } from "react-router-dom";
 import PageRouter from 'router';
-
+import { ToastContainer } from 'react-toastify';
 
 import {
   getDefaultWallets,
@@ -12,12 +13,8 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
   base,
-  zora,
+  baseGoerli,
 } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
@@ -27,7 +24,7 @@ import BaseLayout from 'layouts/BaseLayout';
 function App() {
 
   const { chains, publicClient } = configureChains(
-    [mainnet, polygon, optimism, arbitrum, base, zora],
+    [base, baseGoerli],
     [
       alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
       publicProvider()
@@ -52,6 +49,7 @@ function App() {
         <BaseLayout>
           <RouterProvider router={PageRouter} />
         </BaseLayout>
+        <ToastContainer />
       </RainbowKitProvider>
     </WagmiConfig>
   );

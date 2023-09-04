@@ -2,6 +2,11 @@ export const DEFAULT_GAS_LIMIT = 2000000
 export const DEFAULT_GAS_PRICE = 2
 export const CHAIN_ID = process.env.REACT_APP_CHAIN_ID || 8453
 
+export const privateNFTPrice = 0.1
+export const publicNFTPrice = 0.05
+
+export const BASE_EXPLORER = "https://basescan.org"
+
 export const HeaderLinks = [
   {
     name: 'Home',
