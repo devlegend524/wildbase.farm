@@ -90,3 +90,164 @@ code {
   font-family: 'OPTICopperplate' !important;
   font-size: 40px;
 }
+
+/* presale styles */
+.presale {
+  display: block;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.presale_banner {
+  font-size: 60px;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.presale_content {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 50%;
+  padding: 20px;
+}
+
+.presale_card, .presale_detail {
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #032e5dd4;
+}
+
+.tab_box {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #00162f;
+}
+
+.tab_panel {
+  width: 50%;
+  text-align: center;
+  padding: 20px 0 10px 0;
+  color: #a3a0a0;
+  cursor: pointer;
+}
+
+.tab_panel.active {
+  color: white;
+  background-color: #00162f;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.sale_percent_bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 30px;
+  font-size: 20px;
+}
+
+.form_text {
+  text-align: end;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.form_input input {
+  width: 100%;
+  height: 60px;
+  text-align: end;
+  border-radius: 5px;
+  border: unset;
+  background-color: #051a33db;
+  font-size: 27px;
+  padding: 10px;
+  color: white !important;
+}
+
+.form_input input:focus {
+  outline: none;
+}
+
+.form_input input::placeholder {
+  color: white;
+}
+
+.form_input input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.buy_btn, .claim_btn {
+  padding: 13px;
+  background-color: #011121;
+  width: 100%;
+  margin: 30px 0 10px 0;
+  transition: 0.2s;
+}
+
+.buy_btn:hover, .claim_btn:hover {
+  background-color: #00162f;
+}
+
+.commit_text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  padding: 20px 5px 20px 5px;
+}
+
+.claim_list .list_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 17px;
+  padding: 25px 0;
+  border-bottom: 1px solid #757575;
+}
+
+.annual_price {
+  background-color: #00162f;
+  border-radius: 3px;
+  padding: 20px;
+  width: 100%;
+}
+
+.annual_price p {
+  font-size: 18px;
+}
+
+.annual_price h3 {
+  font-size: 30px;
+  color: #27b700;
+  margin-top: 10px;
+}
+
+.detail_title {
+  font-size: 40px;
+  padding-top: 20px;
+}
+
+.detail_list .list_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  font-size: 18px;
+  border-bottom: 1px solid grey;
+}
+
+@media (max-width: 1200px) {
+  .card {
+    width: 100%;
+  }
+  .presale {
+    max-width: 700px;
+  }
+}
