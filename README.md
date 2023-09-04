@@ -1,79 +1,70 @@
-# dApp Starter Boilerplate
+# Getting Started with Create React App
 
-A dApp starter kit template to quick start a dapp project with Next.js + Tailwind CSS + Ethers + wagmi + RainbowKit.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Other tools/components included: Headless UI, Heroicons, Autoprefixer, Sass, PostCSS, ESLint, Prettier.
+## Available Scripts
 
-Live preview for this repo: https://dapp-starter.aris.ac
+In the project directory, you can run:
 
-## Getting Started
+### `npm start`
 
-```bash
-# Install Dependencies
-yarn
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-# Run the development server
-yarn dev
-```
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### ENV
+### `npm test`
 
-```bash
-# Copy ENV File
-cp .env.example .env.local
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Configs
+### `npm run build`
 
-- `src/appConfig.ts`: app name, title, SEO etc.
-- `src/pages/_app.tsx`: chains, providers, wallet connectors
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Scripts
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-**Next.js**
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-```bash
-# Build
-yarn build
+### `npm run eject`
 
-# Start server with build files
-yarn start
-```
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-**Prettier**
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-```bash
-# Use Prettier to do Format Check for files under ./src
-yarn fc
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-# Use Prettier to do Format Fix for files under ./src
-yarn ff
-```
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-**Contract Types**
+## Learn More
 
-```bash
-# Generate contract types from src/contracts/*.json
-yarn compile-contract-types
-```
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
 ### Deployment
 
-The easiest way to deploy your Next.js app is to use [Vercel](https://vercel.com/), by the creators of Next.js.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### `npm run build` fails to minify
 
-## More
-
-Learn about components of this kit is using:
-
-- [Next.js](https://nextjs.org/) - React Framework by Vercel
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS Framework
-- [Ethers.js](https://github.com/ethers-io/ethers.js/) - Compact library for interacting with Ethereum.
-- [wagmi](https://wagmi.sh/) - React Hooks for Ethereum
-- [RainbowKit](https://rainbowkit.com/) - React library for wallet connections with dApp.
-- [Headless UI](https://headlessui.dev/) - Unstyled, fully accessible UI components
-
-## License
-
-This app is open-source and licensed under the MIT license. For more details, check the [License file](LICENSE).
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
