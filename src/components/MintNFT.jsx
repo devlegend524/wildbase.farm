@@ -39,7 +39,7 @@ export default function MintNFT() {
     const availableBalance = data?.formatted
     console.log(availableBalance)
 
-    if (totalSupply > 44) {
+    if (totalSupply > 12) {
       if (Number(availableBalance) < publicNFTPrice) {
         notify('error', 'Insufficient Balance to mint NFT.')
         return
@@ -124,7 +124,7 @@ export default function MintNFT() {
         )}
       </div>
       <div className='text-3xl mt-3'>
-        {totalSupply > 44 ? totalSupply : `${Number(totalSupply)} / 44`}
+        {totalSupply > 12 ? totalSupply : `${Number(totalSupply)} / 12`}
       </div>
     </div>
   )
