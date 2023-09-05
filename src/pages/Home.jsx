@@ -5,7 +5,11 @@ import moment from 'moment'
 import { START_PRESALE } from 'config/config'
 export default function Home() {
   const [started, setStated] = useState(false)
-  const [startTime, setStartTime] = React.useState(START_PRESALE) // 1693872000
+
+  const Endime = new Date(
+    new Date('8/8/2023 7:00:00 PM EST').toString()
+  ).getTime()
+
   const completed = () => {
     setStated(true)
   }
@@ -29,7 +33,7 @@ export default function Home() {
           <>
             <div className='hero_strong'>SALE STARTS SOON</div>
             <CountDownComponent
-              targetBlockTime={moment.unix(startTime).format()}
+              targetBlockTime={moment.unix(Number(START_PRESALE)).format()}
               complete={completed}
             />
           </>

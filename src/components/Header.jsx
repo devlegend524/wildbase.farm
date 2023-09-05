@@ -9,14 +9,14 @@ export default function Header() {
     setOpen(!open)
   }
   return (
-    <header className='flex justify-between items-center p-1 h-[70px]'>
+    <header className='flex justify-between items-center p-1 h-[100px]'>
       <div>
         <div className='block md:hidden' onClick={() => showNav()}>
           <Hamburger />
         </div>
-        <img src='/logo.png' alt='logo' className='hidden md:block w-[60px]' />
+        <img src='/logo.png' alt='logo' className='hidden md:block w-[100px]' />
       </div>
-      <div className='hidden md:flex gap-4 absolute left-1/2 -translate-x-1/2'>
+      <div className='hidden xl:flex gap-4 absolute left-1/2 -translate-x-1/2'>
         {HeaderLinks.map((item, index) => (
           <a
             href={item.link}
@@ -38,7 +38,7 @@ export default function Header() {
           Docs
         </a>
       </div>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 mr-3'>
         <div className='flex items-center'>
           <img src='/logo.png' alt='logo' className='w-[30px]' />
           <div className='mx-2'>$0.600</div>

@@ -1,7 +1,6 @@
 export const DEFAULT_GAS_LIMIT = 2000000
 export const DEFAULT_GAS_PRICE = 2
 export const CHAIN_ID = process.env.REACT_APP_CHAIN_ID || 8453
-export const START_PRESALE = process.env.START_PRESALE || 1693872000
 export const privateNFTPrice = 0.1
 export const publicNFTPrice = 0.05
 export const minPrivatePurchase = 0.2
@@ -11,6 +10,9 @@ export const minPublicPurchase = 0.1
 export const privateWILDPrice = 0.35
 export const publicWILDPrice = 0.45
 
+export const START_PRESALE = Number((new Date(
+  new Date('9/5/2023 7:00:00 PM EST').toString()
+).getTime() / 1000).toFixed(0))
 
 export const BASE_EXPLORER = "https://basescan.org"
 
@@ -61,7 +63,7 @@ export const socials = [
       </svg>
     ),
     name: 'Telegram',
-    href: 'https://t.me/WILDYield',
+    href: 'http://t.me/lodgecapital',
   },
   {
     icon: () => (
@@ -73,6 +75,6 @@ export const socials = [
       </svg>
     ),
     name: 'Twitter',
-    href: 'https://twitter.com/WILDYield',
+    href: 'https://t.me/lodgecapital',
   },
 ]

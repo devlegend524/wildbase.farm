@@ -77,6 +77,7 @@ code {
   font-weight: 700;
   letter-spacing: 0.5rem;
   color: #093a72;
+  text-align: center;
 }
 
 .hero_title {
@@ -85,10 +86,12 @@ code {
   font-weight: 700;
   margin-bottom: 40px;
   color: white;
+  text-align: center;
 }
 .hero_strong {
   font-family: 'OPTICopperplate' !important;
   font-size: 40px;
+  text-align: center;
 }
 
 /* presale styles */
@@ -252,5 +255,19 @@ code {
   }
   .presale {
     max-width: 700px;
+  }
+}
+
+@media (max-width: 793px) {
+  .hero_banner {
+    font-size: 80px;
+  }
+
+  .hero_title {
+    font-size: 25px;
+  }
+
+  .hero_strong {
+    font-size: 30px;
   }
 }
