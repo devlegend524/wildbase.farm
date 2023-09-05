@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffeect, useEffect } from 'react'
 import { Line } from 'rc-progress'
 import { useBalance, useAccount } from 'wagmi'
 import {
@@ -33,6 +33,11 @@ export default function SaleComponent({
   const handleChange = (value) => {
     setAmount(value)
   }
+
+  useEffect(() => {
+    setMinimum(isPrivateParticipant ? minPrivatePurchase : minPublicPurchase)
+    setMaximum(isPrivateParticipant ? maxPrivatePurchase : maxPublicPurchase)
+  }, [isPrivateParticipant])
 
   const handleBuyWild = () => {
     if (!started) {

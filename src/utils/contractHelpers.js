@@ -37,19 +37,19 @@ export const getErc721Contract = (address, provider) => {
 export const getLpContract = (address, provider) => {
   return getContract(lpTokenAbi, address, provider)
 }
-export const getWILDContract = (provider) => {
-  return getContract(wildAbi, getWILDAddress(), provider)
+export const getWILDContract = (provider, chainId) => {
+  return getContract(wildAbi, getWILDAddress(chainId), provider)
 }
-export const getMasterchefContract = (provider) => {
-  return getContract(masterChef, getMasterChefAddress(), provider)
+export const getMasterchefContract = (provider, chainId) => {
+  return getContract(masterChef, getMasterChefAddress(chainId), provider)
 }
-export const getMulticallContract = (provider) => {
-  return getContract(MultiCallAbi, getMulticallAddress(), provider)
+export const getMulticallContract = (provider, chainId) => {
+  return getContract(MultiCallAbi, getMulticallAddress(chainId), provider)
 }
 
-export const getWildNFTContract = (provider) => {
-  return getContract(wildNFTAbi, getNFTAddress(), provider)
+export const getWildNFTContract = (provider, chainId) => {
+  return getContract(wildNFTAbi, getNFTAddress(chainId), provider)
 }
-export const getPresaleContract = (provider) => {
-  return getContract(presaleAbi, getPresaleAddress(), provider)
+export const getPresaleContract = (provider, chainId) => {
+  return getContract(presaleAbi, getPresaleAddress(chainId), provider)
 }

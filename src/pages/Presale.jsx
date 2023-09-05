@@ -4,7 +4,7 @@ import { usePresaleContract, useWildNFT } from 'hooks/useContract'
 import { useAccount, useNetwork } from 'wagmi'
 import { notify } from 'utils/toastHelper'
 import { useEthersSigner } from 'hooks/useEthers'
-import { CHAIN_ID } from 'config/config'
+import { CHAIN_ID, TESTNET_CHAIN_ID } from 'config/config'
 import {
   fromReadableAmount,
   toReadableAmount,
@@ -33,6 +33,7 @@ export default function Presale() {
 
   const getMyNFT = async () => {
     const myNFTs = await wildNFTContract.walletOfOwner(address)
+    console.log(myNFTs)
     if (myNFTs.length > 0) {
       setOwned(true)
       setMyNFT(myNFTs[0])
@@ -103,7 +104,12 @@ export default function Presale() {
   }
 
   useEffect(() => {
-    if (chain && chain.id === CHAIN_ID && address && signer) {
+    if (
+      chain &&
+      (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID) &&
+      address &&
+      signer
+    ) {
       getMyNFT()
       getTotal()
     }
@@ -132,7 +138,9 @@ export default function Presale() {
             {active === 0 ? (
               <SaleComponent
                 totalRaised={totalRaised}
-                isPrivateParticipant={owned && !myNFT && Number(myNFT) < 13}
+                isPrivateParticipant={
+                  owned && myNFT !== null && Number(myNFT) < 13
+                }
                 userDeposited={userDeposited}
                 buyWILDToken={buyWILDToken}
                 hasNFT={owned}
@@ -151,7 +159,7 @@ export default function Presale() {
         </div>
         <PresaleDetail
           totalRaised={totalRaised}
-          isPrivateParticipant={owned && !myNFT && Number(myNFT) < 13}
+          isPrivateParticipant={owned && myNFT !== null && Number(myNFT) < 13}
           userDeposited={userDeposited}
         />
       </div>

@@ -3,9 +3,13 @@ import { useWildNFT } from 'hooks/useContract'
 import { useAccount, useNetwork, useBalance } from 'wagmi'
 import { notify } from 'utils/toastHelper'
 import { useEthersSigner } from 'hooks/useEthers'
-import { CHAIN_ID, privateNFTPrice, publicNFTPrice } from 'config/config'
+import {
+  CHAIN_ID,
+  TESTNET_CHAIN_ID,
+  privateNFTPrice,
+  publicNFTPrice,
+} from 'config/config'
 import { fromReadableAmount, didUserReject } from 'utils/customHelpers'
-
 export default function MintNFT() {
   const [owned, setOwned] = useState(false)
   const [totalSupply, setTotalSupply] = useState(null)
@@ -58,7 +62,7 @@ export default function MintNFT() {
         }
       }
     } else {
-      const isWhiteListed = await wildNFTContract.whitelisted(address)
+      const isWhiteListed = await wildNFTContract.isWhiteListed(address)
       console.log(isWhiteListed)
       if (!isWhiteListed) {
         notify('error', 'You are not whitelisted. Please contact Support')
@@ -89,7 +93,12 @@ export default function MintNFT() {
   }
 
   useEffect(() => {
-    if (chain && chain.id === CHAIN_ID && address && signer) {
+    if (
+      chain &&
+      (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID) &&
+      address &&
+      signer
+    ) {
       getTotalSupply()
       getMyNFT()
     }
