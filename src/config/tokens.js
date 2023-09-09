@@ -35,6 +35,12 @@ const tokensList = {
     },
     decimals: 18,
   },
+  alb: {
+    symbol: 'ALB',
+    address: {
+      8453: '0x1dd2d631c92b1acdfcdd51a0f7145a50130050c4',
+    },
+  },
 }
 
 export default tokensList

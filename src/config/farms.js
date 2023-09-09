@@ -54,6 +54,16 @@ const farmsConfig = [
     token: tokens.usdc,
     quoteToken: tokens.weth,
   },
+  {
+    pid: 5,
+    lpSymbol: 'WETH-ALB',
+    lpAddresses: {
+      8453: '0xd79Ef386f26E40B5e60e4aeB324F2678F6eBbF49',
+      84531: '0x9Abb53F7549d3fa8FBF87EED068c3E2b95Ec8329',
+    },
+    token: tokens.alb,
+    quoteToken: tokens.weth,
+  },
 ]
 
 export default farmsConfig

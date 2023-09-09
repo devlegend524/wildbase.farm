@@ -128,7 +128,11 @@ const Farm = ({
         </Text>
         <Text fontSize='12px' color='white'>
           Deposit fee:{' '}
-          <DepositFee depositFee={depositFee} hasDiscount={hasDiscount} />
+          <DepositFee
+            depositFee={depositFee}
+            isTokenOnly={isTokenOnly}
+            hasDiscount={hasDiscount}
+          />
         </Text>
       </div>
     </Container>

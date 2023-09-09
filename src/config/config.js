@@ -17,7 +17,7 @@ export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
 export const NUMBER_OF_FARMS_VISIBLE = 12
 
 export const START_PRESALE = Number((new Date(
-  new Date('9/5/2023 7:00:00 PM EST').toString()
+  new Date('9/9/2023 11:00:00 AM EST').toString()
 ).getTime() / 1000).toFixed(0))
 
 export const YEAR = 60 * 60 * 24 * 365
@@ -37,6 +37,10 @@ export const HeaderLinks = [
   {
     name: 'Presale',
     link: '/presale',
+  },
+  {
+    name: 'Zap',
+    link: '/zap',
   },
 ];
 

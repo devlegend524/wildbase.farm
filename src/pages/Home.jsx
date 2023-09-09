@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import CountDownComponent from 'components/CountDownComponent'
-import MintNFT from 'components/MintNFT'
+// import MintNFT from 'components/MintNFT'
 import moment from 'moment'
 import { START_PRESALE } from 'config/config'
 export default function Home() {
   const [started, setStated] = useState(false)
 
   const Endime = new Date(
-    new Date('8/8/2023 7:00:00 PM EST').toString()
+    new Date('9/9/2023 11:00:00 AM EST').toString()
   ).getTime()
 
   const completed = () => {
@@ -27,17 +27,17 @@ export default function Home() {
         </video>
       </div>
       <div className='m-2 flex flex-col items-center justify-center mb-10'>
-        {started ? (
+        {/* {started ? (
           <MintNFT />
-        ) : (
-          <>
-            <div className='hero_strong'>SALE STARTS SOON</div>
-            <CountDownComponent
-              targetBlockTime={moment.unix(Number(START_PRESALE)).format()}
-              complete={completed}
-            />
-          </>
-        )}
+        ) : ( */}
+        <>
+          <div className='hero_strong'>WILD Farming begins in</div>
+          <CountDownComponent
+            targetBlockTime={moment.unix(Number(START_PRESALE)).format()}
+            complete={completed}
+          />
+        </>
+        {/* )} */}
       </div>
     </div>
   )
