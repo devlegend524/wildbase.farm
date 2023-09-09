@@ -24,6 +24,7 @@ export default function MintNFT() {
 
   const getTotalSupply = async () => {
     const totalMinted = await wildNFTContract.totalSupply()
+    console.log(totalMinted)
     setTotalSupply(Number(totalMinted))
   }
 
@@ -37,9 +38,8 @@ export default function MintNFT() {
 
   const mintNFT = async () => {
     const availableBalance = data?.formatted
-    console.log(availableBalance)
 
-    if (totalSupply > 12) {
+    if (totalSupply === 12) {
       if (Number(availableBalance) < publicNFTPrice) {
         notify('error', 'Insufficient Balance to mint NFT.')
         return
