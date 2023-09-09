@@ -1,6 +1,6 @@
 import tokens from './tokens'
 
-const farmsList = [
+const farmsConfig = [
   {
     pid: 0,
     lpSymbol: tokens.wild.symbol,
@@ -56,4 +56,4 @@ const farmsList = [
   },
 ]
 
-export default farmsList
+export default farmsConfig

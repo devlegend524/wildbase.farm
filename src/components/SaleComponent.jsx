@@ -70,9 +70,7 @@ export default function SaleComponent({
     <div>
       <div className='sale_percent_bar'>
         <div className='text'>{totalRaised} / 100 ETH</div>
-        <div className='text'>
-          {Number(Number(totalRaised) / 100).toFixed(2)}%
-        </div>
+        <div className='text'>{Number(Number(totalRaised)).toFixed(2)}%</div>
       </div>
       <Line
         percent={Number(Number(totalRaised) / 100).toFixed(2)}

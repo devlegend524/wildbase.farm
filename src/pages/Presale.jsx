@@ -42,6 +42,7 @@ export default function Presale() {
       notify('warning', 'You must have an WILD NFT to buy token!')
     }
   }
+
   const getTotal = async () => {
     const totalDeposited = await presaleContract.getTotalRaised()
     setTotalRaised(toReadableAmount(totalDeposited, 18))

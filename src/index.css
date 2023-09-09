@@ -54,8 +54,35 @@
     url('assets/fonts//OPTICopperplate-Light.otf') format('opentype');
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #010f27;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #02264d;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #010f27;
+}
+
 .bg-black {
   background: black !important;
+}
+
+.main_bg {
+  background-color: #02264d !important;
+}
+.button_bg {
+  background-color: #010f27;
 }
 
 body {
@@ -247,6 +274,27 @@ code {
   padding: 15px 0;
   font-size: 18px;
   border-bottom: 1px solid grey;
+}
+
+.buy_card {
+  display: block;
+  padding: 1rem;
+  background-color: #02080e4f;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.main_btn {
+  padding: 10px 20px;
+  background-color: #010f27;
+  box-shadow: 0 3px 4px #011123;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.main_btn:hover {
+  box-shadow: 0 1px 1px #011123;
+  color: #e5e2e2;
 }
 
 @media (max-width: 1200px) {

@@ -1,3 +1,6 @@
+import BigNumber from 'bignumber.js'
+import { BIG_TEN } from 'utils/bigNumber'
+
 export const DEFAULT_GAS_LIMIT = 2000000
 export const DEFAULT_GAS_PRICE = 2
 export const CHAIN_ID = 8453
@@ -10,10 +13,15 @@ export const maxPublicPurchase = 1.35
 export const minPublicPurchase = 0.1
 export const privateWILDPrice = 0.35
 export const publicWILDPrice = 0.45
+export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
+export const NUMBER_OF_FARMS_VISIBLE = 12
 
 export const START_PRESALE = Number((new Date(
   new Date('9/5/2023 7:00:00 PM EST').toString()
 ).getTime() / 1000).toFixed(0))
+
+export const YEAR = 60 * 60 * 24 * 365
+export const YEAR_BN = new BigNumber(YEAR)
 
 export const BASE_EXPLORER = "https://basescan.org"
 
@@ -40,17 +48,10 @@ export const socials = [
   },
   {
     icon: () => (
-      <svg width="23" height="13" viewBox="0 0 23 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M13.0925 6.36547C13.0925 9.73178 10.3282 12.4607 6.91842 12.4607C3.50866 12.4607 0.744141 9.73178 0.744141 6.36547C0.744141 2.99915 3.50845 0.27002 6.91842 0.27002C10.3284 0.27002 13.0925 2.99915 13.0925 6.36547ZM19.8656 6.36536C19.8656 9.53422 18.4834 12.1029 16.7784 12.1029C15.0735 12.1029 13.6913 9.53402 13.6913 6.36536C13.6913 3.19669 15.0735 0.627784 16.7784 0.627784C18.4834 0.627579 19.8656 3.19649 19.8656 6.36536ZM21.5502 11.5062C22.1499 11.5062 22.636 9.20469 22.636 6.36552C22.636 3.52635 22.1499 1.22482 21.5502 1.22482C20.9505 1.22482 20.4645 3.52635 20.4645 6.36552C20.4645 9.20469 20.9505 11.5062 21.5502 11.5062Z"
-          fill="#9199B0"
-        />
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="-35.20005 -41.33325 305.0671 247.9995"><path d="M229.763 25.817c-2.699-10.162-10.65-18.165-20.748-20.881C190.716 0 117.333 0 117.333 0S43.951 0 25.651 4.936C15.553 7.652 7.6 15.655 4.903 25.817 0 44.236 0 82.667 0 82.667s0 38.429 4.903 56.85C7.6 149.68 15.553 157.681 25.65 160.4c18.3 4.934 91.682 4.934 91.682 4.934s73.383 0 91.682-4.934c10.098-2.718 18.049-10.72 20.748-20.882 4.904-18.421 4.904-56.85 4.904-56.85s0-38.431-4.904-56.85" fill="#9199B0" /><path d="M93.333 117.559l61.333-34.89-61.333-34.894z" fill="#000" /></svg>
     ),
-    name: 'Medium',
-    href: 'https://medium.com/@wildbase',
+    name: 'Youtube',
+    href: 'https://youtube.com/@lodgecapital',
   },
   {
     icon: () => (
@@ -76,6 +77,20 @@ export const socials = [
       </svg>
     ),
     name: 'Twitter',
-    href: 'https://t.me/lodgecapital',
+    href: ' https://x.com/lodgecapital',
   },
 ]
+export const BASE_EXCHANGE_URL_BY_CHAIN = {
+  84531: 'https://goerli.basescan.org/',
+  8453: 'https://app.alienbase.xyz/',
+}
+
+export const BASE_EXCHANGE_URL = BASE_EXCHANGE_URL_BY_CHAIN[CHAIN_ID]
+
+export const BASE_ADD_LIQUIDITY_URL = `${BASE_EXCHANGE_URL}/add`
+export const BASE_SWAP_URL = `${BASE_EXCHANGE_URL}/swap`
+export const ARCHIVED_NODE = "https://developer-access-mainnet.base.org"
+
+// export const YEAR = 60 * 60 * 24 * 365
+// export const YEAR_BN = new BigNumber(YEAR)
+export const BASE_URL = 'https://localhost:3000'

@@ -39,7 +39,7 @@ export default function MintNFT() {
   const mintNFT = async () => {
     const availableBalance = data?.formatted
 
-    if (totalSupply === 12) {
+    if (totalSupply >= 12) {
       if (Number(availableBalance) < publicNFTPrice) {
         notify('error', 'Insufficient Balance to mint NFT.')
         return
@@ -64,10 +64,10 @@ export default function MintNFT() {
     } else {
       const isWhiteListed = await wildNFTContract.isWhiteListed(address)
       console.log(isWhiteListed)
-      if (!isWhiteListed) {
-        notify('error', 'You are not whitelisted. Please contact Support')
-        return
-      }
+      // if (!isWhiteListed) {
+      //   notify('error', 'You are not whitelisted. Please contact Support')
+      //   return
+      // }
       if (Number(availableBalance) < privateNFTPrice) {
         notify('error', 'Insufficient Balance to mint NFT.')
         return
@@ -122,9 +122,6 @@ export default function MintNFT() {
             MINT NFT
           </button>
         )}
-      </div>
-      <div className='text-3xl mt-3'>
-        {totalSupply > 12 ? totalSupply : `${Number(totalSupply)} / 12`}
       </div>
     </div>
   )
