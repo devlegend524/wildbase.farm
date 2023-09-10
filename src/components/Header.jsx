@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { HeaderLinks } from 'config/config'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { Fade as Hamburger } from 'hamburger-react'
+import { usePriceWILDUsdc } from 'state/hooks'
 export default function Header() {
   const currentURL = window.location.pathname
   const [open, setOpen] = useState(false)
+  const wildPrice = usePriceWILDUsdc()
   const showNav = () => {
     setOpen(!open)
   }
@@ -41,7 +43,7 @@ export default function Header() {
       <div className='flex gap-2 mr-3'>
         <div className='flex items-center'>
           <img src='/logo.png' alt='logo' className='w-[30px]' />
-          <div className='mx-2'>$0.600</div>
+          <div className='mx-2'>{Number(wildPrice.toString()).toFixed(4)}</div>
         </div>
         <ConnectButton />
       </div>
