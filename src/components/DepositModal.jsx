@@ -243,6 +243,7 @@ const DepositModal = ({
           onClick={onDismiss}
           width='100%'
           disabled={pendingTx}
+          style={{ alignSelf: 'center', color: 'black' }}
         >
           {t('Cancel')}
         </Button>
@@ -260,11 +261,15 @@ const DepositModal = ({
             setPendingTx(false)
             onDismiss()
           }}
+          style={{ alignSelf: 'center', color: 'black' }}
         >
           {pendingTx ? t('Pending Confirmation') : t('Confirm')}
         </Button>
       </ModalActions>
-      <LinkExternal href={addLiquidityUrl} style={{ alignSelf: 'center' }}>
+      <LinkExternal
+        href={addLiquidityUrl}
+        style={{ alignSelf: 'center', color: 'black' }}
+      >
         {t('Get %symbol%', { symbol: tokenName })}
       </LinkExternal>
     </Modal>

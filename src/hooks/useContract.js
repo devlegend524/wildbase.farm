@@ -24,26 +24,26 @@ export const useWILD = () => {
   const provider = useEthersProvider()
   const { chain } = useNetwork()
   return useMemo(() => chain &&
-    (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID) && getWILDContract(provider, chain?.id), [provider, chain])
+    (chain.id === CHAIN_ID) && getWILDContract(provider, chain?.id), [provider, chain])
 }
 
 export const useMasterchef = () => {
-  const provider = useEthersProvider()
+  const signer = useEthersSigner()
   const { chain } = useNetwork()
   return useMemo(() => chain &&
-    (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID) && getMasterchefContract(provider, chain?.id), [provider, chain])
+    (chain.id === CHAIN_ID) && getMasterchefContract(signer, chain?.id), [signer, chain])
 }
 
 export const usePresaleContract = () => {
   const signer = useEthersSigner()
   const { chain } = useNetwork()
   return useMemo(() => chain &&
-    (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID) &&
+    (chain.id === CHAIN_ID) &&
     getPresaleContract(signer, chain?.id), [signer, chain])
 }
 export const useWildNFT = () => {
   const signer = useEthersSigner()
   const { chain } = useNetwork()
   return useMemo(() => chain &&
-    (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID) && getWildNFTContract(signer, chain?.id), [signer, chain])
+    (chain.id === CHAIN_ID) && getWildNFTContract(signer, chain?.id), [signer, chain])
 }

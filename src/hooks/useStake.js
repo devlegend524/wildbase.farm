@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useFarmFromPid } from 'state/hooks'
 import { stake } from 'utils/callHelpers'
 import { BIG_TEN } from 'utils/bigNumber'
-import { useMasterchef, useSousChef } from './useContract'
+import { useMasterchef } from './useContract'
 import { useAccount } from 'wagmi'
 
 const useStake = (pid) => {
@@ -11,7 +11,6 @@ const useStake = (pid) => {
   const farm = useFarmFromPid(pid)
 
   const tokenDecimals = farm.isTokenOnly ? farm.token.decimals : 18
-
   const handleStake = useCallback(
     async (amount, lockPeriod = 0) => {
       // const whitelistMerkleTree = StandardMerkleTree.of(
@@ -29,9 +28,7 @@ const useStake = (pid) => {
         pid,
         amount,
         lockPeriod,
-        proof,
-        address,
-        BIG_TEN.pow(tokenDecimals),
+        BIG_TEN.pow(tokenDecimals)
       )
       await txHash.wait()
     },

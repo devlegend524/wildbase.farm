@@ -21,10 +21,9 @@ export const stake = async (
   pid,
   amount,
   lockPeriod,
-  proof,
-  account,
   decimals = DEFAULT_TOKEN_DECIMAL,
 ) => {
+  console.log(BigNumber(amount).times(decimals).toString())
   return await masterChefContract
     .deposit(pid, new BigNumber(amount).times(decimals).toString(), lockPeriod)
 }

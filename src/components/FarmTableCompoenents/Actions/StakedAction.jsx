@@ -31,6 +31,7 @@ import DepositModal from '../../DepositModal'
 import WithdrawModal from '../../WithdrawModal'
 import { ActionContainer, ActionTitles, ActionContent, Earned } from './styles'
 import { useAccount } from 'wagmi'
+import { useMasterchef } from 'hooks/useContract'
 
 const IconButtonWrapper = styled.div`
   display: flex;
@@ -57,6 +58,9 @@ const StakedAction = ({
     tokenBalance: tokenBalanceAsString,
     stakedBalance: stakedBalanceAsString,
   } = useFarmUser(pid)
+
+  const masterChef = useMasterchef()
+
   const decimals = isTokenOnly ? token.decimals : 18
   const tokenBalance = new BigNumber(tokenBalanceAsString).times(
     new BigNumber(10).pow(18 - decimals)
@@ -93,7 +97,7 @@ const StakedAction = ({
     if (stakedBalanceBigNumber.gt(0) && stakedBalanceBigNumber.lt(0.0001)) {
       return getFullDisplayBalance(stakedBalance).toLocaleString()
     }
-    return stakedBalanceBigNumber.toFixed(3, BigNumber.ROUND_DOWN)
+    return stakedBalanceBigNumber.toFixed(4, BigNumber.ROUND_DOWN)
   }, [stakedBalance])
 
   const _depositFee = hasDiscount
@@ -155,10 +159,10 @@ const StakedAction = ({
       return (
         <ActionContainer>
           <ActionTitles>
-            <Text color='secondary' fontSize='20px' pr='4px'>
+            <Text color='secondary' fontSize='20px' pr='10px'>
               {lpSymbol}
             </Text>
-            <Text color='textSubtle' fontSize='20px'>
+            <Text color='secondary' fontSize='20px'>
               {t('Staked')}
             </Text>
           </ActionTitles>
@@ -262,7 +266,7 @@ const StakedAction = ({
             fontWeight: 500,
           }}
         >
-          {t('Enable')}
+          {requestedApproval ? t('Approving...') : t('Enable')}
         </Button>
       </ActionContent>
     </ActionContainer>

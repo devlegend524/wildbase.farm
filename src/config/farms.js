@@ -13,22 +13,22 @@ const farmsConfig = [
   },
   {
     pid: 1,
-    lpSymbol: tokens.alb.symbol,
-    isTokenOnly: true,
-    lpAddresses: '0x1dd2d631c92b1aCdFCDd51A0F7145A50130050C4',
-    token: tokens.alb,
-    quoteToken: tokens.weth,
-    logoA: '/images/tokens/alb.jpg',
-    logoB: ''
-  },
-  {
-    pid: 2,
     lpSymbol: tokens.weth.symbol,
     isTokenOnly: true,
     lpAddresses: '0x4200000000000000000000000000000000000006',
     token: tokens.weth,
     quoteToken: tokens.usdc,
     logoA: '/images/tokens/weth.svg',
+    logoB: ''
+  },
+  {
+    pid: 2,
+    lpSymbol: tokens.alb.symbol,
+    isTokenOnly: true,
+    lpAddresses: '0x1dd2d631c92b1aCdFCDd51A0F7145A50130050C4',
+    token: tokens.alb,
+    quoteToken: tokens.weth,
+    logoA: '/images/tokens/alb.jpg',
     logoB: ''
   },
   {
