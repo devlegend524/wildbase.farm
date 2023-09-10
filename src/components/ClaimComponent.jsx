@@ -8,7 +8,6 @@ export default function ClaimComponent({
   userDeposited,
 }) {
   const lastClaimedTime = window.localStorage.getItem('lastClaimedTime')
-  console.log(lastClaimedTime)
   const handleClaim = () => {
     if (!finished) {
       notify('error', 'Presale is not ended yet')
@@ -23,10 +22,6 @@ export default function ClaimComponent({
   return (
     <div className='claim_card'>
       <div className='claim_list'>
-        <div className='list_item'>
-          <p>Your Commited</p>
-          <p>{userDeposited} ETH</p>
-        </div>
         <div className='list_item'>
           <p>Claimable</p>
           <p>{claimable} WILD</p>
@@ -57,7 +52,7 @@ export default function ClaimComponent({
       >
         {!finished
           ? 'Preslae is not ended yet'
-          : Number(userDeposited) === 0
+          : Number(claimable) === 0
           ? "You don't have any tokens to claim"
           : 'ClAIM WILD'}
       </button>
