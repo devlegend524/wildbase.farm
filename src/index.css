@@ -319,3 +319,8 @@ code {
     font-size: 30px;
   }
 }
+
+.ReactModal__Overlay--after-openm,
+.ReactModal__Overlay {
+  background-color: #000000ad !important;
+}

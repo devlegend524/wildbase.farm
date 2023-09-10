@@ -21,10 +21,10 @@ const PageRouter = createBrowserRouter([
     path: "/presale",
     element: <Presale />,
   },
-  {
-    path: "/zap",
-    element: <Zap />,
-  },
+  // {
+  //   path: "/zap",
+  //   element: <Zap />,
+  // },
   {
     path: "*",
     element: <NotFound />,

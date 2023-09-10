@@ -4,9 +4,9 @@ import { CHAIN_ID } from 'config/config'
 import { getWethAddress } from './addressHelpers'
 
 const getLiquidityUrlPathParts = ({ quoteTokenAddress, tokenAddress }) => {
-  const wETHAddressString = getWethAddress(CHAIN_ID)
-  const quoteTokenAddressString = quoteTokenAddress ? quoteTokenAddress[CHAIN_ID] : null
-  const tokenAddressString = tokenAddress ? tokenAddress[CHAIN_ID] : null
+  const wETHAddressString = getWethAddress()
+  const quoteTokenAddressString = quoteTokenAddress ? quoteTokenAddress : null
+  const tokenAddressString = tokenAddress ? tokenAddress : null
   const firstPart =
     !quoteTokenAddressString || quoteTokenAddressString === wETHAddressString ? 'ETH' : quoteTokenAddressString
   const secondPart = !tokenAddressString || tokenAddressString === wETHAddressString ? 'ETH' : tokenAddressString

@@ -19,3 +19,6 @@ export const getNFTAddress = () => {
 export const getPresaleAddress = () => {
   return contractAddresses.presaleContract
 }
+export const getZapAddress = () => {
+  return contractAddresses.zap
+}

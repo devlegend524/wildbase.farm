@@ -41,17 +41,19 @@ export default function Home() {
         </video>
       </div>
       <div className='m-2 flex flex-col items-center justify-center mb-10'>
-        {/* {started ? (
-          <MintNFT />
-        ) : ( */}
-        <>
-          <div className='hero_strong'>WILD Farming begins in</div>
-          <CountDownComponent
-            targetBlockTime={moment.unix(Number(START_PRESALE)).format()}
-            complete={completed}
-          />
-        </>
-        {/* )} */}
+        {started ? (
+          <a className='hero_strong' href='/farms'>
+            Go to Farms
+          </a>
+        ) : (
+          <>
+            <div className='hero_strong'>WILD Farming begins in</div>
+            <CountDownComponent
+              targetBlockTime={moment.unix(Number(START_PRESALE)).format()}
+              complete={completed}
+            />
+          </>
+        )}
       </div>
     </div>
   )
