@@ -218,10 +218,9 @@ export const useProfile = () => {
   return { profile: data, hasProfile: isInitialized && hasRegistered, isInitialized, isLoading }
 }
 
-// export const usePriceEthUsdc = () => {
-//   const ethUsdcFarm = useFarmFromPid(4)
-//   return new BigNumber(ethUsdcFarm.quoteToken.usdcPrice)
-// }
+export const usePriceEthUsdc = () => {
+  return new BigNumber(localStorage.getItem('ethPrice'));
+}
 
 export const usePriceWILDUsdc = () => {
   const wildEthFarm = useFarmFromPid(3)
@@ -336,14 +335,14 @@ export const useGetLastOraclePrice = () => {
 
 export const useTotalValue = () => {
   const farms = useFarms()
-  const wethPrice = new BigNumber(1624.83) //usePriceEthUsdc()
-  const wildPrice = new BigNumber(0.6) // usePriceWILDUsdc()
+  const wethPrice = usePriceEthUsdc()
+  const wildPrice = usePriceWILDUsdc()
   let value = new BigNumber(0)
   for (let i = 0; i < farms.data.length; i++) {
     const farm = farms.data[i]
     if (farm.lpTotalInQuoteToken) {
       let val
-      if (farm.quoteToken.symbol === 'WETH') {
+      if (farm.quoteToken.symbol === 'WETH' && wethPrice) {
         val = wethPrice.times(farm.lpTotalInQuoteToken)
       } else if (farm.quoteToken.symbol === 'WILD') {
         val = wildPrice.times(farm.lpTotalInQuoteToken)

@@ -113,7 +113,7 @@ export default function Farms() {
               new BigNumber(farm.poolWeight),
               wildPrice,
               totalLiquidity,
-              farm.lpAddresses[CHAIN_ID],
+              farm.lpAddresses,
               wildPerSecond
             )
           : 0

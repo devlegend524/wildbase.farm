@@ -136,7 +136,6 @@ const Row = (props) => {
         </StyledTr>
       )
     }
-
     return (
       <StyledTr onClick={toggleActionPanel}>
         <td>
@@ -177,11 +176,7 @@ const Row = (props) => {
       {shouldRenderChild && (
         <tr>
           <td colSpan={6}>
-            <ActionPanel
-              {...props}
-              hasDiscount={props.farm.hasDiscount}
-              expanded={actionPanelExpanded}
-            />
+            <ActionPanel {...props} hasDiscount={props.farm.hasDiscount} />
           </td>
         </tr>
       )}

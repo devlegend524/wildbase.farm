@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import BigNumber from 'bignumber.js'
 import CountDownComponent from 'components/CountDownComponent'
 // import MintNFT from 'components/MintNFT'
 import moment from 'moment'
@@ -13,6 +14,19 @@ export default function Home() {
   const completed = () => {
     setStated(true)
   }
+
+  useEffect(() => {
+    async function getEthPrice() {
+      try {
+        const res = await fetch(
+          'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD'
+        )
+        const result = await res.json()
+        localStorage.setItem('ethPrice', new BigNumber(result?.USD))
+      } catch (e) {}
+    }
+    getEthPrice()
+  }, [])
   return (
     <div className='flex flex-col items-center justify-center'>
       <div className='flex items-center justify-center flex-col mt-8'>

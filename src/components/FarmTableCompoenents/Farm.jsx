@@ -79,7 +79,7 @@ const Farm = ({
   const handleRenderFarming = () => {
     if (rawStakedBalance) {
       return (
-        <Text color='secondary' fontSize='12px' bold textTransform='uppercase'>
+        <Text color='secondary' fontSize='12px'>
           {t('Farming')}
         </Text>
       )

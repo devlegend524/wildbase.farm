@@ -86,12 +86,7 @@ const ApyCalculatorModal = ({
       )}
       <Grid>
         <GridHeaderItem>
-          <Text
-            fontSize='12px'
-            color='textSubtle'
-            textTransform='uppercase'
-            mb='12px'
-          >
+          <Text fontSize='12px' color='textSubtle' mb='12px'>
             {t('Timeframe')}
           </Text>
         </GridHeaderItem>
@@ -100,7 +95,6 @@ const ApyCalculatorModal = ({
             textAlign='right'
             fontSize='12px'
             color='textSubtle'
-            textTransform='uppercase'
             mr='12px'
             ml='12px'
             mb='12px'
@@ -109,13 +103,7 @@ const ApyCalculatorModal = ({
           </Text>
         </GridHeaderItem>
         <GridHeaderItem>
-          <Text
-            textAlign='right'
-            fontSize='12px'
-            color='textSubtle'
-            textTransform='uppercase'
-            mb='12px'
-          >
+          <Text textAlign='right' fontSize='12px' color='textSubtle' mb='12px'>
             {t('%symbol% per $1,000', { symbol: earningTokenSymbol })}
           </Text>
         </GridHeaderItem>

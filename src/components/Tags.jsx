@@ -35,7 +35,19 @@ const NoFeesTag = (props) => {
     </Tag>
   )
 }
-
+const SingleStakeTag = (props) => {
+  const { t } = useTranslation()
+  return (
+    <Tag
+      variant='success'
+      outline
+      startIcon={<VerifiedIcon width='18px' color='success' mr='4px' />}
+      {...props}
+    >
+      {t('Single Stake')}
+    </Tag>
+  )
+}
 const BinanceTag = (props) => {
   return (
     <Tag
@@ -103,6 +115,7 @@ const DepositLockDicountTag = (props) => {
 export {
   CoreTag,
   NoFeesTag,
+  SingleStakeTag,
   BinanceTag,
   DualTag,
   ManualPoolTag,

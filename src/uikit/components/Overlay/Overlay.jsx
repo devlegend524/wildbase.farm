@@ -14,7 +14,6 @@ const Overlay = styled.div.attrs({ role: 'presentation' })`
 `
 
 Overlay.defaultProps = {
-  show: false,
   zIndex: 10,
 }
 

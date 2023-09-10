@@ -4,7 +4,11 @@ import { useTranslation } from 'contexts/Localization'
 import { LinkExternal, Text } from 'uikit'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import { getScanAddressUrl } from 'utils/getExplorerURL'
-import { DepositLockDicountTag, NoFeesTag } from 'components/Tags'
+import {
+  DepositLockDicountTag,
+  NoFeesTag,
+  SingleStakeTag,
+} from 'components/Tags'
 import { BASE_ADD_LIQUIDITY_URL, BASE_SWAP_URL, CHAIN_ID } from 'config/config'
 
 import HarvestAction from './HarvestAction'
@@ -128,7 +132,6 @@ const ActionPanel = ({
   multiplier,
   liquidity,
   userDataReady,
-  expanded,
   hasDiscount,
 }) => {
   const farm = details
@@ -158,7 +161,7 @@ const ActionPanel = ({
     [tokenOnly, liquidityUrlPathParts, farm.token.address]
   )
   return (
-    <Container expanded={expanded}>
+    <Container>
       <InfoContainer>
         {isActive && (
           <StakeContainer>
@@ -173,6 +176,7 @@ const ActionPanel = ({
         <TagsContainer>
           {noFees && <NoFeesTag />}
           {farm.withDepositLockDiscount && <DepositLockDicountTag />}
+          {tokenOnly && <SingleStakeTag />}
         </TagsContainer>
       </InfoContainer>
       <ValueContainer>

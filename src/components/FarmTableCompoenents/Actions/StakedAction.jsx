@@ -141,7 +141,7 @@ const StakedAction = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <Text textTransform='uppercase' color='textSubtle' fontSize='12px'>
+          <Text color='textSubtle' fontSize='20px'>
             {t('Start Farming')}
           </Text>
         </ActionTitles>
@@ -155,15 +155,10 @@ const StakedAction = ({
       return (
         <ActionContainer>
           <ActionTitles>
-            <Text
-              textTransform='uppercase'
-              color='secondary'
-              fontSize='12px'
-              pr='4px'
-            >
+            <Text color='secondary' fontSize='20px' pr='4px'>
               {lpSymbol}
             </Text>
-            <Text textTransform='uppercase' color='textSubtle' fontSize='12px'>
+            <Text color='textSubtle' fontSize='20px'>
               {t('Staked')}
             </Text>
           </ActionTitles>
@@ -172,7 +167,7 @@ const StakedAction = ({
               <Earned>{displayBalance()}</Earned>
               {stakedBalance.gt(0) && lpPrice.gt(0) && (
                 <Balance
-                  fontSize='12px'
+                  fontSize='20px'
                   color='textSubtle'
                   decimals={2}
                   value={getBalanceNumber(lpPrice.times(stakedBalance))}
@@ -207,15 +202,10 @@ const StakedAction = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <Text
-            textTransform='uppercase'
-            color='textSubtle'
-            fontSize='12px'
-            pr='4px'
-          >
+          <Text color='textWhite' fontSize='20px' pr='4px'>
             {t('Stake').toUpperCase()}
           </Text>
-          <Text textTransform='uppercase' color='secondary' fontSize='12px'>
+          <Text color='secondary' fontSize='20px'>
             {lpSymbol}
           </Text>
         </ActionTitles>
@@ -243,7 +233,7 @@ const StakedAction = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <Text textTransform='uppercase' color='textSubtle' fontSize='12px'>
+          <Text color='textSubtle' fontSize='20px'>
             {t('Start Farming')}
           </Text>
         </ActionTitles>
@@ -257,7 +247,7 @@ const StakedAction = ({
   return (
     <ActionContainer>
       <ActionTitles>
-        <Text textTransform='uppercase' color='white' fontSize='12px'>
+        <Text color='white' fontSize='20px'>
           {t('Enable Farm')}
         </Text>
       </ActionTitles>

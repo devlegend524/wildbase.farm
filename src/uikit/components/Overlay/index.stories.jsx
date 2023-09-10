@@ -7,5 +7,5 @@ export default {
 }
 
 export const Default = () => {
-  return <Overlay show />
+  return <Overlay />
 }

@@ -51,17 +51,13 @@ export const Default = () => {
       <Text fontSize='24px'>Custom fontsize</Text>
       <Text color='red'>Custom color</Text>
       <Text color='primary'>Custom color from theme</Text>
-      <Text color='secondary' textTransform='uppercase'>
-        with text transform
-      </Text>
+      <Text color='secondary'>with text transform</Text>
       <Text textAlign='center'>center</Text>
-      <Text display='inline' color='textSubtle' textTransform='uppercase'>
+      <Text display='inline' color='textSubtle'>
         Example of{' '}
       </Text>
-      <Text display='inline' textTransform='uppercase'>
-        inline{' '}
-      </Text>
-      <Text display='inline' color='textSubtle' textTransform='uppercase'>
+      <Text display='inline'>inline </Text>
+      <Text display='inline' color='textSubtle'>
         Text
       </Text>
       <Text width='250px'>

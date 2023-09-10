@@ -64,6 +64,7 @@ export const darkColors = {
   text: 'black',
   textDisabled: '#666171',
   textSubtle: '#0d2444',
+  textWhite: 'white',
   disabled: '#524B63',
   toggle: '#d4d4d4',
 

@@ -5,7 +5,7 @@ import { getMasterChefAddress } from 'utils/addressHelpers'
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber'
 import multicall from 'utils/multicall'
 
-const FetchFarm = async (farm) => {
+const fetchPublicFarmData = async (farm) => {
   const { pid, lpAddresses, token, quoteToken } = farm
   const lpAddress = lpAddresses
 
@@ -130,8 +130,8 @@ const FetchFarm = async (farm) => {
     ])
     : [null, null]
 
-  const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
-  const depositFee = info ? new BigNumber(info.depositFeeBP) : BIG_ZERO
+  const allocPoint = info.allocPoint ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
+  const depositFee = info.depositFeeBP ? new BigNumber(info.depositFeeBP) : BIG_ZERO
   const poolWeight = totalAllocPoint ? allocPoint.div(new BigNumber(totalAllocPoint)) : BIG_ZERO
 
   // TODO Remove on production
@@ -153,4 +153,4 @@ const FetchFarm = async (farm) => {
   return publicData
 }
 
-export default FetchFarm
+export default fetchPublicFarmData

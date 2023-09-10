@@ -74,8 +74,15 @@ const getFarmQuoteTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt) => {
 }
 
 const fetchFarmsPrices = async (farms) => {
-  const wethUsdtFarm = farms.find((farm) => farm.pid === 4)
-  const wethPriceUsdt = wethUsdtFarm.tokenPriceVsQuote > 0 ? BIG_ONE.div(wethUsdtFarm.tokenPriceVsQuote) : BIG_ZERO
+  let wethPriceUsdt;
+  try {
+    const res = await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
+    const result = await res.json()
+    wethPriceUsdt = new BigNumber(result?.USD)
+
+  } catch (e) {
+    wethPriceUsdt = BIG_ZERO
+  }
   const farmsWithPrices = farms.map((farm) => {
     const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)
     const baseTokenPrice = getFarmBaseTokenPrice(farm, quoteTokenFarm, wethPriceUsdt)
