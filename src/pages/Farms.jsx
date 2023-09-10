@@ -37,7 +37,7 @@ export default function Farms() {
     NUMBER_OF_FARMS_VISIBLE
   )
   const [observerIsSet, setObserverIsSet] = useState(false)
-  const wildPerSecond = getBalanceNumber(useWILDPerSecond())
+  const wildPerSecond = useWILDPerSecond()
 
   const { data: farmsData, userDataLoaded } = useFarms()
 
@@ -45,16 +45,7 @@ export default function Farms() {
     setUserDataReady(address || (address && userDataLoaded))
   }, [address, userDataLoaded])
 
-  const farmsLP = farmsData.map((farm) => ({
-    ...farm,
-    userData: {
-      allowance: '0',
-      tokenBalance: '0',
-      stakedBalance: '0',
-      earnings: '0',
-      unlockTime: 0,
-    },
-  }))
+  const farmsLP = farmsData
 
   const handleSortOptionChange = (option) => {
     setSortOption(option.value)
@@ -108,15 +99,14 @@ export default function Farms() {
           farm.quoteToken.usdcPrice
         )
 
-        const apr = isActive
-          ? getFarmApr(
-              new BigNumber(farm.poolWeight),
-              wildPrice,
-              totalLiquidity,
-              farm.lpAddresses,
-              wildPerSecond
-            )
-          : 0
+        const apr = getFarmApr(
+          new BigNumber(farm.poolWeight),
+          wildPrice,
+          totalLiquidity,
+          farm.lpAddresses,
+          wildPerSecond
+        )
+        console.log(apr)
 
         return { ...farm, apr, liquidity: totalLiquidity }
       })

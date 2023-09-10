@@ -30,7 +30,7 @@ export const usePollFarmsData = (includeArchive = false) => {
     dispatch(fetchFarmsPublicDataAsync(pids))
 
     if (address) {
-      dispatch(fetchFarmUserDataAsync({ address, pids }))
+      dispatch(fetchFarmUserDataAsync({ account: address, pids }))
     }
   }, [includeArchive, dispatch, slowRefresh, address])
 }
@@ -337,7 +337,7 @@ export const useTotalValue = () => {
   const farms = useFarms()
   const wethPrice = usePriceEthUsdc()
   const wildPrice = usePriceWILDUsdc()
-  console.log(wildPrice.toString())
+  // console.log(wildPrice.toString())
   let value = new BigNumber(0)
   for (let i = 0; i < farms.data.length; i++) {
     const farm = farms.data[i]

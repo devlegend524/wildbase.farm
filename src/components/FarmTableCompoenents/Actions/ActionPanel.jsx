@@ -181,15 +181,15 @@ const ActionPanel = ({
       </InfoContainer>
       <ValueContainer>
         <ValueWrapper>
-          <Text style={{ fontSize: '12px' }}>{t('APR')}</Text>
+          <Text color='textWhite'>{t('APR')}</Text>
           <Apr {...apr} />
         </ValueWrapper>
         <ValueWrapper>
-          <Text>{t('Multiplier')}</Text>
+          <Text color='textWhite'>{t('Multiplier')}</Text>
           <Multiplier {...multiplier} />
         </ValueWrapper>
         <ValueWrapper>
-          <Text>{t('Liquidity')}</Text>
+          <Text color='textWhite'>{t('Liquidity')}</Text>
           <Liquidity {...liquidity} />
         </ValueWrapper>
       </ValueContainer>

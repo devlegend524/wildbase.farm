@@ -31,7 +31,6 @@ import DepositModal from '../../DepositModal'
 import WithdrawModal from '../../WithdrawModal'
 import { ActionContainer, ActionTitles, ActionContent, Earned } from './styles'
 import { useAccount } from 'wagmi'
-import { useMasterchef } from 'hooks/useContract'
 
 const IconButtonWrapper = styled.div`
   display: flex;
@@ -58,9 +57,6 @@ const StakedAction = ({
     tokenBalance: tokenBalanceAsString,
     stakedBalance: stakedBalanceAsString,
   } = useFarmUser(pid)
-
-  const masterChef = useMasterchef()
-
   const decimals = isTokenOnly ? token.decimals : 18
   const tokenBalance = new BigNumber(tokenBalanceAsString).times(
     new BigNumber(10).pow(18 - decimals)
