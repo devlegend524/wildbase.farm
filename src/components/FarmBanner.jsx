@@ -37,7 +37,7 @@ export default function FarmBanner() {
               address: token,
               symbol: 'WILD',
               decimals: '18',
-              image: `${BASE_URL}/images/tokens/lfg.svg`,
+              image: `${BASE_URL}/images/tokens/wild.svg`,
             },
           },
         })
@@ -60,7 +60,7 @@ export default function FarmBanner() {
   }, [chain])
   return (
     <div className='flex justify-center flex-col md:flex-row main_bg rounded-md'>
-      <div className='p-6 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
+      <div className='p-3 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
         <h1 className='text-7xl'>WILD ON BASE</h1>
         <p className='py-4'>
           The WILD token rewards users who single-stake or provide liquidity. 1
@@ -69,7 +69,7 @@ export default function FarmBanner() {
           and price appreciation. Stay WILD 🤞.
         </p>
       </div>
-      <div className='flex justify-end p-5 md:p-10 w-fill md:w-1/2 xl:w-1/3'>
+      <div className='flex justify-end p-3 md:p-6 w-fill md:w-1/2 xl:w-1/3'>
         <div className='buy_card'>
           <div className='flex items-center justify-center gap-3'>
             <a
@@ -81,7 +81,7 @@ export default function FarmBanner() {
             </a>
             <button
               onClick={addWatchWILDToken}
-              className='main_btn flex-1 flex items-center justify-center'
+              className='main_btn flex items-center justify-center'
             >
               Add WILD to &nbsp;
               <svg
