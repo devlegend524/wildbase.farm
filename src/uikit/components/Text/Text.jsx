@@ -13,15 +13,11 @@ const getFontSize = ({ fontSize, small }) => {
 const Text = styled.div`
   color: ${getColor};
   font-size: ${getFontSize};
-  font-weight: ${({ bold }) => (bold ? 600 : 400)};
+  font-weight: 600;
   line-height: 1.5;
-  ${({ textTransform }) => textTransform && `text-transform: ${textTransform};`}
-  ${({ ellipsis }) =>
-    ellipsis &&
-    `white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;`}
-
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   ${space}
   ${typography}
   ${layout}
@@ -30,7 +26,6 @@ const Text = styled.div`
 Text.defaultProps = {
   color: 'text',
   small: false,
-  ellipsis: false,
 }
 
 export default Text

@@ -44,7 +44,7 @@ const Liquidity = ({ liquidity }) => {
       <LiquidityWrapper>
         <Text color='#0052FF'>{displayLiquidity}</Text>
       </LiquidityWrapper>
-      <HelpIcon color='textSubtle' />
+      <HelpIcon />
       {/* {tooltipVisible && tooltip} */}
     </Container>
   )

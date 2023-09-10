@@ -39,16 +39,10 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
   return (
     <ActionContainer>
       <ActionTitles>
-        <Text
-          bold
-          textTransform='uppercase'
-          color='white'
-          fontSize='12px'
-          pr='4px'
-        >
+        <Text textTransform='uppercase' color='white' fontSize='12px' pr='4px'>
           WILD
         </Text>
-        <Text bold textTransform='uppercase' color='white' fontSize='12px'>
+        <Text textTransform='uppercase' color='white' fontSize='12px'>
           {t('Earned')}
         </Text>
       </ActionTitles>

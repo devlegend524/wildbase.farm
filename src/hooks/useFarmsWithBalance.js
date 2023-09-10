@@ -7,7 +7,6 @@ import farmsConfig from 'config/farms'
 import useRefresh from './useRefresh'
 import { useAccount, useNetwork } from 'wagmi'
 import { useEthersSigner } from './useEthers'
-import { CHAIN_ID } from 'config/config'
 
 export const useFarmsWithBalance = () => {
   const [farmsWithBalances, setFarmsWithBalances] = useState([])
@@ -21,7 +20,7 @@ export const useFarmsWithBalance = () => {
       const calls = farmsConfig
         .filter((farm) => farm.pid || farm.pid === 0)
         .map((farm) => ({
-          address: getMasterChefAddress(chain ? chain.id : CHAIN_ID),
+          address: getMasterChefAddress(),
           name: 'pendingTokens',
           params: [farm.pid, address],
         }))

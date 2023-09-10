@@ -14,7 +14,7 @@ const useUnstake = (pid) => {
   const handleUnstake = useCallback(
     async (amount) => {
       const txHash = await unstake(masterChefContract, pid, amount, address, BIG_TEN.pow(tokenDecimals))
-      console.info(txHash)
+      await txHash.wait()
     },
     [address, masterChefContract, pid, tokenDecimals],
   )

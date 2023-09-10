@@ -47,9 +47,3 @@ export const useWildNFT = () => {
   return useMemo(() => chain &&
     (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID) && getWildNFTContract(signer, chain?.id), [signer, chain])
 }
-export const multicall = () => {
-  const signer = useEthersSigner()
-  const { chain } = useNetwork()
-  return useMemo(() => chain &&
-    (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID) && getMulticallContract(signer, chain?.id), [signer, chain])
-}

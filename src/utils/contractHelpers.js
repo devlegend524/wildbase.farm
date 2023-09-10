@@ -38,18 +38,18 @@ export const getLpContract = (address, provider) => {
   return getContract(lpTokenAbi, address, provider)
 }
 export const getWILDContract = (provider, chainId) => {
-  return getContract(wildAbi, getWILDAddress(chainId), provider)
+  return getContract(wildAbi, getWILDAddress(), provider)
 }
 export const getMasterchefContract = (provider, chainId) => {
-  return getContract(masterChef, getMasterChefAddress(chainId), provider)
+  return getContract(masterChef, getMasterChefAddress(), provider)
 }
 export const getMulticallContract = (provider, chainId) => {
-  return getContract(MultiCallAbi, getMulticallAddress(chainId), provider)
+  return getContract(MultiCallAbi, getMulticallAddress(), provider)
 }
 
 export const getWildNFTContract = (provider, chainId) => {
-  return getContract(wildNFTAbi, getNFTAddress(chainId), provider)
+  return getContract(wildNFTAbi, getNFTAddress(), provider)
 }
 export const getPresaleContract = (provider, chainId) => {
-  return getContract(presaleAbi, getPresaleAddress(chainId), provider)
+  return getContract(presaleAbi, getPresaleAddress(), provider)
 }

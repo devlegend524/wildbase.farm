@@ -6,7 +6,6 @@ import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import { getScanAddressUrl } from 'utils/getExplorerURL'
 import { DepositLockDicountTag, NoFeesTag } from 'components/Tags'
 import { BASE_ADD_LIQUIDITY_URL, BASE_SWAP_URL, CHAIN_ID } from 'config/config'
-import { getAddress } from 'utils/addressHelpers'
 
 import HarvestAction from './HarvestAction'
 import StakedAction from './StakedAction'
@@ -154,7 +153,7 @@ const ActionPanel = ({
   const link = useMemo(
     () =>
       tokenOnly
-        ? `${BASE_SWAP_URL}?outputCurrency=${getAddress(farm.token.address)}`
+        ? `${BASE_SWAP_URL}?outputCurrency=${farm.token.address}`
         : `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`,
     [tokenOnly, liquidityUrlPathParts, farm.token.address]
   )

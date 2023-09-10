@@ -218,15 +218,15 @@ export const useProfile = () => {
   return { profile: data, hasProfile: isInitialized && hasRegistered, isInitialized, isLoading }
 }
 
-export const usePriceEthUsdc = () => {
-  const ethUsdcFarm = useFarmFromPid(4)
-  return new BigNumber(ethUsdcFarm.quoteToken.usdcPrice)
-}
+// export const usePriceEthUsdc = () => {
+//   const ethUsdcFarm = useFarmFromPid(4)
+//   return new BigNumber(ethUsdcFarm.quoteToken.usdcPrice)
+// }
 
 export const usePriceWILDUsdc = () => {
   const wildEthFarm = useFarmFromPid(3)
-  return new BigNumber(wildEthFarm.token.usdcPrice)
-  // return new BigNumber('0.6');
+  return Number(wildEthFarm.token.usdcPrice) > 0 ? new BigNumber(wildEthFarm.token.usdcPrice) : new BigNumber('0.6');
+
 }
 
 // Block
@@ -336,8 +336,8 @@ export const useGetLastOraclePrice = () => {
 
 export const useTotalValue = () => {
   const farms = useFarms()
-  const wethPrice = usePriceEthUsdc()
-  const wildPrice = usePriceWILDUsdc()
+  const wethPrice = new BigNumber(1624.83) //usePriceEthUsdc()
+  const wildPrice = new BigNumber(0.6) // usePriceWILDUsdc()
   let value = new BigNumber(0)
   for (let i = 0; i < farms.data.length; i++) {
     const farm = farms.data[i]
@@ -354,7 +354,6 @@ export const useTotalValue = () => {
       value = value.plus(val)
     }
   }
-  console.log({ value: value.toString() })
   // return 1.0
   return parseFloat(value.toString())
 }

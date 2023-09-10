@@ -33,7 +33,7 @@ const useStake = (pid) => {
         address,
         BIG_TEN.pow(tokenDecimals),
       )
-      console.info(txHash)
+      await txHash.wait()
     },
     [address, masterChefContract, pid, tokenDecimals],
   )

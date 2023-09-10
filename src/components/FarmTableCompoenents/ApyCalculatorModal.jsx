@@ -88,7 +88,6 @@ const ApyCalculatorModal = ({
         <GridHeaderItem>
           <Text
             fontSize='12px'
-            bold
             color='textSubtle'
             textTransform='uppercase'
             mb='12px'
@@ -100,7 +99,6 @@ const ApyCalculatorModal = ({
           <Text
             textAlign='right'
             fontSize='12px'
-            bold
             color='textSubtle'
             textTransform='uppercase'
             mr='12px'
@@ -114,7 +112,6 @@ const ApyCalculatorModal = ({
           <Text
             textAlign='right'
             fontSize='12px'
-            bold
             color='textSubtle'
             textTransform='uppercase'
             mb='12px'

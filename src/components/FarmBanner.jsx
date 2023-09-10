@@ -12,18 +12,21 @@ import {
 import { useNetwork } from 'wagmi'
 import { formatAddress } from 'utils/customHelpers'
 import { getScanTokenUrl } from 'utils/getExplorerURL'
+// import { useEthersProvider } from 'hooks/useEthers'
 
 export default function FarmBanner() {
   const [isCopied, setIsCopied] = useState(false)
   const [wildAddress, setWildAddress] = useState('Connect correct wallet')
   const { chain } = useNetwork()
   const token = getWILDAddress()
+  // const provider = useEthersProvider()
 
   const addWatchWILDToken = useCallback(async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const provider = window.ethereum
     if (provider) {
+      console.log('asdfasdf', provider)
       try {
         // wasAdded is a boolean. Like any RPC method, an error may be thrown.
         await provider.request({
@@ -43,6 +46,7 @@ export default function FarmBanner() {
         //   console.log('Token was added')
         // }
       } catch (error) {
+        console.log('error', error)
         // TODO: find a way to handle when the user rejects transaction or it fails
       }
     }
@@ -50,7 +54,7 @@ export default function FarmBanner() {
 
   useEffect(() => {
     if (chain && (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)) {
-      const addr = getWILDAddress(chain.id)
+      const addr = getWILDAddress()
       setWildAddress(addr)
     }
   }, [chain])
@@ -68,13 +72,14 @@ export default function FarmBanner() {
       <div className='flex justify-end p-5 md:p-10 w-fill md:w-1/2 xl:w-1/3'>
         <div className='buy_card'>
           <div className='flex items-center justify-center gap-3'>
-            <button
+            <a
               className='main_btn flex-1'
               href={`${BASE_SWAP_URL}?inputCurrency=${getWethAddress()}&outputCurrency=${getWILDAddress()}`}
+              target='_blank'
             >
               Buy WILD
-            </button>
-            <a
+            </a>
+            <button
               onClick={addWatchWILDToken}
               className='main_btn flex-1 flex items-center justify-center'
             >
@@ -206,7 +211,7 @@ export default function FarmBanner() {
                   stroke='#f5841f'
                 ></path>
               </svg>
-            </a>
+            </button>
           </div>
           <div className='flex items-center justify-center'>
             <a

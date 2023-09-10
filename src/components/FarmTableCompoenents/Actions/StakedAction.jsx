@@ -27,7 +27,6 @@ import {
 } from 'utils/formatBalance'
 import useStake from 'hooks/useStake'
 import useUnstake from 'hooks/useUnstake'
-import { getAddress } from 'utils/addressHelpers'
 import DepositModal from '../../DepositModal'
 import WithdrawModal from '../../WithdrawModal'
 import { ActionContainer, ActionTitles, ActionContent, Earned } from './styles'
@@ -72,7 +71,7 @@ const StakedAction = ({
 
   const isApproved = address && allowance && allowance.isGreaterThan(0)
 
-  const lpAddress = getAddress(isTokenOnly ? token.address : lpAddresses)
+  const lpAddress = isTokenOnly ? token.address : lpAddresses
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
     quoteTokenAddress: quoteToken.address,
     tokenAddress: token.address,
@@ -142,12 +141,7 @@ const StakedAction = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <Text
-            bold
-            textTransform='uppercase'
-            color='textSubtle'
-            fontSize='12px'
-          >
+          <Text textTransform='uppercase' color='textSubtle' fontSize='12px'>
             {t('Start Farming')}
           </Text>
         </ActionTitles>
@@ -162,7 +156,6 @@ const StakedAction = ({
         <ActionContainer>
           <ActionTitles>
             <Text
-              bold
               textTransform='uppercase'
               color='secondary'
               fontSize='12px'
@@ -170,12 +163,7 @@ const StakedAction = ({
             >
               {lpSymbol}
             </Text>
-            <Text
-              bold
-              textTransform='uppercase'
-              color='textSubtle'
-              fontSize='12px'
-            >
+            <Text textTransform='uppercase' color='textSubtle' fontSize='12px'>
               {t('Staked')}
             </Text>
           </ActionTitles>
@@ -220,7 +208,6 @@ const StakedAction = ({
       <ActionContainer>
         <ActionTitles>
           <Text
-            bold
             textTransform='uppercase'
             color='textSubtle'
             fontSize='12px'
@@ -228,12 +215,7 @@ const StakedAction = ({
           >
             {t('Stake').toUpperCase()}
           </Text>
-          <Text
-            bold
-            textTransform='uppercase'
-            color='secondary'
-            fontSize='12px'
-          >
+          <Text textTransform='uppercase' color='secondary' fontSize='12px'>
             {lpSymbol}
           </Text>
         </ActionTitles>
@@ -261,12 +243,7 @@ const StakedAction = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <Text
-            bold
-            textTransform='uppercase'
-            color='textSubtle'
-            fontSize='12px'
-          >
+          <Text textTransform='uppercase' color='textSubtle' fontSize='12px'>
             {t('Start Farming')}
           </Text>
         </ActionTitles>
@@ -280,7 +257,7 @@ const StakedAction = ({
   return (
     <ActionContainer>
       <ActionTitles>
-        <Text bold textTransform='uppercase' color='white' fontSize='12px'>
+        <Text textTransform='uppercase' color='white' fontSize='12px'>
           {t('Enable Farm')}
         </Text>
       </ActionTitles>

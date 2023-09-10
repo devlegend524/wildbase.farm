@@ -1,31 +1,30 @@
 import BigNumber from 'bignumber.js'
 import masterchefABI from 'config/abi/masterchef.json'
 import erc20 from 'config/abi/erc20.json'
-import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
+import { getMasterChefAddress } from 'utils/addressHelpers'
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber'
 import multicall from 'utils/multicall'
 
-
-const fetchFarm = async (farm) => {
+const FetchFarm = async (farm) => {
   const { pid, lpAddresses, token, quoteToken } = farm
-  const lpAddress = getAddress(lpAddresses)
+  const lpAddress = lpAddresses
 
   const calls = [
     // Balance of token in the LP contract
     {
-      address: getAddress(token.address),
+      address: token.address,
       name: 'balanceOf',
       params: [lpAddress],
     },
     // Balance of quote token on LP contract
     {
-      address: getAddress(quoteToken.address),
+      address: quoteToken.address,
       name: 'balanceOf',
       params: [lpAddress],
     },
     // Balance of LP tokens in the master chef contract
     {
-      address: farm.isTokenOnly ? getAddress(farm.token.address) : lpAddress,
+      address: farm.isTokenOnly ? farm.token.address : lpAddress,
       name: 'balanceOf',
       params: [getMasterChefAddress()],
     },
@@ -36,12 +35,12 @@ const fetchFarm = async (farm) => {
     },
     // Token decimals
     {
-      address: getAddress(token.address),
+      address: token.address,
       name: 'decimals',
     },
     // Quote token decimals
     {
-      address: getAddress(quoteToken.address),
+      address: quoteToken.address,
       name: 'decimals',
     },
   ]
@@ -154,4 +153,4 @@ const fetchFarm = async (farm) => {
   return publicData
 }
 
-export default fetchFarm
+export default FetchFarm

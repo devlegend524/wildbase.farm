@@ -83,15 +83,13 @@ const useNewUnlockTime = ({
           .times(BIG_TEN.pow(decimals))
           .toString()
 
-        const response = await masterChef.methods
-          .calculateNewUnlockTimeForUser(
-            account,
-            pid,
-            lockPeriod * 60 * 60 * 24,
-            amountWei
-          )
-          .call()
-
+        const response = await masterChef.calculateNewUnlockTimeForUser(
+          account,
+          pid,
+          lockPeriod * 60 * 60 * 24,
+          amountWei
+        )
+        await response.wait()
         setNewUnlockTime(Date.now() + response * 1000)
       } catch (e) {
         console.error(e)

@@ -11,7 +11,7 @@ export default function TotalValueLocked() {
   const tvlData = useTotalValue()
   const tvl = tvlData
     ? tvlData.toLocaleString('en-US', { maximumFractionDigits: 1 })
-    : null
+    : 0
   const wildUsdcPrice = usePriceWILDUsdc().toNumber()
   const totalSupply = useTotalSupply()
   const wildPerSecond = useWILDPerSecond()
@@ -21,9 +21,9 @@ export default function TotalValueLocked() {
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
       <div className='text-3xl text-right'>Total Value Locked</div>
-      <div className=''>
-        {tvlData ? (
-          <div color='#fff' className='text-xl'>
+      <div className='my-5'>
+        {tvlData !== null ? (
+          <div color='#fff' className='text-2xl font-semibold text-right pb-3'>
             {`$${tvl}`} staked
           </div>
         ) : (

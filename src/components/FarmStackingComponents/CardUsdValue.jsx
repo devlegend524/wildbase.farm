@@ -8,7 +8,6 @@ const CardUsdValue = (props) => {
       lineHeight='1.1'
       color='textSubtle'
       prefix='~$'
-      bold={false}
       decimals={2}
       {...props}
     />

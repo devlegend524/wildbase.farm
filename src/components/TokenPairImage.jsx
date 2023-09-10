@@ -4,7 +4,7 @@ import { TokenPairImage as UIKitTokenPairImage } from 'uikit'
 
 export const getImageUrlFromToken = (token) => {
   const symbol = token.symbol.toLowerCase()
-  return `/images/tokens/${symbol}.svg`
+  return `/images/tokens/${symbol}.${symbol === 'alb' ? 'jpg' : 'svg'}`
 }
 
 const TokenPairImage = ({ primaryToken, secondaryToken, ...props }) => {

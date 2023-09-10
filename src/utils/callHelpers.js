@@ -4,7 +4,7 @@ import { ethers } from 'ethers'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
 import farms from 'config/farms'
-import { getAddress, getWILDAddress } from 'utils/addressHelpers'
+import { getWILDAddress } from 'utils/addressHelpers'
 import tokens from 'config/tokens'
 import { getBalanceAmount } from './formatBalance'
 import { BIG_TEN, BIG_ZERO } from './bigNumber'
@@ -15,7 +15,6 @@ export const approve = async (lpContract, masterChefContract, account) => {
   )
 }
 
-const txHashCallback = (tx) => tx.transactionHash
 
 export const stake = async (
   masterChefContract,
@@ -26,22 +25,19 @@ export const stake = async (
   account,
   decimals = DEFAULT_TOKEN_DECIMAL,
 ) => {
-  return masterChefContract
-    .deposit(pid, new BigNumber(amount).times(decimals).toString(), lockPeriod, proof)
-    .on('transactionHash', txHashCallback)
+  return await masterChefContract
+    .deposit(pid, new BigNumber(amount).times(decimals).toString(), lockPeriod)
 }
 
 export const unstake = async (masterChefContract, pid, amount, account, decimals = DEFAULT_TOKEN_DECIMAL) => {
-  return masterChefContract
+  return await masterChefContract
     .withdraw(pid, new BigNumber(amount).times(decimals).toString())
-    .on('transactionHash', txHashCallback)
 }
 
 
 export const harvest = async (masterChefContract, pid, account) => {
-  return masterChefContract
-    .deposit(pid, '0', 0, [])
-    .on('transactionHash', txHashCallback)
+  return await masterChefContract
+    .deposit(pid, '0', 0)
 }
 
 
@@ -50,8 +46,8 @@ const wildWethPid = 0
 const wildWethFarm = farms.find((farm) => farm.pid === wildWethPid)
 
 const WILD_TOKEN = new Token(chainId, getWILDAddress(), 18)
-const WETH_TOKEN = new Token(chainId, tokens.weth.address[chainId], 18)
-const WILD_WETH_TOKEN = new Token(chainId, getAddress(wildWethFarm.lpAddresses), 18)
+const WETH_TOKEN = new Token(chainId, tokens.weth.address, 18)
+const WILD_WETH_TOKEN = new Token(chainId, wildWethFarm.lpAddresses, 18)
 
 /**
  * Returns the total WILD staked in the WILD-BNB LP
@@ -59,7 +55,7 @@ const WILD_WETH_TOKEN = new Token(chainId, getAddress(wildWethFarm.lpAddresses),
 export const getUserStakeInWildWethLp = async (account, block) => {
   try {
     const masterContract = getMasterchefContract(web3WithArchivedNodeProvider, CHAIN_ID)
-    const wildWethContract = getLpContract(getAddress(wildWethFarm.lpAddresses), web3WithArchivedNodeProvider)
+    const wildWethContract = getLpContract(wildWethFarm.lpAddresses, web3WithArchivedNodeProvider)
     const totalSupplyLP = await wildWethContract.totalSupply().call(undefined, block)
     const reservesLP = await wildWethContract.getReserves().call(undefined, block)
     const wildWethBalance = await masterContract.userInfo(wildWethFarm, account).call(undefined, block)

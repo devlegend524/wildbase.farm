@@ -15,11 +15,12 @@ import isArchivedPid from 'utils/farmHelpers'
 import { useWILDPerSecond } from 'hooks/useTokenBalance'
 import { CHAIN_ID, NUMBER_OF_FARMS_VISIBLE } from 'config/config'
 import { useFarms, usePollFarmsData, usePriceWILDUsdc } from 'state/hooks'
-import { useAccount } from 'wagmi'
+import { useAccount, useNetwork } from 'wagmi'
 
 export default function Farms() {
   const { pathname } = useLocation()
   const { address } = useAccount()
+  const { chain } = useNetwork()
   const isArchived = pathname.includes('archived')
   const isInactive = pathname.includes('history')
   const isActive = !isInactive && !isArchived

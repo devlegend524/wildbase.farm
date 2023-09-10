@@ -8,7 +8,6 @@ const CardValue = ({
   fontSize = '40px',
   lineHeight = '1',
   prefix = '',
-  bold = true,
   color = 'text',
 }) => {
   let _decimals = decimals
@@ -37,7 +36,6 @@ const CardValue = ({
   return (
     <Text
       ref={countUpRef}
-      bold={bold}
       fontSize={fontSize}
       style={{ lineHeight }}
       color={color}

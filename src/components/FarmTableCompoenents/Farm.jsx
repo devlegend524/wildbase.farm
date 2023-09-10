@@ -53,12 +53,12 @@ const TokensWrapper = styled.div`
 `
 
 const TokenWrapper = styled.div`
-  width: ${({ isPair }) => (isPair ? '36px' : '24px')};
+  width: 30px;
   height: 24px;
   position: relative;
 
   @media screen and (min-width: 576px) {
-    width: ${({ isPair }) => (isPair ? '60px' : '40px')};
+    width: 60px;
     height: 40px;
   }
 `
@@ -93,7 +93,7 @@ const Farm = ({
   return (
     <Container>
       <TokensWrapper>
-        <TokenWrapper isPair={!isTokenOnly}>
+        <TokenWrapper>
           {isTokenOnly ? (
             <StyledPrimaryImage
               variant='inverted'
@@ -123,9 +123,7 @@ const Farm = ({
       </TokensWrapper>
       <div>
         {handleRenderFarming()}
-        <Text bold color='#ddd'>
-          {label}
-        </Text>
+        <Text color='#ddd'>{label}</Text>
         <Text fontSize='12px' color='white'>
           Deposit fee:{' '}
           <DepositFee

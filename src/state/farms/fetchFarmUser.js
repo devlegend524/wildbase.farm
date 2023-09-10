@@ -2,16 +2,15 @@ import BigNumber from 'bignumber.js'
 import erc20ABI from 'config/abi/erc20.json'
 import masterchefABI from 'config/abi/masterchef.json'
 import multicall from 'utils/multicall'
-import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
+import { getMasterChefAddress } from 'utils/addressHelpers'
 
 export const fetchFarmUserAllowances = async (account, farmsToFetch) => {
   const masterChefAddress = getMasterChefAddress()
 
   const calls = farmsToFetch.map((farm) => {
-    const lpContractAddress = getAddress(farm.isTokenOnly ? farm.token.address : farm.lpAddresses)
+    const lpContractAddress = farm.isTokenOnly ? farm.token.address : farm.lpAddresses
     return { address: lpContractAddress, name: 'allowance', params: [account, masterChefAddress] }
   })
-  console.log(calls)
   const rawLpAllowances = await multicall(erc20ABI, calls)
   const parsedLpAllowances = rawLpAllowances.map((lpBalance) => {
     return new BigNumber(lpBalance).toJSON()
@@ -21,7 +20,7 @@ export const fetchFarmUserAllowances = async (account, farmsToFetch) => {
 
 export const fetchFarmUserTokenBalances = async (account, farmsToFetch) => {
   const calls = farmsToFetch.map((farm) => {
-    const lpContractAddress = farm.isTokenOnly ? getAddress(farm.token.address) : getAddress(farm.lpAddresses)
+    const lpContractAddress = farm.isTokenOnly ? farm.token.address : farm.lpAddresses
     return {
       address: lpContractAddress,
       name: 'balanceOf',

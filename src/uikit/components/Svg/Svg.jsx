@@ -18,7 +18,6 @@ const Svg = styled.svg`
   align-self: center; // Safari fix
   fill: #828181;
   flex-shrink: 0;
-  ${({ spin }) => spin && spinStyle}
   ${space}
 `
 
@@ -26,7 +25,6 @@ Svg.defaultProps = {
   color: 'text',
   width: '20px',
   xmlns: 'http://www.w3.org/2000/svg',
-  spin: false,
 }
 
 export default Svg

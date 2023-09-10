@@ -9,7 +9,7 @@ export const useHarvest = (farmPid) => {
 
   const handleHarvest = useCallback(async () => {
     const txHash = await harvest(masterChefContract, farmPid, address)
-    return txHash
+    return await txHash.wait()
   }, [address, farmPid, masterChefContract])
 
   return { onReward: handleHarvest }

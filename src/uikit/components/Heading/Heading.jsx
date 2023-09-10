@@ -21,13 +21,13 @@ const style = {
   },
 }
 
-const Heading = styled(Text).attrs({ bold: true })`
-  font-size: ${({ scale }) => style[scale || scales.MD].fontSize};
+const Heading = styled(Text)`
+  font-size: ${style[scales.MD].fontSize};
   font-weight: 600;
   line-height: 1.1;
 
   @media screen and (min-width: 1080px) {
-    font-size: ${({ scale }) => style[scale || scales.MD].fontSizeLg};
+    font-size: ${style[scales.MD].fontSize};
   }
 `
 

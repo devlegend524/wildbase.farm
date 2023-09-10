@@ -58,13 +58,13 @@ export const Default = () => {
       <Text display='inline' color='textSubtle' textTransform='uppercase'>
         Example of{' '}
       </Text>
-      <Text display='inline' bold textTransform='uppercase'>
+      <Text display='inline' textTransform='uppercase'>
         inline{' '}
       </Text>
       <Text display='inline' color='textSubtle' textTransform='uppercase'>
         Text
       </Text>
-      <Text ellipsis width='250px'>
+      <Text width='250px'>
         Ellipsis: a long text with an ellipsis just for the example
       </Text>
     </div>
