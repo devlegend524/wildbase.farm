@@ -225,7 +225,6 @@ export const usePriceEthUsdc = () => {
 export const usePriceWILDUsdc = () => {
   const wildEthFarm = useFarmFromPid(3)
   return Number(wildEthFarm.token.usdcPrice) > 0 ? new BigNumber(wildEthFarm.token.usdcPrice) : new BigNumber('0.6');
-
 }
 
 // Block
