@@ -28,7 +28,7 @@ const useStake = (pid) => {
         pid,
         amount,
         lockPeriod,
-        BIG_TEN.pow(tokenDecimals)
+        tokenDecimals
       )
       await txHash.wait()
     },

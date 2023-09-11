@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { CHAIN_ID, DEFAULT_TOKEN_DECIMAL } from 'config/config'
+import { CHAIN_ID } from 'config/config'
 import { ethers } from 'ethers'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
@@ -9,7 +9,7 @@ import tokens from 'config/tokens'
 import { getBalanceAmount } from './formatBalance'
 import { BIG_TEN, BIG_ZERO } from './bigNumber'
 import { web3WithArchivedNodeProvider } from './providerHelpers'
-
+import { fromReadableAmount } from './customHelpers'
 export const approve = async (lpContract, masterChefContract, account) => {
   return lpContract.approve(masterChefContract.address, ethers.constants.MaxUint256, { from: account }
   )
@@ -21,16 +21,15 @@ export const stake = async (
   pid,
   amount,
   lockPeriod,
-  decimals = DEFAULT_TOKEN_DECIMAL,
+  decimals = 18,
 ) => {
-  console.log(BigNumber(amount).times(decimals).toString())
   return await masterChefContract
-    .deposit(pid, new BigNumber(amount).times(decimals).toString(), lockPeriod)
+    .deposit(pid, fromReadableAmount(amount, decimals), lockPeriod)
 }
 
-export const unstake = async (masterChefContract, pid, amount, account, decimals = DEFAULT_TOKEN_DECIMAL) => {
+export const unstake = async (masterChefContract, pid, amount, account, decimals = 18) => {
   return await masterChefContract
-    .withdraw(pid, new BigNumber(amount).times(decimals).toString())
+    .withdraw(pid, fromReadableAmount(amount, decimals))
 }
 
 

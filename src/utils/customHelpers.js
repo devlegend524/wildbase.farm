@@ -2,6 +2,7 @@ import { BigNumber, ethers } from 'ethers';
 
 export function fromReadableAmount(amount, decimals) {
   if (!amount) return 0;
+  console.log(decimals)
   return ethers.utils.parseUnits(amount.toString(), decimals).toString();
 }
 
