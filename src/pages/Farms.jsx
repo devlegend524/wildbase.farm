@@ -98,7 +98,6 @@ export default function Farms() {
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(
           farm.quoteToken.usdcPrice
         )
-
         const apr = getFarmApr(
           new BigNumber(farm.poolWeight),
           wildPrice,
@@ -106,7 +105,6 @@ export default function Farms() {
           farm.lpAddresses,
           wildPerSecond
         )
-        console.log(apr)
 
         return { ...farm, apr, liquidity: totalLiquidity }
       })
@@ -215,7 +213,6 @@ export default function Farms() {
     const tokenAddress = token.address
     const quoteTokenAddress = quoteToken.address
     const lpLabel = farm.lpSymbol
-
     const row = {
       apr: {
         value:

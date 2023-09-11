@@ -8,23 +8,22 @@ import multicall from 'utils/multicall'
 const fetchPublicFarmData = async (farm) => {
   const { pid, lpAddresses, token, quoteToken } = farm
   const lpAddress = lpAddresses
-
   const calls = [
     // Balance of token in the LP contract
     {
       address: token.address,
       name: 'balanceOf',
-      params: [lpAddress],
+      params: [farm.isTokenOnly && farm.token.symbol !== 'WETH' ? getMasterChefAddress() : lpAddress],
     },
     // Balance of quote token on LP contract
     {
       address: quoteToken.address,
       name: 'balanceOf',
-      params: [lpAddress],
+      params: [farm.isTokenOnly && farm.token.symbol !== 'WETH' ? getMasterChefAddress() : lpAddress],
     },
     // Balance of LP tokens in the master chef contract
     {
-      address: farm.isTokenOnly ? farm.token.address : lpAddress,
+      address: lpAddress,
       name: 'balanceOf',
       params: [getMasterChefAddress()],
     },
@@ -65,7 +64,6 @@ const fetchPublicFarmData = async (farm) => {
     } else if (new BigNumber(tokenBalanceLP).comparedTo(0) > 0) {
       tokenPriceVsQuote = quoteTokenBalance.div(new BigNumber(tokenBalance))
     }
-
     lpTotalInQuoteToken = tokenAmountTotal.times(tokenPriceVsQuote)
   } else {
     // Ratio in % of LP tokens that are staked in the MC, vs the total number in circulation
