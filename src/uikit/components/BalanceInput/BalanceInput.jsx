@@ -8,7 +8,6 @@ const BalanceInput = ({
   onUserInput,
   currencyValue,
   inputProps,
-  isWarning = false,
   decimals = 18,
   ...props
 }) => {
@@ -19,7 +18,7 @@ const BalanceInput = ({
   }
 
   return (
-    <StyledBalanceInput isWarning={isWarning} {...props}>
+    <StyledBalanceInput {...props}>
       <StyledInput
         pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
         inputMode='decimal'

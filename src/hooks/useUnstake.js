@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 import { unstake } from 'utils/callHelpers'
 import { useFarmFromPid } from 'state/hooks'
-import { BIG_TEN } from 'utils/bigNumber'
 import { useMasterchef } from './useContract'
 import { useAccount } from 'wagmi'
 const useUnstake = (pid) => {

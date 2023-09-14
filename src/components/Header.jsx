@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { HeaderLinks } from 'config/config'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { Fade as Hamburger } from 'hamburger-react'
-import { usePriceWILDUsdc } from 'state/hooks'
+import { usePriceWILDXUsdc } from 'state/hooks'
 import useRefresh from 'hooks/useRefresh'
 
 export default function Header() {
   const currentURL = window.location.pathname
   const [open, setOpen] = useState(false)
-  const [tokenPrice, setTokenPrice] = useState(false)
-  const wildPrice = usePriceWILDUsdc()
+  const [tokenPrice, setTokenPrice] = useState()
+  const wildPrice = usePriceWILDXUsdc()
   const { fastRefresh } = useRefresh()
 
   useEffect(() => {
@@ -60,7 +60,9 @@ export default function Header() {
       <div className='flex gap-2 mr-3'>
         <div className='flex items-center'>
           <img src='/logo.png' alt='logo' className='w-[30px]' />
-          <div className='mx-2'>{tokenPrice}</div>
+          <div className='mx-2'>
+            $ {tokenPrice !== 'NaN' ? tokenPrice : '0.0'}
+          </div>
         </div>
         <ConnectButton />
       </div>

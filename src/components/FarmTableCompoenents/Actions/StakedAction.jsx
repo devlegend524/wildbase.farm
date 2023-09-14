@@ -47,7 +47,6 @@ const StakedAction = ({
   withDepositLockDiscount,
   depositFee,
   userData,
-  hasDiscount,
 }) => {
   const { t } = useTranslation()
   const { address } = useAccount()
@@ -79,7 +78,7 @@ const StakedAction = ({
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
 
   const handleStake = async (amount, daysToLock) => {
-    await onStake(amount, daysToLock * 60 * 60 * 24)
+    await onStake(amount)
     dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }))
   }
 
@@ -96,9 +95,7 @@ const StakedAction = ({
     return stakedBalanceBigNumber.toFixed(4, BigNumber.ROUND_DOWN)
   }, [stakedBalance])
 
-  const _depositFee = hasDiscount
-    ? (parseFloat(depositFee) / 2).toString()
-    : depositFee
+  const _depositFee = depositFee
 
   const [onPresentDeposit] = useModal(
     <DepositModal
@@ -118,7 +115,6 @@ const StakedAction = ({
       max={stakedBalance}
       onConfirm={handleUnstake}
       tokenName={lpSymbol}
-      unlockTime={userData.unlockTime}
     />
   )
   const lpContract = useERC20(lpAddress)

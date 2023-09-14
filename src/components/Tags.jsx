@@ -13,7 +13,7 @@ const CoreTag = (props) => {
   return (
     <Tag
       variant='secondary'
-      outline
+      outline='false'
       startIcon={<VerifiedIcon width='18px' color='secondary' mr='4px' />}
       {...props}
     >
@@ -27,7 +27,7 @@ const NoFeesTag = (props) => {
   return (
     <Tag
       variant='success'
-      outline
+      outline='false'
       startIcon={<VerifiedIcon width='18px' color='success' mr='4px' />}
       {...props}
     >
@@ -40,7 +40,7 @@ const SingleStakeTag = (props) => {
   return (
     <Tag
       variant='success'
-      outline
+      outline='false'
       startIcon={<VerifiedIcon width='18px' color='success' mr='4px' />}
       {...props}
     >
@@ -52,7 +52,7 @@ const BinanceTag = (props) => {
   return (
     <Tag
       variant='binance'
-      outline
+      outline='false'
       startIcon={<BinanceIcon width='18px' color='secondary' mr='4px' />}
       {...props}
     >
@@ -75,7 +75,7 @@ const ManualPoolTag = (props) => {
   return (
     <Tag
       variant='secondary'
-      outline
+      outline='false'
       startIcon={<RefreshIcon width='18px' color='secondary' mr='4px' />}
       {...props}
     >
@@ -89,7 +89,7 @@ const CompoundingPoolTag = (props) => {
   return (
     <Tag
       variant='success'
-      outline
+      outline='false'
       startIcon={<AutoRenewIcon width='18px' color='success' mr='4px' />}
       {...props}
     >
@@ -103,7 +103,7 @@ const DepositLockDicountTag = (props) => {
   return (
     <Tag
       variant='success'
-      outline
+      outline='false'
       startIcon={<AutoRenewIcon width='18px' color='success' mr='4px' />}
       {...props}
     >

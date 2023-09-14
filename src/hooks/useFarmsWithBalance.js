@@ -21,13 +21,12 @@ export const useFarmsWithBalance = () => {
         .filter((farm) => farm.pid || farm.pid === 0)
         .map((farm) => ({
           address: getMasterChefAddress(),
-          name: 'pendingTokens',
+          name: 'pendingWildx',
           params: [farm.pid, address],
         }))
       try {
         const rawResults = await multicall(masterChefABI, calls)
         const results = farmsConfig.map((farm, index) => ({ ...farm, balance: new BigNumber(rawResults[index]) }))
-
         setFarmsWithBalances(results)
       } catch (e) {
         console.log('Fetch Farms With Balance Error:', e)

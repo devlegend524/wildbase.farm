@@ -7,8 +7,8 @@ const CardValue = ({
   decimals,
   fontSize = '40px',
   lineHeight = '1',
-  prefix = '',
   color = 'text',
+  prefix = '',
 }) => {
   let _decimals = decimals
   if (typeof decimals === 'undefined') {
@@ -27,6 +27,7 @@ const CardValue = ({
     duration: 1,
     separator: ',',
     decimals: _decimals,
+    prefix: prefix,
   })
 
   useEffect(() => {

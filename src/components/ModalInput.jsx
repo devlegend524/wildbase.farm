@@ -70,7 +70,7 @@ const ModalInput = ({
 
   return (
     <div style={{ position: 'relative' }}>
-      <StyledTokenInput isWarning={isBalanceZero}>
+      <StyledTokenInput>
         <Flex justifyContent='space-between' pl='16px'>
           <Text fontSize='14px'>{inputTitle}</Text>
           <Text fontSize='14px'>

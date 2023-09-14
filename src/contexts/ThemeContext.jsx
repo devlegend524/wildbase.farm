@@ -5,7 +5,7 @@ import { light, dark } from 'uikit'
 const CACHE_KEY = 'IS_DARK'
 
 const ThemeContext = React.createContext({
-  isDark: true,
+  isDark: false,
   toggleTheme: () => null,
 })
 
@@ -23,7 +23,9 @@ const ThemeContextProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ isDark, toggleTheme }}>
-      <SCThemeProvider theme={dark}>{children}</SCThemeProvider>
+      <SCThemeProvider theme={isDark ? dark : light}>
+        {children}
+      </SCThemeProvider>
     </ThemeContext.Provider>
   )
 }

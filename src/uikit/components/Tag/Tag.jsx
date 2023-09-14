@@ -8,7 +8,7 @@ const Tag = ({
   children,
   variant = 'primary',
   scale = scales.MD,
-  outline = false,
+  outline = 'false',
   ...props
 }) => (
   <StyledTag variant={variant} scale={scale} outline={outline} {...props}>

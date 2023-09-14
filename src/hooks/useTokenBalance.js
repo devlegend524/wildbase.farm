@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
-import { getBep20Contract, getWILDContract, getMasterchefContract } from 'utils/contractHelpers'
+import { getErc20Contract, getWILDXContract, getMasterchefContract } from 'utils/contractHelpers'
 import { BIG_ZERO } from 'utils/bigNumber'
 import useRefresh from './useRefresh'
 import useLastUpdated from './useLastUpdated'
@@ -25,10 +25,10 @@ const useTokenBalance = (tokenAddress) => {
   const provider = useEthersProvider()
   useEffect(() => {
     const fetchBalance = async () => {
-      const contract = getBep20Contract(tokenAddress, provider)
+      const contract = getErc20Contract(tokenAddress, provider)
       try {
         const res = await contract.balanceOf(address)
-        setBalanceState({ balance: new BigNumber(res), fetchStatus: SUCCESS })
+        setBalanceState({ balance: res, fetchStatus: SUCCESS })
       } catch (e) {
         console.error(e)
         setBalanceState((prev) => ({
@@ -53,7 +53,7 @@ export const useTotalSupply = () => {
   const provider = useEthersProvider()
   useEffect(() => {
     async function fetchTotalSupply() {
-      const wildContract = getWILDContract(provider, chain ? chain.id : CHAIN_ID)
+      const wildContract = getWILDXContract(provider, chain ? chain.id : CHAIN_ID)
       const supply = await wildContract.totalSupply()
       setTotalSupply(ethers.utils.formatUnits(supply, 18))
     }
@@ -63,22 +63,22 @@ export const useTotalSupply = () => {
   return totalSupply
 }
 
-export const useWILDPerSecond = () => {
+export const useWILDXPerSecond = () => {
   const { slowRefresh } = useRefresh()
-  const [wildPerSecond, setWildPerSecond] = useState(BIG_ZERO)
+  const [wildxPerBlock, setWildPerSecond] = useState(BIG_ZERO)
   const { chain } = useNetwork()
   const provider = useEthersProvider()
   useEffect(() => {
     async function fetchWildPerSecond() {
       const masterChefContract = getMasterchefContract(provider, chain ? chain.id : CHAIN_ID)
-      const perSecond = await masterChefContract.wildPerSecond()
+      const perSecond = await masterChefContract.wildxPerBlock()
       setWildPerSecond(ethers.utils.formatUnits(perSecond, 18))
     }
 
     fetchWildPerSecond()
   }, [slowRefresh])
 
-  return wildPerSecond
+  return wildxPerBlock
 }
 
 export const useBurnedBalance = (tokenAddress) => {
@@ -88,7 +88,7 @@ export const useBurnedBalance = (tokenAddress) => {
 
   useEffect(() => {
     const fetchBalance = async () => {
-      const contract = getBep20Contract(tokenAddress, provider)
+      const contract = getErc20Contract(tokenAddress, provider)
       const res = await contract.balanceOf('0x0000000000000000000000000000000000000000dEaD')
       setBalance(new BigNumber(res))
     }
@@ -99,14 +99,14 @@ export const useBurnedBalance = (tokenAddress) => {
   return balance
 }
 
-export const useWILDBurnedBalance = () => {
+export const useWILDXBurnedBalance = () => {
   const [balance, setBalance] = useState(BIG_ZERO)
   const { slowRefresh } = useRefresh()
   const { chain } = useNetwork()
   const provider = useEthersProvider()
   useEffect(() => {
     const fetchBalance = async () => {
-      const wildContract = getWILDContract(provider, chain ? chain.id : CHAIN_ID)
+      const wildContract = getWILDXContract(provider, chain ? chain.id : CHAIN_ID)
       const res = await wildContract.totalFees()
       setBalance(new BigNumber(res).div(new BigNumber(3))) // 1/3 of total fees are burning
     }

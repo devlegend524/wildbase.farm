@@ -15,7 +15,15 @@ const StyledLink = styled(Text)`
 
 const Link = ({ external, color = 'primary', ...props }) => {
   const internalProps = external ? getExternalLinkProps() : {}
-  return <StyledLink as='a' bold {...internalProps} {...props} color={color} />
+  return (
+    <StyledLink
+      as='a'
+      bold='true'
+      {...internalProps}
+      {...props}
+      color={color}
+    />
+  )
 }
 
 export default Link

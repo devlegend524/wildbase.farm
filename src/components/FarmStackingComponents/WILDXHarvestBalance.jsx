@@ -2,7 +2,7 @@ import React from 'react'
 import { Text } from 'uikit'
 import BigNumber from 'bignumber.js'
 import { useTranslation } from 'contexts/Localization'
-import { usePriceWILDUsdc } from 'state/hooks'
+import { usePriceWILDXUsdc } from 'state/hooks'
 import styled from 'styled-components'
 import { DEFAULT_TOKEN_DECIMAL } from 'config/config'
 import CardValue from './CardValue'
@@ -19,7 +19,7 @@ const Block = styled.div`
   }
 `
 
-const WILDHarvestBalance = ({ farmsWithBalance }) => {
+const WILDXHarvestBalance = ({ farmsWithBalance }) => {
   const { t } = useTranslation()
   const signer = useEthersSigner()
   const earningsSum = farmsWithBalance.reduce((accum, earning) => {
@@ -29,9 +29,9 @@ const WILDHarvestBalance = ({ farmsWithBalance }) => {
     }
     return accum + earningNumber.div(DEFAULT_TOKEN_DECIMAL).toNumber()
   }, 0)
-  const wildPriceBusd = usePriceWILDUsdc()
-  const earningsBusd = new BigNumber(earningsSum)
-    .multipliedBy(wildPriceBusd)
+  const wildPriceUsdt = usePriceWILDXUsdc()
+  const earningsUsdt = new BigNumber(earningsSum)
+    .multipliedBy(wildPriceUsdt)
     .toNumber()
 
   if (!signer) {
@@ -45,9 +45,9 @@ const WILDHarvestBalance = ({ farmsWithBalance }) => {
   return (
     <Block>
       <CardValue value={earningsSum} lineHeight='1.5' />
-      {wildPriceBusd.gt(0) && <CardUsdValue value={earningsBusd} />}
+      {wildPriceUsdt.gt(0) && <CardUsdValue value={earningsUsdt} />}
     </Block>
   )
 }
 
-export default WILDHarvestBalance
+export default WILDXHarvestBalance

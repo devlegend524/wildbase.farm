@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FaExternalLinkAlt, FaRegCopy } from 'react-icons/fa'
-import { getWILDAddress, getWethAddress } from 'utils/addressHelpers'
+import { getWILDXAddress, getWethAddress } from 'utils/addressHelpers'
 import { EXPLORER_URL } from 'config/constants'
 import {
   CHAIN_ID,
@@ -18,10 +18,10 @@ export default function FarmBanner() {
   const [isCopied, setIsCopied] = useState(false)
   const [wildAddress, setWildAddress] = useState('Connect correct wallet')
   const { chain } = useNetwork()
-  const token = getWILDAddress()
+  const token = getWILDXAddress()
   // const provider = useEthersProvider()
 
-  const addWatchWILDToken = useCallback(async () => {
+  const addWatchWILDXToken = useCallback(async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const provider = window.ethereum
@@ -35,9 +35,9 @@ export default function FarmBanner() {
             type: 'ERC20',
             options: {
               address: token,
-              symbol: 'WILD',
+              symbol: 'WILDX',
               decimals: '18',
-              image: `${BASE_URL}/images/tokens/wild.svg`,
+              image: `${BASE_URL}/images/tokens/wildx.svg`,
             },
           },
         })
@@ -54,19 +54,19 @@ export default function FarmBanner() {
 
   useEffect(() => {
     if (chain && (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)) {
-      const addr = getWILDAddress()
+      const addr = getWILDXAddress()
       setWildAddress(addr)
     }
   }, [chain])
   return (
     <div className='flex justify-center flex-col md:flex-row main_bg rounded-md'>
       <div className='p-3 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
-        <h1 className='text-7xl'>WILD ON BASE</h1>
+        <h1 className='text-7xl'>WILDX ON BASE</h1>
         <p className='py-4'>
-          The WILD token rewards users who single-stake or provide liquidity. 1
-          WILD will be minted evry block. All deposit fee and sales taxes
-          automatically buyback and burn WILD 24/7 for prolonged sustainability
-          and price appreciation. Stay WILD 🤞.
+          The WILDX token rewards users who single-stake or provide liquidity. 1
+          WILDX will be minted evry block. All deposit fee and sales taxes
+          automatically buyback and burn WILDX 24/7 for prolonged sustainability
+          and price appreciation. Stay WILDX 🤞.
         </p>
       </div>
       <div className='flex justify-end p-3 md:p-6 w-fill md:w-1/2 xl:w-1/3'>
@@ -74,16 +74,16 @@ export default function FarmBanner() {
           <div className='flex items-center justify-center gap-3'>
             <a
               className='main_btn flex-1'
-              href={`${BASE_SWAP_URL}?inputCurrency=${getWethAddress()}&outputCurrency=${getWILDAddress()}`}
+              href={`${BASE_SWAP_URL}?inputCurrency=${getWethAddress()}&outputCurrency=${getWILDXAddress()}`}
               target='_blank'
             >
-              Buy WILD
+              Buy WILDX
             </a>
             <button
-              onClick={addWatchWILDToken}
+              onClick={addWatchWILDXToken}
               className='main_btn flex items-center justify-center'
             >
-              Add WILD to &nbsp;
+              Add WILDX to &nbsp;
               <svg
                 viewBox='0 0 35 33'
                 color='text'

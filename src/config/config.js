@@ -5,14 +5,6 @@ export const DEFAULT_GAS_LIMIT = 2000000
 export const DEFAULT_GAS_PRICE = 2
 export const CHAIN_ID = 8453
 export const TESTNET_CHAIN_ID = 84531
-export const privateNFTPrice = 0.1
-export const publicNFTPrice = 0.05
-export const minPrivatePurchase = 0.2
-export const maxPrivatePurchase = 2.7
-export const maxPublicPurchase = 1.35
-export const minPublicPurchase = 0.1
-export const privateWILDPrice = 0.35
-export const publicWILDPrice = 0.45
 export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
 export const NUMBER_OF_FARMS_VISIBLE = 12
 
@@ -34,10 +26,10 @@ export const HeaderLinks = [
     name: 'Farms',
     link: '/farms',
   },
-  {
-    name: 'Presale',
-    link: '/presale',
-  },
+  // {
+  //   name: 'Presale',
+  //   link: '/presale',
+  // },
   // {
   //   name: 'Zap',
   //   link: '/zap',

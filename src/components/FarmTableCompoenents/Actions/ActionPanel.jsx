@@ -17,27 +17,8 @@ import Apr from '../Apr'
 import Multiplier from '../Multiplier'
 import Liquidity from '../Liquidity'
 
-const expandAnimation = keyframes`
-  from {
-    max-height: 0px;
-  }
-  to {
-    max-height: 500px;
-  }
-`
-
-const collapseAnimation = keyframes`
-  from {
-    max-height: 500px;
-  }
-  to {
-    max-height: 0px;
-  }
-`
-
 const Container = styled.div`
-  animation: ${css`
-    ${expandAnimation} 300ms linear forwards
+  animation: ${css` 300ms linear forwards
   `};
   overflow: hidden;
   background: #010f27;
@@ -132,7 +113,6 @@ const ActionPanel = ({
   multiplier,
   liquidity,
   userDataReady,
-  hasDiscount,
 }) => {
   const farm = details
 
@@ -146,10 +126,9 @@ const ActionPanel = ({
     quoteTokenAddress: quoteToken.address,
     tokenAddress: token.address,
   })
-  const lpAddress = farm.lpAddresses[CHAIN_ID]
+  const lpAddress = farm.lpAddresses
   const scan = useMemo(
-    () =>
-      getScanAddressUrl(tokenOnly ? farm.token.address[CHAIN_ID] : lpAddress),
+    () => getScanAddressUrl(tokenOnly ? farm.token.address : lpAddress),
     [tokenOnly, lpAddress, farm.token.address]
   )
   const noFees = parseFloat(farm.depositFee) === 0
@@ -195,11 +174,7 @@ const ActionPanel = ({
       </ValueContainer>
       <ActionContainer>
         <HarvestAction {...farm} userDataReady={userDataReady} />
-        <StakedAction
-          {...farm}
-          hasDiscount={hasDiscount}
-          userDataReady={userDataReady}
-        />
+        <StakedAction {...farm} userDataReady={userDataReady} />
       </ActionContainer>
     </Container>
   )

@@ -13,13 +13,13 @@ const fetchPublicFarmData = async (farm) => {
     {
       address: token.address,
       name: 'balanceOf',
-      params: [farm.isTokenOnly && farm.token.symbol !== 'WETH' ? getMasterChefAddress() : lpAddress],
+      params: [lpAddress],
     },
     // Balance of quote token on LP contract
     {
       address: quoteToken.address,
       name: 'balanceOf',
-      params: [farm.isTokenOnly && farm.token.symbol !== 'WETH' ? getMasterChefAddress() : lpAddress],
+      params: [lpAddress],
     },
     // Balance of LP tokens in the master chef contract
     {
@@ -44,10 +44,8 @@ const fetchPublicFarmData = async (farm) => {
     },
   ]
 
-
   const [tokenBalanceLP, quoteTokenBalanceLP, lpTokenBalanceMC, lpTotalSupply, tokenDecimals, quoteTokenDecimals] =
     await multicall(erc20, calls)
-
   let tokenAmountTotal
   let quoteTokenAmountTotal = BIG_ZERO
   let lpTotalInQuoteToken = BIG_ZERO
@@ -55,7 +53,6 @@ const fetchPublicFarmData = async (farm) => {
 
   if (farm.isTokenOnly) {
     tokenAmountTotal = new BigNumber(lpTokenBalanceMC).div(BIG_TEN.pow(tokenDecimals))
-
     const tokenBalance = new BigNumber(tokenBalanceLP).div(BIG_TEN.pow(tokenDecimals))
     const quoteTokenBalance = new BigNumber(quoteTokenBalanceLP).div(BIG_TEN.pow(quoteTokenDecimals))
     const stables = ['USDC', 'USDT']
@@ -76,17 +73,6 @@ const fetchPublicFarmData = async (farm) => {
     const quoteTokenAmountMC = new BigNumber(quoteTokenBalanceLP).div(BIG_TEN.pow(quoteTokenDecimals))
     quoteTokenAmountTotal = quoteTokenAmountMC.times(lpTokenRatio)
 
-    // if (farm.lpSymbol === 'WETH-WBTC') {
-    //   console.group(farm.lpSymbol);
-    //   console.log("lpTokenRatio", lpTokenRatio.toString());
-    //   console.log("lpTokenBalanceMC", lpTokenBalanceMC.toString());
-    //   console.log("tokenAmountMC", tokenAmountMC.toString());
-    //   console.log("tokenAmountTotal", tokenAmountTotal.toString());
-    //   console.log("quoteTokenAmountMC", quoteTokenAmountMC.toString());
-    //   console.log("quoteTokenAmountTotal", quoteTokenAmountTotal.toString());
-    //   console.groupEnd();
-    // }
-
     if (new BigNumber(quoteTokenBalanceLP).comparedTo(0) > 0) {
       // Total value in staking in quote token value
       lpTotalInQuoteToken = new BigNumber(quoteTokenBalanceLP)
@@ -100,15 +86,6 @@ const fetchPublicFarmData = async (farm) => {
     } else if (new BigNumber(tokenBalanceLP).comparedTo(0) > 0) {
       tokenPriceVsQuote = new BigNumber(quoteTokenBalanceLP).div(new BigNumber(tokenBalanceLP))
     }
-
-    // console.group(farm.pid, farm.lpSymbol);
-    // console.log("tokenAmountMC:", tokenAmountMC.toString())
-    // console.log("quoteTokenAmountMC", quoteTokenAmountMC.toString())
-    // console.log("quoteTokenBalanceLP", quoteTokenBalanceLP.toString())
-    // console.log("tokenBalanceLP", tokenBalanceLP.toString())
-    // console.log("lpTotalInQuoteToken", lpTotalInQuoteToken.toString());
-    // console.log("tokenPriceVsQuote", tokenPriceVsQuote.toString())
-    // console.groupEnd();
   }
 
   const hasPid = pid || pid === 0

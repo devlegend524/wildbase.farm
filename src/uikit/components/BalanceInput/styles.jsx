@@ -6,8 +6,7 @@ export const StyledBalanceInput = styled(Box)`
   background-color: ${({ theme }) => theme.colors.input};
   border: 1px solid ${({ theme }) => theme.colors.inputSecondary};
   border-radius: 2px;
-  box-shadow: ${({ theme, isWarning }) =>
-    theme.shadows[isWarning ? 'warning' : 'inset']};
+  box-shadow: 'warning';
   padding: 8px 16px;
 `
 

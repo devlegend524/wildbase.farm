@@ -34,12 +34,12 @@ const Multiplier = ({ multiplier }) => {
   const tooltipContent = (
     <div>
       {t(
-        'The multiplier represents the amount of WILD rewards each farm gets.'
+        'The multiplier represents the amount of WILDX rewards each farm gets.'
       )}
       <br />
       <br />
       {t(
-        'For example, if a 1x farm was getting 1 WILD per block, a 40x farm would be getting 40 WILD per block.'
+        'For example, if a 1x farm was getting 1 WILDX per block, a 40x farm would be getting 40 WILDX per block.'
       )}
     </div>
   )

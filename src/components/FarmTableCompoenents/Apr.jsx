@@ -59,9 +59,7 @@ const Apr = ({
           )}
         </>
       ) : (
-        <AprWrapper>
-          <Skeleton width={60} />
-        </AprWrapper>
+        <AprWrapper>0%</AprWrapper>
       )}
     </Container>
   ) : (

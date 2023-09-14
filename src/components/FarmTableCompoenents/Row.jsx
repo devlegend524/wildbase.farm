@@ -139,7 +139,7 @@ const Row = (props) => {
     return (
       <StyledTr onClick={toggleActionPanel}>
         <td>
-          <tr>
+          <div>
             <AprMobileCell>
               <CellLayout label={t('APR')}>
                 <Apr {...props.apr} hideButton />
@@ -150,14 +150,14 @@ const Row = (props) => {
                 <Earned {...props.earned} userDataReady={userDataReady} />
               </CellLayout>
             </EarnedMobileCell>
-          </tr>
-          <tr>
+          </div>
+          <div>
             <FarmMobileCell>
               <CellLayout>
                 <Farm {...props.farm} />
               </CellLayout>
             </FarmMobileCell>
-          </tr>
+          </div>
         </td>
         <td>
           <CellInner>

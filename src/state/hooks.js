@@ -11,9 +11,9 @@ import { filterFarmsByQuoteToken } from 'utils/farmsPriceHelpers'
 import { useEthersProvider } from 'hooks/useEthers'
 import {
   fetchFarmsPublicDataAsync,
-  // fetchWILDVaultPublicData,
-  // fetchWILDVaultUserData,
-  // fetchWILDVaultFees,
+  // fetchWILDXVaultPublicData,
+  // fetchWILDXVaultUserData,
+  // fetchWILDXVaultFees,
   setBlock,
 } from './actions'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
@@ -37,7 +37,7 @@ export const usePollFarmsData = (includeArchive = false) => {
 
 /**
  * Fetches the "core" farm data used globally
- * 0 = WILD-ETH LP
+ * 0 = WILDX-ETH LP
  *
  */
 export const usePollCoreFarmData = () => {
@@ -131,28 +131,28 @@ export const useLpTokenPrice = (symbol) => {
 
 // Pools
 
-export const useFetchWILDVault = () => {
+export const useFetchWILDXVault = () => {
   // const { account } = useWeb3React()
   // const { fastRefresh } = useRefresh()
   // const dispatch = useAppDispatch()
   // useEffect(() => {
-  //   dispatch(fetchWILDVaultPublicData())
+  //   dispatch(fetchWILDXVaultPublicData())
   // }, [dispatch, fastRefresh])
   // useEffect(() => {
-  //   dispatch(fetchWILDVaultUserData({ account }))
+  //   dispatch(fetchWILDXVaultUserData({ account }))
   // }, [dispatch, fastRefresh, account])
   // useEffect(() => {
-  //   dispatch(fetchWILDVaultFees())
+  //   dispatch(fetchWILDXVaultFees())
   // }, [dispatch])
 }
 
-export const useWILDVault = () => {
+export const useWILDXVault = () => {
   const {
     totalShares: totalSharesAsString,
     pricePerFullShare: pricePerFullShareAsString,
-    totalWILDInVault: totalWILDInVaultAsString,
-    estimatedWILDBountyReward: estimatedWILDBountyRewardAsString,
-    totalPendingWILDHarvest: totalPendingWILDHarvestAsString,
+    totalWILDXInVault: totalWILDXInVaultAsString,
+    estimatedWILDXBountyReward: estimatedWILDXBountyRewardAsString,
+    totalPendingWILDXHarvest: totalPendingWILDXHarvestAsString,
     fees: { performanceFee, callFee, withdrawalFee, withdrawalFeePeriod },
     userData: {
       isLoading,
@@ -163,13 +163,13 @@ export const useWILDVault = () => {
     },
   } = useSelector((state) => state.pools.wildVault)
 
-  const estimatedWILDBountyReward = useMemo(() => {
-    return new BigNumber(estimatedWILDBountyRewardAsString)
-  }, [estimatedWILDBountyRewardAsString])
+  const estimatedWILDXBountyReward = useMemo(() => {
+    return new BigNumber(estimatedWILDXBountyRewardAsString)
+  }, [estimatedWILDXBountyRewardAsString])
 
-  const totalPendingWILDHarvest = useMemo(() => {
-    return new BigNumber(totalPendingWILDHarvestAsString)
-  }, [totalPendingWILDHarvestAsString])
+  const totalPendingWILDXHarvest = useMemo(() => {
+    return new BigNumber(totalPendingWILDXHarvestAsString)
+  }, [totalPendingWILDXHarvestAsString])
 
   const totalShares = useMemo(() => {
     return new BigNumber(totalSharesAsString)
@@ -179,9 +179,9 @@ export const useWILDVault = () => {
     return new BigNumber(pricePerFullShareAsString)
   }, [pricePerFullShareAsString])
 
-  const totalWILDInVault = useMemo(() => {
-    return new BigNumber(totalWILDInVaultAsString)
-  }, [totalWILDInVaultAsString])
+  const totalWILDXInVault = useMemo(() => {
+    return new BigNumber(totalWILDXInVaultAsString)
+  }, [totalWILDXInVaultAsString])
 
   const userShares = useMemo(() => {
     return new BigNumber(userSharesAsString)
@@ -194,9 +194,9 @@ export const useWILDVault = () => {
   return {
     totalShares,
     pricePerFullShare,
-    totalWILDInVault,
-    estimatedWILDBountyReward,
-    totalPendingWILDHarvest,
+    totalWILDXInVault,
+    estimatedWILDXBountyReward,
+    totalPendingWILDXHarvest,
     fees: {
       performanceFee,
       callFee,
@@ -219,13 +219,15 @@ export const useProfile = () => {
 }
 
 export const usePriceEthUsdc = () => {
-  return new BigNumber(localStorage.getItem('ethPrice'));
+  const ethUsdcFarm = useFarmFromPid(2)
+  return new BigNumber(ethUsdcFarm.quoteToken.usdcPrice)
 }
 
-export const usePriceWILDUsdc = () => {
+export const usePriceWILDXUsdc = () => {
   const wildEthFarm = useFarmFromPid(3)
-  return Number(wildEthFarm.token.usdcPrice) > 0 ? new BigNumber(wildEthFarm.token.usdcPrice) : new BigNumber('0.6');
+  return new BigNumber(wildEthFarm.token.usdcPrice)
 }
+
 
 // Block
 export const useBlock = () => {
@@ -335,7 +337,7 @@ export const useGetLastOraclePrice = () => {
 export const useTotalValue = () => {
   const farms = useFarms()
   const wethPrice = usePriceEthUsdc()
-  const wildPrice = usePriceWILDUsdc()
+  const wildPrice = usePriceWILDXUsdc()
   // console.log(wildPrice.toString())
   let value = new BigNumber(0)
   for (let i = 0; i < farms.data.length; i++) {
@@ -344,7 +346,7 @@ export const useTotalValue = () => {
       let val
       if (farm.quoteToken.symbol === 'WETH' && wethPrice) {
         val = wethPrice.times(farm.lpTotalInQuoteToken)
-      } else if (farm.quoteToken.symbol === 'WILD') {
+      } else if (farm.quoteToken.symbol === 'WILDX') {
         val = wildPrice.times(farm.lpTotalInQuoteToken)
       } else {
         val = farm.lpTotalInQuoteToken

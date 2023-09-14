@@ -3,7 +3,7 @@
  */
 const tokens = {
   cake: {
-    symbol: 'WILD',
+    symbol: 'WILDX',
     address: {
       84531: '0xBba4f9c1838837246452D3504981066b27D883e5',
       56: '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
@@ -607,14 +607,14 @@ const tokens = {
     decimals: 18,
     projectLink: 'https://dusk.network/',
   },
-  busd: {
+  usd: {
     symbol: 'BUSD',
     address: {
       56: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
       97: '',
     },
     decimals: 18,
-    projectLink: 'https://www.paxos.com/busd/',
+    projectLink: 'https://www.paxos.com/usd/',
   },
   eth: {
     symbol: 'ETH',

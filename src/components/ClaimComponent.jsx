@@ -3,7 +3,7 @@ import { notify } from 'utils/toastHelper'
 import moment from 'moment'
 export default function ClaimComponent({
   finished,
-  claimWILD,
+  claimWILDX,
   claimable,
   userDeposited,
 }) {
@@ -17,14 +17,14 @@ export default function ClaimComponent({
       notify('error', 'You do not have any tokens to claim')
       return
     }
-    claimWILD()
+    claimWILDX()
   }
   return (
     <div className='claim_card'>
       <div className='claim_list'>
         <div className='list_item'>
           <p>Claimable</p>
-          <p>{claimable} WILD</p>
+          <p>{claimable} WILDX</p>
         </div>
         <div className='list_item'>
           <p>Last Claimed Time</p>
@@ -54,7 +54,7 @@ export default function ClaimComponent({
           ? 'Preslae is not ended yet'
           : Number(claimable) === 0
           ? "You don't have any tokens to claim"
-          : 'ClAIM WILD'}
+          : 'ClAIM WILDX'}
       </button>
     </div>
   )

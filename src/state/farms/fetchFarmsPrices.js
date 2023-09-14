@@ -13,17 +13,16 @@ const getFarmBaseTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt) => {
   if (['USDC', 'USDT'].includes(farm.quoteToken.symbol)) {
     return hasTokenPriceVsQuote ? new BigNumber(farm.tokenPriceVsQuote) : BIG_ZERO
   }
-
   if (farm.quoteToken.symbol === 'WETH') {
     return hasTokenPriceVsQuote ? wethPriceUsdt.times(farm.tokenPriceVsQuote) : BIG_ZERO
   }
+
 
   // We can only calculate profits without a quoteTokenFarm for BUSD/BNB farms
   if (!quoteTokenFarm) {
     return BIG_ZERO
   }
-  console.log("getFarmBaseTokenPrice")
-  console.log(quoteTokenFarm)
+
   // Possible alternative farm quoteTokens:
   // UST (i.e. MIR-UST), pBTC (i.e. PNT-pBTC), BTCB (i.e. bBADGER-BTCB), ETH (i.e. SUSHI-ETH)
   // If the farm's quote token isn't BUSD or wBNB, we then use the quote token, of the original farm's quote token

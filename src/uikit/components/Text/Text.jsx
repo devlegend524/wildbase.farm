@@ -6,13 +6,9 @@ const getColor = ({ color, theme }) => {
   return getThemeValue(`colors.${color}`, color)(theme)
 }
 
-const getFontSize = ({ fontSize, small }) => {
-  return small ? '14px' : fontSize || '16px'
-}
-
 const Text = styled.div`
   color: ${getColor};
-  font-size: ${getFontSize};
+  font-size: '16px';
   font-weight: 600;
   line-height: 1.5;
   white-space: nowrap;
@@ -25,7 +21,6 @@ const Text = styled.div`
 
 Text.defaultProps = {
   color: 'text',
-  small: false,
 }
 
 export default Text

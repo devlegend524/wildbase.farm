@@ -1,19 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const DepositFeeWrapper = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-`
-
-const DepositFeeDiscounted = styled.div`
-  text-decoration: line-through;
-`
-
-const DepositFee = ({ depositFee, isTokenOnly, hasDiscount }) => {
+const DepositFee = ({ depositFee }) => {
   // if (isTokenOnly) return '0%'
-  const value = `${depositFee}%`
+  const value = `${depositFee ? depositFee : 0}%`
   return value
 }
 

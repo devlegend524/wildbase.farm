@@ -7,8 +7,8 @@ import {
   minPublicPurchase,
   maxPrivatePurchase,
   maxPublicPurchase,
-  privateWILDPrice,
-  publicWILDPrice,
+  privateWILDXPrice,
+  publicWILDXPrice,
 } from 'config/config'
 
 export default function PresaleDetail({
@@ -46,14 +46,14 @@ export default function PresaleDetail({
               </p>
             </div>
             <div className='list_item'>
-              <p>Price Per WILD</p>
+              <p>Price Per WILDX</p>
               <p className='flex gap-1'>
                 <span
                   className={
                     isPrivateParticipant ? 'font-semibold text-green-500' : ''
                   }
                 >
-                  ${privateWILDPrice}
+                  ${privateWILDXPrice}
                 </span>
                 /
                 <span
@@ -61,7 +61,7 @@ export default function PresaleDetail({
                     !isPrivateParticipant ? 'font-semibold text-green-500' : ''
                   }
                 >
-                  ${publicWILDPrice}
+                  ${publicWILDXPrice}
                 </span>
               </p>
             </div>

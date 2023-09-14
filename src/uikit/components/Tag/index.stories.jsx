@@ -25,23 +25,17 @@ export const Default = () => {
                   </Tag>
                 )
               })}
-              <Tag variant={variant} outline mr='8px'>
+              <Tag variant={variant} mr='8px'>
                 {`${capitalize(variant)} Outline`}
               </Tag>
-              <Tag
-                variant={variant}
-                outline
-                startIcon={<CommunityIcon />}
-                mr='8px'
-              >
+              <Tag variant={variant} startIcon={<CommunityIcon />} mr='8px'>
                 {`${capitalize(variant)} Icon Left`}
               </Tag>
-              <Tag variant={variant} outline endIcon={<RemoveIcon />} mr='8px'>
+              <Tag variant={variant} endIcon={<RemoveIcon />} mr='8px'>
                 {`${capitalize(variant)} Icon Right`}
               </Tag>
               <Tag
                 variant={variant}
-                outline
                 startIcon={<CommunityIcon />}
                 endIcon={<RemoveIcon />}
               >

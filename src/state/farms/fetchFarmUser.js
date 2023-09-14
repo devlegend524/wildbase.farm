@@ -48,12 +48,11 @@ export const fetchFarmUserStakedBalances = async (
       params: [farm.pid, account],
     }
   })
-
   const rawStakedBalances = await multicall(masterchefABI, calls)
+
   const parsedStakedBalances = rawStakedBalances.map((stakedBalance) => {
     return {
       balance: new BigNumber(stakedBalance[0]._hex).toJSON(),
-      unlockTime: parseInt(new BigNumber(stakedBalance.unlockTime._hex).toJSON()) * 1000,
     }
   })
 
@@ -66,7 +65,7 @@ export const fetchFarmUserEarnings = async (account, farmsToFetch) => {
   const calls = farmsToFetch.map((farm) => {
     return {
       address: masterChefAddress,
-      name: 'pendingTokens',
+      name: 'pendingWildx',
       params: [farm.pid, account],
     }
   })

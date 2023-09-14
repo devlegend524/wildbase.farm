@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js'
 import { YEAR_BN } from 'config/config'
-import lpAprs from 'config/lpAprs.json'
 
 /**
  * Get the APR value in %
@@ -14,9 +13,9 @@ export const getPoolApr = (
   stakingTokenPrice,
   rewardTokenPrice,
   totalStaked,
-  tokenPerSecond,
+  tokenPerBlock,
 ) => {
-  const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(tokenPerSecond).times(YEAR_BN)
+  const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(tokenPerBlock).times(YEAR_BN)
   const totalStakingTokenInPool = new BigNumber(stakingTokenPrice).times(totalStaked)
   const apr = totalRewardPricePerYear.div(totalStakingTokenInPool).times(100)
   return apr.isNaN() || !apr.isFinite() ? null : apr.toNumber()
@@ -25,7 +24,7 @@ export const getPoolApr = (
 /**
  * Get farm APR value in %
  * @param poolWeight allocationPoint / totalAllocationPoint
- * @param wildPriceUsd WILD price in USD
+ * @param wildPriceUsd WILDX price in USD
  * @param poolLiquidityUsd Total pool liquidity in USD
  * @returns
  */
@@ -33,17 +32,15 @@ export const getFarmApr = (
   poolWeight,
   wildPriceUsd,
   poolLiquidityUsd,
-  farmAddress,
-  tokenPerSecond,
+  tokenPerBlock,
 ) => {
-  const wildPerYear = YEAR_BN.times(tokenPerSecond)
-  const yearlyWILDRewardAllocation = wildPerYear.times(poolWeight)
-  const wildRewardsApr = yearlyWILDRewardAllocation.times(wildPriceUsd).div(poolLiquidityUsd).times(100)
+  const wildPerYear = YEAR_BN.times(tokenPerBlock)
+  const yearlyWILDXRewardAllocation = wildPerYear.times(poolWeight)
+  const wildRewardsApr = yearlyWILDXRewardAllocation.times(wildPriceUsd).div(poolLiquidityUsd).times(100)
   if (wildRewardsApr.isNaN() || !wildRewardsApr.isFinite()) {
     return null
   }
-  const lpRewardsApr = lpAprs[farmAddress.toLocaleLowerCase()] ?? 0
-  const combinedApr = wildRewardsApr.plus(lpRewardsApr)
+  const combinedApr = wildRewardsApr
   return combinedApr.toNumber()
 }
 

@@ -115,7 +115,7 @@ const Farm = ({
         <TokenWrapper>
           <StyledPrimaryImage
             variant='inverted'
-            src='/images/tokens/wild.svg'
+            src='/images/tokens/wildx.svg'
             width={imgSize}
             height={imgSize}
           />

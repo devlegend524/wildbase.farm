@@ -1,7 +1,7 @@
 import { contractAddresses } from 'config/constants'
 import tokens from 'config/tokens'
 
-export const getWILDAddress = () => {
+export const getWILDXAddress = () => {
   return tokens.wild.address
 }
 export const getMasterChefAddress = () => {

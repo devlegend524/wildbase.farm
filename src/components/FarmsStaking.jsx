@@ -8,8 +8,8 @@ import { useFarmsWithBalance } from 'hooks/useFarmsWithBalance'
 import { harvest } from 'utils/callHelpers'
 import { notify } from 'utils/toastHelper'
 import { useTranslation } from 'contexts/Localization'
-import WILDHarvestBalance from './FarmStackingComponents/WILDHarvestBalance'
-import WILDWalletBalance from './FarmStackingComponents/WILDWalletBalance'
+import WILDXHarvestBalance from './FarmStackingComponents/WILDXHarvestBalance'
+import WILDXWalletBalance from './FarmStackingComponents/WILDXWalletBalance'
 
 export default function () {
   const [pendingTx, setPendingTx] = useState(false)
@@ -37,14 +37,14 @@ export default function () {
 
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
-      <div className='text-3xl text-end'>Frarms & Staking</div>
-      <div className='text-base py-4'>WILD to Harvest:</div>
+      <div className='text-3xl text-end'>Farms & Staking</div>
+      <div className='text-base py-4'>WILDX to Harvest:</div>
       <div className='text-sm text-gray-300'>
-        <WILDHarvestBalance farmsWithBalance={balancesWithValue} />
+        <WILDXHarvestBalance farmsWithBalance={balancesWithValue} />
       </div>
-      <div className='text-base py-4'>WILD in Wallet:</div>
+      <div className='text-base py-4'>WILDX in Wallet:</div>
       <div className='text-sm text-gray-300'>
-        <WILDWalletBalance />
+        <WILDXWalletBalance />
       </div>
       <div className='mt-10'>
         {address ? (
@@ -60,7 +60,7 @@ export default function () {
             }}
           >
             {pendingTx
-              ? t('Collecting WILD')
+              ? t('Collecting WILDX')
               : t('Harvest all (%count%)', {
                   count: balancesWithValue.length,
                 })}

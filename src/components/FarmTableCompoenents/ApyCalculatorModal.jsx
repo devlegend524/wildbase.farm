@@ -32,7 +32,7 @@ const ApyCalculatorModal = ({
   apr,
   linkLabel,
   linkHref,
-  earningTokenSymbol = 'WILD',
+  earningTokenSymbol = 'WILDX',
   roundingDecimals = 2,
   compoundFrequency = 1,
   performanceFee = 0,
@@ -78,10 +78,8 @@ const ApyCalculatorModal = ({
     <Modal title={t('ROI')} onDismiss={onDismiss}>
       {isFarm && (
         <Flex mb='24px' justifyContent='space-between'>
-          <Text small color='textSubtle'>
-            {t('APR (incl. LP rewards)')}
-          </Text>
-          <Text small>{apr.toFixed(roundingDecimals)}%</Text>
+          <Text color='textSubtle'>{t('APR (incl. LP rewards)')}</Text>
+          <Text>{apr.toFixed(roundingDecimals)}%</Text>
         </Flex>
       )}
       <Grid>

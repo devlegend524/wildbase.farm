@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'contexts/Localization'
-import { useTotalSupply, useWILDPerSecond } from 'hooks/useTokenBalance'
-import { usePriceWILDUsdc, useTotalValue } from 'state/hooks'
+import { useTotalSupply, useWILDXPerSecond } from 'hooks/useTokenBalance'
+import { usePriceWILDXUsdc, useTotalValue } from 'state/hooks'
 import CardValue from './FarmStackingComponents/CardValue'
 import { Skeleton } from 'uikit'
 import { convertCurrency } from 'utils/customHelpers'
@@ -12,9 +12,9 @@ export default function TotalValueLocked() {
   const tvl = tvlData
     ? tvlData.toLocaleString('en-US', { maximumFractionDigits: 1 })
     : 0
-  const wildUsdcPrice = usePriceWILDUsdc().toNumber()
+  const wildUsdcPrice = usePriceWILDXUsdc().toNumber()
   const totalSupply = useTotalSupply()
-  const wildPerSecond = useWILDPerSecond()
+  const wildxPerBlock = useWILDXPerSecond()
 
   const totalMinted = totalSupply
   const marketCap = totalSupply * wildUsdcPrice
@@ -30,23 +30,23 @@ export default function TotalValueLocked() {
           <Skeleton height={66} />
         )}
       </div>
-      <div className='text-3xl text-right mb-10'>WILD Stats</div>
+      <div className='text-3xl text-right mb-10'>WILDX Stats</div>
       <div className='flex flex-col gap-4'>
         <div className='flex items-center justify-between'>
           <p>Market cap</p>
-          <p className='h-30 '>
+          <div className='h-30 '>
             {marketCap > 0 ? (
-              <div className='text-[20px] font-semibold'>
+              <span className='text-[20px] font-semibold'>
                 $ {convertCurrency(marketCap)}
-              </div>
+              </span>
             ) : (
               <Skeleton width={80} height={30} />
             )}
-          </p>
+          </div>
         </div>
         <div className='flex items-center justify-between'>
           <p>Circulating Supply</p>
-          <p>
+          <div>
             {totalSupply && (
               <CardValue
                 fontSize='20px'
@@ -55,11 +55,11 @@ export default function TotalValueLocked() {
                 color='#fffff1'
               />
             )}
-          </p>
+          </div>
         </div>
         <div className='flex items-center justify-between'>
           <p>Total Minted</p>
-          <p>
+          <div>
             {totalMinted && (
               <CardValue
                 fontSize='20px'
@@ -68,19 +68,19 @@ export default function TotalValueLocked() {
                 color='#fffff1'
               />
             )}
-          </p>
+          </div>
         </div>
         <div className='flex items-center justify-between'>
-          <p>New WILD/second</p>
-          <p>
+          <p>New WILDX/second</p>
+          <div>
             {' '}
             <CardValue
               fontSize='20px'
               decimals={1}
-              value={wildPerSecond}
+              value={wildxPerBlock}
               color='#fffff1'
             />
-          </p>
+          </div>
         </div>
       </div>
     </div>

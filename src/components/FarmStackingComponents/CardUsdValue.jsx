@@ -4,10 +4,10 @@ import CardValue from './CardValue'
 const CardUsdValue = (props) => {
   return (
     <CardValue
-      fontSize='14px'
+      fontSize='18px'
       lineHeight='1.1'
-      color='textSubtle'
-      prefix='~$'
+      color='textWhite'
+      prefix='~$ '
       decimals={2}
       {...props}
     />

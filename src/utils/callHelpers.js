@@ -4,14 +4,15 @@ import { ethers } from 'ethers'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
 import farms from 'config/farms'
-import { getWILDAddress } from 'utils/addressHelpers'
-import tokens from 'config/tokens'
+import { getWILDXAddress } from 'utils/addressHelpers'
 import { getBalanceAmount } from './formatBalance'
-import { BIG_TEN, BIG_ZERO } from './bigNumber'
+import { BIG_ZERO } from './bigNumber'
 import { web3WithArchivedNodeProvider } from './providerHelpers'
 import { fromReadableAmount } from './customHelpers'
-export const approve = async (lpContract, masterChefContract, account) => {
-  return lpContract.approve(masterChefContract.address, ethers.constants.MaxUint256, { from: account }
+import tokens from 'config/tokens'
+
+export const approve = async (lpContract, masterChefContract, address) => {
+  return lpContract.approve(masterChefContract.address, ethers.constants.MaxUint256, { from: address }
   )
 }
 
@@ -20,22 +21,21 @@ export const stake = async (
   masterChefContract,
   pid,
   amount,
-  lockPeriod,
   decimals = 18,
 ) => {
   return await masterChefContract
-    .deposit(pid, fromReadableAmount(amount, decimals), lockPeriod)
+    .deposit(pid, fromReadableAmount(amount, decimals))
 }
 
-export const unstake = async (masterChefContract, pid, amount, account, decimals = 18) => {
+export const unstake = async (masterChefContract, pid, amount, address, decimals = 18) => {
   return await masterChefContract
-    .withdraw(pid, fromReadableAmount(amount, decimals))
+    .withdraw(pid, fromReadableAmount(amount, decimals), { from: address })
 }
 
 
 export const harvest = async (masterChefContract, pid, account) => {
   return await masterChefContract
-    .deposit(pid, '0', 0)
+    .deposit(pid, '0')
 }
 
 
@@ -43,12 +43,12 @@ const chainId = parseInt(CHAIN_ID, 10)
 const wildWethPid = 0
 const wildWethFarm = farms.find((farm) => farm.pid === wildWethPid)
 
-const WILD_TOKEN = new Token(chainId, getWILDAddress(), 18)
+const WILDX_TOKEN = new Token(chainId, getWILDXAddress(), 18)
 const WETH_TOKEN = new Token(chainId, tokens.weth.address, 18)
-const WILD_WETH_TOKEN = new Token(chainId, wildWethFarm.lpAddresses, 18)
+const WILDX_WETH_TOKEN = new Token(chainId, wildWethFarm.lpAddresses, 18)
 
 /**
- * Returns the total WILD staked in the WILD-BNB LP
+ * Returns the total WILDX staked in the WILDX-BNB LP
  */
 export const getUserStakeInWildWethLp = async (account, block) => {
   try {
@@ -59,19 +59,19 @@ export const getUserStakeInWildWethLp = async (account, block) => {
     const wildWethBalance = await masterContract.userInfo(wildWethFarm, account).call(undefined, block)
 
     const pair = new Pair(
-      new TokenAmount(WILD_TOKEN, reservesLP._reserve0.toString()),
+      new TokenAmount(WILDX_TOKEN, reservesLP._reserve0.toString()),
       new TokenAmount(WETH_TOKEN, reservesLP._reserve1.toString()),
     )
     const cakeLPBalance = pair.getLiquidityValue(
       pair.token0,
-      new TokenAmount(WILD_WETH_TOKEN, totalSupplyLP.toString()),
-      new TokenAmount(WILD_WETH_TOKEN, wildWethBalance.amount.toString()),
+      new TokenAmount(WILDX_WETH_TOKEN, totalSupplyLP.toString()),
+      new TokenAmount(WILDX_WETH_TOKEN, wildWethBalance.amount.toString()),
       false,
     )
 
     return new BigNumber(cakeLPBalance.toSignificant(18))
   } catch (error) {
-    console.error(`WILD-BNB LP error: ${error}`)
+    console.error(`WILDX-BNB LP error: ${error}`)
     return BIG_ZERO
   }
 }
@@ -79,7 +79,7 @@ export const getUserStakeInWildWethLp = async (account, block) => {
 /**
  * Gets the wild staked in the main pool
  */
-export const getUserStakeInWILDPool = async (account, block) => {
+export const getUserStakeInWILDXPool = async (account, block) => {
   try {
 
     const masterContract = getMasterchefContract(web3WithArchivedNodeProvider, CHAIN_ID)
@@ -87,7 +87,7 @@ export const getUserStakeInWILDPool = async (account, block) => {
 
     return getBalanceAmount(new BigNumber(response.amount))
   } catch (error) {
-    console.error('Error getting stake in WILD pool', error)
+    console.error('Error getting stake in WILDX pool', error)
     return BIG_ZERO
   }
 }

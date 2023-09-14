@@ -12,9 +12,9 @@ import { latinise } from 'utils/latinise'
 import { getFarmApr } from 'utils/getApr'
 import { getBalanceNumber } from 'utils/formatBalance'
 import isArchivedPid from 'utils/farmHelpers'
-import { useWILDPerSecond } from 'hooks/useTokenBalance'
+import { useWILDXPerSecond } from 'hooks/useTokenBalance'
 import { CHAIN_ID, NUMBER_OF_FARMS_VISIBLE } from 'config/config'
-import { useFarms, usePollFarmsData, usePriceWILDUsdc } from 'state/hooks'
+import { useFarms, usePollFarmsData, usePriceWILDXUsdc } from 'state/hooks'
 import { useAccount, useNetwork } from 'wagmi'
 
 export default function Farms() {
@@ -26,7 +26,7 @@ export default function Farms() {
   const isActive = !isInactive && !isArchived
   usePollFarmsData(isArchived)
 
-  const wildPrice = usePriceWILDUsdc()
+  const wildPrice = usePriceWILDXUsdc()
   const loadMoreRef = useRef()
 
   const [userDataReady, setUserDataReady] = useState('hot')
@@ -37,7 +37,7 @@ export default function Farms() {
     NUMBER_OF_FARMS_VISIBLE
   )
   const [observerIsSet, setObserverIsSet] = useState(false)
-  const wildPerSecond = useWILDPerSecond()
+  const wildxPerBlock = useWILDXPerSecond()
 
   const { data: farmsData, userDataLoaded } = useFarms()
 
@@ -102,10 +102,8 @@ export default function Farms() {
           new BigNumber(farm.poolWeight),
           wildPrice,
           totalLiquidity,
-          farm.lpAddresses,
-          wildPerSecond
+          wildxPerBlock
         )
-
         return { ...farm, apr, liquidity: totalLiquidity }
       })
 
@@ -117,7 +115,7 @@ export default function Farms() {
       }
       return farmsToDisplayWithAPR
     },
-    [wildPrice, query, isActive, wildPerSecond]
+    [wildPrice, query, isActive, wildxPerBlock]
   )
 
   useEffect(() => {

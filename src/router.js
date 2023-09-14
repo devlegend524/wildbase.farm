@@ -5,8 +5,8 @@ import { createBrowserRouter } from "react-router-dom";
 const Home = lazy(() => import('pages/Home'))
 const Farm = lazy(() => import('pages/Farms'))
 const NotFound = lazy(() => import('pages/NotFound'))
-const Presale = lazy(() => import('pages/Presale'))
-const Zap = lazy(() => import('pages/Zap'))
+// const Presale = lazy(() => import('pages/Presale'))
+// const Zap = lazy(() => import('pages/Zap'))
 
 const PageRouter = createBrowserRouter([
   {
@@ -16,10 +16,6 @@ const PageRouter = createBrowserRouter([
   {
     path: "/farms",
     element: <Farm />,
-  },
-  {
-    path: "/presale",
-    element: <Presale />,
   },
   // {
   //   path: "/zap",
