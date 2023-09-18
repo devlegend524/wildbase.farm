@@ -59,12 +59,12 @@ export default function FarmBanner() {
   return (
     <div className='flex justify-center flex-col md:flex-row main_bg rounded-md'>
       <div className='p-3 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
-        <h1 className='text-7xl'>WILDX ON BASE</h1>
+        <h1 className='text-7xl'>2WILD ON BASE</h1>
         <p className='py-4'>
-          The WILDX token rewards users who single-stake or provide liquidity. 1
-          WILDX will be minted evry block. All deposit fee and sales taxes
-          automatically buyback and burn WILDX 24/7 for prolonged sustainability
-          and price appreciation. Stay WILDX 🤞.
+          The 2WILD token rewards users who single-stake or provide liquidity. 1
+          2WILD will be minted evry block. All deposit fee and sales taxes
+          automatically buyback and burn 2WILD 24/7 for prolonged sustainability
+          and price appreciation. Stay 2WILD 🤞.
         </p>
       </div>
       <div className='flex justify-end p-3 md:p-6 w-fill md:w-1/2 xl:w-1/3'>
@@ -75,13 +75,13 @@ export default function FarmBanner() {
               href={`${BASE_SWAP_URL}?inputCurrency=${getWethAddress()}&outputCurrency=${getWILDXAddress()}`}
               target='_blank'
             >
-              Buy WILDX
+              Buy 2WILD
             </a>
             <button
               onClick={addWatchWILDXToken}
               className='main_btn flex items-center justify-center'
             >
-              Add WILDX to &nbsp;
+              Add 2WILD to &nbsp;
               <svg
                 viewBox='0 0 35 33'
                 color='text'
