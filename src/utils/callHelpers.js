@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { CHAIN_ID } from 'config/config'
+import { CHAIN_ID, wildWethFarmPid } from 'config/config'
 import { ethers } from 'ethers'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
@@ -10,6 +10,7 @@ import { BIG_ZERO } from './bigNumber'
 import { web3WithArchivedNodeProvider } from './providerHelpers'
 import { fromReadableAmount } from './customHelpers'
 import tokens from 'config/tokens'
+
 
 export const approve = async (lpContract, masterChefContract, address) => {
   return lpContract.approve(masterChefContract.address, ethers.constants.MaxUint256, { from: address }
@@ -55,7 +56,6 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
 
 
 export const harvest = async (masterChefContract, pid, address) => {
-  console.log(masterChefContract)
   try {
     return await masterChefContract
       .deposit(pid, '0')
@@ -67,8 +67,7 @@ export const harvest = async (masterChefContract, pid, address) => {
 
 
 const chainId = parseInt(CHAIN_ID, 10)
-const wildWethPid = 8
-const wildWethFarm = farms.find((farm) => farm.pid === wildWethPid)
+const wildWethFarm = farms.find((farm) => farm.pid === wildWethFarmPid)
 
 const WILDX_TOKEN = new Token(chainId, getWILDXAddress(), 18)
 const WETH_TOKEN = new Token(chainId, tokens.weth.address, 18)

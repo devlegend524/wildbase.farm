@@ -2,10 +2,10 @@ import tokens from './tokens'
 
 const farmsConfig = [
   {
-    pid: 7,
+    pid: 9,
     lpSymbol: tokens.wild.symbol,
     isTokenOnly: true,
-    lpAddresses: '0x23dc96d1f4CAD9e21C825b7cd945F238768AE858', //'0x7c1f5FAC2Ed605Ba8818dEE87dC41c80674F9f68',
+    lpAddresses: '0x0d317D14e751cCE02029E2051923A46B366b4A78', //'0x23dc96d1f4CAD9e21C825b7cd945F238768AE858', //'0x7c1f5FAC2Ed605Ba8818dEE87dC41c80674F9f68',
     token: tokens.wild,
     quoteToken: tokens.wild,
     logoA: '/images/tokens/wildx.svg',
@@ -32,9 +32,9 @@ const farmsConfig = [
     logoB: ''
   },
   {
-    pid: 8,
+    pid: 10,
     lpSymbol: 'WETH-2WILD',
-    lpAddresses: '0x6699F44A6dD2DF8ecEDb4C8688ef4ACd15CD24D7', //'0x248a94FE9526a10A2d6714ecdABcEC5932DeFB00',
+    lpAddresses: '0x2bE9A91901B7209d52E2Dd2a2c33a6C9C5E2Ce40', //'0x248a94FE9526a10A2d6714ecdABcEC5932DeFB00',
     token: tokens.wild,
     quoteToken: tokens.weth,
     logoA: '/images/tokens/wildx.svg',

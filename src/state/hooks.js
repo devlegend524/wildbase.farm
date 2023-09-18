@@ -18,6 +18,8 @@ import {
 } from './actions'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
 import { useAccount } from 'wagmi'
+import { wildWethFarmPid, wethUsdcFarmPid } from 'config/config'
+
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
   const { fastRefresh } = useRefresh()
@@ -220,12 +222,12 @@ export const useProfile = () => {
 
 export const usePriceEthUsdc = () => {
 
-  const ethUsdcFarm = useFarmFromPid(3)
+  const ethUsdcFarm = useFarmFromPid(wethUsdcFarmPid)
   return new BigNumber(ethUsdcFarm.quoteToken.usdcPrice)
 }
 
 export const usePriceWILDXUsdc = () => {
-  const wildEthFarm = useFarmFromPid(8)
+  const wildEthFarm = useFarmFromPid(wildWethFarmPid)
   return new BigNumber(wildEthFarm.token.usdcPrice)
 }
 
