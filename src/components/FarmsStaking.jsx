@@ -27,6 +27,7 @@ export default function () {
     for (const farmWithBalance of balancesWithValue) {
       try {
         // eslint-disable-next-line no-await-in-loop
+        console.log(farmWithBalance.pid)
         await harvest(masterChefContract, farmWithBalance.pid, signer)
       } catch (error) {
         notify('error', error?.message)

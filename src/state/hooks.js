@@ -225,7 +225,7 @@ export const usePriceEthUsdc = () => {
 }
 
 export const usePriceWILDXUsdc = () => {
-  const wildEthFarm = useFarmFromPid(2)
+  const wildEthFarm = useFarmFromPid(8)
   return new BigNumber(wildEthFarm.token.usdcPrice)
 }
 

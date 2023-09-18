@@ -78,7 +78,7 @@ const getFarmQuoteTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt, wildxPriceU
 const fetchFarmsPrices = async (farms) => {
   const wethUsdtFarm = farms.find((farm) => farm.pid === 3)
   const wethPriceUsdt = wethUsdtFarm.tokenPriceVsQuote > 0 ? BIG_ONE.div(wethUsdtFarm.tokenPriceVsQuote) : BIG_ZERO
-  const wildxUsdtFarm = farms.find((farm) => farm.pid === 2)
+  const wildxUsdtFarm = farms.find((farm) => farm.pid === 8)
   const wildxPriceUsdt = wildxUsdtFarm.tokenPriceVsQuote > 0 ? new BigNumber(wildxUsdtFarm.tokenPriceVsQuote).times(wethPriceUsdt) : BIG_ZERO
   const farmsWithPrices = farms.map((farm) => {
     const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)

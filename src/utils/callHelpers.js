@@ -58,7 +58,7 @@ export const harvest = async (masterChefContract, pid, address) => {
   console.log(masterChefContract)
   try {
     return await masterChefContract
-      .deposit(pid, '0', { from: address })
+      .deposit(pid, '0')
   } catch (e) {
     console.log(e)
     return null
@@ -67,7 +67,7 @@ export const harvest = async (masterChefContract, pid, address) => {
 
 
 const chainId = parseInt(CHAIN_ID, 10)
-const wildWethPid = 2
+const wildWethPid = 8
 const wildWethFarm = farms.find((farm) => farm.pid === wildWethPid)
 
 const WILDX_TOKEN = new Token(chainId, getWILDXAddress(), 18)
