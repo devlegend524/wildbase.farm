@@ -22,6 +22,16 @@ const farmsConfig = [
     logoB: ''
   },
   {
+    pid: 6,
+    lpSymbol: tokens.dai.symbol,
+    isTokenOnly: true,
+    lpAddresses: '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb',
+    token: tokens.dai,
+    quoteToken: tokens.weth,
+    logoA: '/images/tokens/dai.svg',
+    logoB: ''
+  },
+  {
     pid: 2,
     lpSymbol: 'WETH-2WILD',
     lpAddresses: '0x248a94FE9526a10A2d6714ecdABcEC5932DeFB00',
