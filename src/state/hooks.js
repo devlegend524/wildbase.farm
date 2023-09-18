@@ -20,7 +20,7 @@ import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
 import { useAccount } from 'wagmi'
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
-  const { slowRefresh } = useRefresh()
+  const { fastRefresh } = useRefresh()
   const { address } = useAccount()
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const usePollFarmsData = (includeArchive = false) => {
     if (address) {
       dispatch(fetchFarmUserDataAsync({ account: address, pids }))
     }
-  }, [includeArchive, dispatch, slowRefresh, address])
+  }, [includeArchive, dispatch, fastRefresh, address])
 }
 
 /**
@@ -219,12 +219,13 @@ export const useProfile = () => {
 }
 
 export const usePriceEthUsdc = () => {
-  const ethUsdcFarm = useFarmFromPid(2)
+
+  const ethUsdcFarm = useFarmFromPid(3)
   return new BigNumber(ethUsdcFarm.quoteToken.usdcPrice)
 }
 
 export const usePriceWILDXUsdc = () => {
-  const wildEthFarm = useFarmFromPid(3)
+  const wildEthFarm = useFarmFromPid(2)
   return new BigNumber(wildEthFarm.token.usdcPrice)
 }
 
@@ -338,7 +339,6 @@ export const useTotalValue = () => {
   const farms = useFarms()
   const wethPrice = usePriceEthUsdc()
   const wildPrice = usePriceWILDXUsdc()
-  // console.log(wildPrice.toString())
   let value = new BigNumber(0)
   for (let i = 0; i < farms.data.length; i++) {
     const farm = farms.data[i]
@@ -346,7 +346,7 @@ export const useTotalValue = () => {
       let val
       if (farm.quoteToken.symbol === 'WETH' && wethPrice) {
         val = wethPrice.times(farm.lpTotalInQuoteToken)
-      } else if (farm.quoteToken.symbol === 'WILDX') {
+      } else if (farm.quoteToken.symbol === '2WILD') {
         val = wildPrice.times(farm.lpTotalInQuoteToken)
       } else {
         val = farm.lpTotalInQuoteToken

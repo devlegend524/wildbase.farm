@@ -38,11 +38,11 @@ export default function () {
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
       <div className='text-3xl text-end'>Farms & Staking</div>
-      <div className='text-base py-4'>WILDX to Harvest:</div>
+      <div className='text-base py-4'>2WILD to Harvest:</div>
       <div className='text-sm text-gray-300'>
         <WILDXHarvestBalance farmsWithBalance={balancesWithValue} />
       </div>
-      <div className='text-base py-4'>WILDX in Wallet:</div>
+      <div className='text-base py-4'>2WILD in Wallet:</div>
       <div className='text-sm text-gray-300'>
         <WILDXWalletBalance />
       </div>
@@ -60,7 +60,7 @@ export default function () {
             }}
           >
             {pendingTx
-              ? t('Collecting WILDX')
+              ? t('Collecting 2WILD')
               : t('Harvest all (%count%)', {
                   count: balancesWithValue.length,
                 })}

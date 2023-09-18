@@ -8,7 +8,7 @@ const getFarmFromTokenSymbol = (farms, tokenSymbol, preferredQuoteTokens) => {
   return filteredFarm
 }
 
-const getFarmBaseTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt) => {
+const getFarmBaseTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt, wildxPriceUsdt) => {
   const hasTokenPriceVsQuote = Boolean(farm.tokenPriceVsQuote)
   if (['USDC', 'USDT'].includes(farm.quoteToken.symbol)) {
     return hasTokenPriceVsQuote ? new BigNumber(farm.tokenPriceVsQuote) : BIG_ZERO
@@ -16,7 +16,9 @@ const getFarmBaseTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt) => {
   if (farm.quoteToken.symbol === 'WETH') {
     return hasTokenPriceVsQuote ? wethPriceUsdt.times(farm.tokenPriceVsQuote) : BIG_ZERO
   }
-
+  if (farm.quoteToken.symbol === '2WILD') {
+    return hasTokenPriceVsQuote ? wildxPriceUsdt.times(farm.tokenPriceVsQuote) : BIG_ZERO
+  }
 
   // We can only calculate profits without a quoteTokenFarm for BUSD/BNB farms
   if (!quoteTokenFarm) {
@@ -46,17 +48,18 @@ const getFarmBaseTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt) => {
   return BIG_ZERO
 }
 
-const getFarmQuoteTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt) => {
-  // console.log("quoteTokenFarm.tokenPriceVsQuote", farm, quoteTokenFarm, wethPriceUsdt.toNumber());
+const getFarmQuoteTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt, wildxPriceUsdt) => {
   if (['USDC', 'USDT'].includes(farm.quoteToken.symbol)) {
     return BIG_ONE
   }
+  if (farm.quoteToken.symbol === '2WILD') {
 
+    return wildxPriceUsdt
+  }
   if (farm.quoteToken.symbol === 'WETH') {
     return wethPriceUsdt
   }
-  console.log("quoteTokenFarm")
-  console.log(quoteTokenFarm)
+  console.log(farm.quoteToken.symbol)
   if (!quoteTokenFarm) {
     return BIG_ZERO
   }
@@ -73,19 +76,14 @@ const getFarmQuoteTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt) => {
 }
 
 const fetchFarmsPrices = async (farms) => {
-  let wethPriceUsdt;
-  try {
-    const res = await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
-    const result = await res.json()
-    wethPriceUsdt = new BigNumber(result?.USD)
-
-  } catch (e) {
-    wethPriceUsdt = BIG_ZERO
-  }
+  const wethUsdtFarm = farms.find((farm) => farm.pid === 3)
+  const wethPriceUsdt = wethUsdtFarm.tokenPriceVsQuote > 0 ? BIG_ONE.div(wethUsdtFarm.tokenPriceVsQuote) : BIG_ZERO
+  const wildxUsdtFarm = farms.find((farm) => farm.pid === 2)
+  const wildxPriceUsdt = wildxUsdtFarm.tokenPriceVsQuote > 0 ? new BigNumber(wildxUsdtFarm.tokenPriceVsQuote).times(wethPriceUsdt) : BIG_ZERO
   const farmsWithPrices = farms.map((farm) => {
     const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)
-    const baseTokenPrice = getFarmBaseTokenPrice(farm, quoteTokenFarm, wethPriceUsdt)
-    const quoteTokenPrice = getFarmQuoteTokenPrice(farm, quoteTokenFarm, wethPriceUsdt)
+    const baseTokenPrice = getFarmBaseTokenPrice(farm, quoteTokenFarm, wethPriceUsdt, wildxPriceUsdt)
+    const quoteTokenPrice = getFarmQuoteTokenPrice(farm, quoteTokenFarm, wethPriceUsdt, wildxPriceUsdt)
 
     const token = { ...farm.token, usdcPrice: baseTokenPrice.toJSON() }
     const quoteToken = { ...farm.quoteToken, usdcPrice: quoteTokenPrice.toJSON() }

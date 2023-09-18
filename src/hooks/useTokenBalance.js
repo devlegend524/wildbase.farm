@@ -47,7 +47,7 @@ const useTokenBalance = (tokenAddress) => {
 }
 
 export const useTotalSupply = () => {
-  const { slowRefresh } = useRefresh()
+  const { fastRefresh } = useRefresh()
   const [totalSupply, setTotalSupply] = useState()
   const { chain } = useNetwork()
   const provider = useEthersProvider()
@@ -58,13 +58,13 @@ export const useTotalSupply = () => {
       setTotalSupply(ethers.utils.formatUnits(supply, 18))
     }
     fetchTotalSupply()
-  }, [slowRefresh])
+  }, [fastRefresh])
 
   return totalSupply
 }
 
 export const useWILDXPerSecond = () => {
-  const { slowRefresh } = useRefresh()
+  const { fastRefresh } = useRefresh()
   const [wildxPerBlock, setWildPerSecond] = useState(BIG_ZERO)
   const { chain } = useNetwork()
   const provider = useEthersProvider()
@@ -76,14 +76,14 @@ export const useWILDXPerSecond = () => {
     }
 
     fetchWildPerSecond()
-  }, [slowRefresh])
+  }, [fastRefresh])
 
   return wildxPerBlock
 }
 
 export const useBurnedBalance = (tokenAddress) => {
   const [balance, setBalance] = useState(BIG_ZERO)
-  const { slowRefresh } = useRefresh()
+  const { fastRefresh } = useRefresh()
   const provider = useEthersProvider()
 
   useEffect(() => {
@@ -94,14 +94,14 @@ export const useBurnedBalance = (tokenAddress) => {
     }
 
     fetchBalance()
-  }, [tokenAddress, slowRefresh])
+  }, [tokenAddress, fastRefresh])
 
   return balance
 }
 
 export const useWILDXBurnedBalance = () => {
   const [balance, setBalance] = useState(BIG_ZERO)
-  const { slowRefresh } = useRefresh()
+  const { fastRefresh } = useRefresh()
   const { chain } = useNetwork()
   const provider = useEthersProvider()
   useEffect(() => {
@@ -112,7 +112,7 @@ export const useWILDXBurnedBalance = () => {
     }
 
     fetchBalance()
-  }, [slowRefresh])
+  }, [fastRefresh])
 
   return balance
 }

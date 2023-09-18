@@ -4,7 +4,7 @@ import useRefresh from './useRefresh'
 
 const useStartTime = () => {
   const masterChefContract = useMasterchef()
-  const { slowRefresh } = useRefresh()
+  const { fastRefresh } = useRefresh()
   const [loading, setLoading] = useState < boolean > (false)
   const [data, setData] = useState < number > (0)
 
@@ -22,7 +22,7 @@ const useStartTime = () => {
     }
 
     fetchStartTime()
-  }, [masterChefContract, slowRefresh])
+  }, [masterChefContract, fastRefresh])
 
   return {
     data,

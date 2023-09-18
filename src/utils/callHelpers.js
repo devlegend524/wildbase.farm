@@ -40,7 +40,7 @@ export const harvest = async (masterChefContract, pid, account) => {
 
 
 const chainId = parseInt(CHAIN_ID, 10)
-const wildWethPid = 0
+const wildWethPid = 2
 const wildWethFarm = farms.find((farm) => farm.pid === wildWethPid)
 
 const WILDX_TOKEN = new Token(chainId, getWILDXAddress(), 18)

@@ -35,7 +35,7 @@ export default function FarmBanner() {
             type: 'ERC20',
             options: {
               address: token,
-              symbol: 'WILDX',
+              symbol: '2WILD',
               decimals: '18',
               image: `${BASE_URL}/images/tokens/wildx.svg`,
             },

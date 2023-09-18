@@ -13,13 +13,13 @@ const fetchPublicFarmData = async (farm) => {
     {
       address: token.address,
       name: 'balanceOf',
-      params: [lpAddress],
+      params: [farm.isTokenOnly ? getMasterChefAddress() : lpAddress],
     },
     // Balance of quote token on LP contract
     {
       address: quoteToken.address,
       name: 'balanceOf',
-      params: [lpAddress],
+      params: [farm.isTokenOnly ? getMasterChefAddress() : lpAddress],
     },
     // Balance of LP tokens in the master chef contract
     {
@@ -111,7 +111,6 @@ const fetchPublicFarmData = async (farm) => {
 
   // TODO Remove on production
   // if(farm.pid === 0) tokenPriceVsQuote = BIG_ONE
-
   const publicData = {
     tokenAmountTotal: tokenAmountTotal.toJSON(),
     quoteTokenAmountTotal: quoteTokenAmountTotal.toJSON(),
