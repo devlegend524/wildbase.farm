@@ -35,7 +35,7 @@ export default function ZapperDepositModal(props) {
   const tokenABI = props.tokenA.isTokenOnly ? erc20ABI : lpTokenAbi
 
   const [allowance, setAllowance] = useState(0)
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState('')
 
   const tokenAAllownceRead = useContractRead({
     address: props.tokenA.lpAddresses,
@@ -88,6 +88,7 @@ export default function ZapperDepositModal(props) {
 
   function closeModal() {
     setOpen(false)
+    setAmount('')
   }
 
   function handleDeposit() {
@@ -115,8 +116,6 @@ export default function ZapperDepositModal(props) {
     updateUI()
   }, [])
 
-  console.log(zapAddress)
-
   return (
     <>
       <div className='flex justify-center pb-16'>
@@ -134,7 +133,7 @@ export default function ZapperDepositModal(props) {
         style={customStyles}
         ariaHideApp={false}
       >
-        <div className='w-[350px] p-6 rounded-lg'>
+        <div className='min-w-[350px] max-w-[500px] w-full p-6 rounded-lg'>
           <div className='flex justify-around'>
             <TokenDisplay token={props.tokenA} modal={true} />
             <TokenDisplay token={props.tokenB} modal={true} />
@@ -149,8 +148,8 @@ export default function ZapperDepositModal(props) {
           <div className='form_input'>
             <input
               type='number'
-              placeholder='0'
-              className='h-[45px!important]'
+              placeholder='0.0'
+              className='h-[45px!important] placeholder-[gray!important]'
               value={amount}
               min={0}
               onChange={(e) => setAmount(e.target.value)}

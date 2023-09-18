@@ -27,8 +27,8 @@ const farmsConfig = [
     lpAddresses: '0xeF24722d5daE32Dc155d961561cFFbc5f347EeE7',
     token: tokens.usdc,
     quoteToken: tokens.weth,
-    logoA: '/images/tokens/usdc.svg',
-    logoB: '/images/tokens/weth.svg'
+    logoA: '/images/tokens/weth.svg',
+    logoB: '/images/tokens/usdc.svg'
   },
   {
     pid: 3,

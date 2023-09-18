@@ -149,11 +149,11 @@ export default function Zap() {
           </div>
         </div>
 
-        <div
-          className='flex justify-center items-center'
-          onClick={handleReverse}
-        >
-          <MdOutlineSwapHorizontalCircle className='text-[80px] cursor-pointer scale-100 hover:scale-105 transition ease-in-out rotate-90 md:rotate-180' />
+        <div className='flex justify-center items-center'>
+          <MdOutlineSwapHorizontalCircle
+            onClick={handleReverse}
+            className='text-[80px] cursor-pointer scale-100 hover:scale-105 transition ease-in-out rotate-90 md:rotate-180'
+          />
         </div>
 
         <div className='flex justify-center'>
