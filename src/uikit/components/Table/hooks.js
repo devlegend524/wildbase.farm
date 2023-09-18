@@ -264,9 +264,9 @@ const createReducer =
     }
 
 const sortDataInOrder = (data, columns) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   return data.map((row) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const newRow = {}
     columns.forEach((column) => {
       if (!(column.name in row)) {
@@ -355,9 +355,7 @@ export const useTable = (
       perPage: 10,
       canNext: true,
       canPrev: false,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
       nextPage: noop,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
       prevPage: noop,
     },
   })

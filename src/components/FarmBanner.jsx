@@ -22,8 +22,6 @@ export default function FarmBanner() {
   // const provider = useEthersProvider()
 
   const addWatchWILDXToken = useCallback(async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const provider = window.ethereum
     if (provider) {
       console.log('asdfasdf', provider)
