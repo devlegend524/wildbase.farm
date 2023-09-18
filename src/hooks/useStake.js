@@ -28,7 +28,8 @@ const useStake = (pid) => {
         amount,
         tokenDecimals
       )
-      await txHash.wait()
+      if (txHash)
+        await txHash.wait()
     },
     [address, masterChefContract, pid, tokenDecimals],
   )

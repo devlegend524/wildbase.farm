@@ -23,19 +23,36 @@ export const stake = async (
   amount,
   decimals = 18,
 ) => {
-  return await masterChefContract
-    .deposit(pid, fromReadableAmount(amount, decimals))
+  try {
+    return await masterChefContract
+      .deposit(pid, fromReadableAmount(amount, decimals))
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+
 }
 
 export const unstake = async (masterChefContract, pid, amount, address, decimals = 18) => {
-  return await masterChefContract
-    .withdraw(pid, fromReadableAmount(amount, decimals), { from: address })
+  try {
+    return await masterChefContract
+      .withdraw(pid, fromReadableAmount(amount, decimals), { from: address })
+  } catch (e) {
+    console.log(e)
+    return null
+  }
 }
 
 
-export const harvest = async (masterChefContract, pid, account) => {
-  return await masterChefContract
-    .deposit(pid, '0')
+export const harvest = async (masterChefContract, pid, address) => {
+  console.log(masterChefContract)
+  try {
+    return await masterChefContract
+      .deposit(pid, '0', { from: address })
+  } catch (e) {
+    console.log(e)
+    return null
+  }
 }
 
 
