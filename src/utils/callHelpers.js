@@ -42,6 +42,16 @@ export const unstake = async (masterChefContract, pid, amount, address, decimals
     return null
   }
 }
+export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
+  try {
+    console.log(tokenA, amount.toString(), tokenB)
+    return await zapContract
+      .zap(tokenA, amount, tokenB, { from: address })
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
 
 
 export const harvest = async (masterChefContract, pid, address) => {

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useEthersProvider, useEthersSigner } from 'hooks/useEthers'
-import { getErc20Contract, getWILDXContract, getMasterchefContract, } from 'utils/contractHelpers'
+import { getErc20Contract, getWILDXContract, getMasterchefContract, getZapContract } from 'utils/contractHelpers'
 import { useNetwork } from 'wagmi'
 import { CHAIN_ID } from 'config/config'
 /**
@@ -24,4 +24,11 @@ export const useMasterchef = () => {
   const { chain } = useNetwork()
   return useMemo(() => chain &&
     (chain.id === CHAIN_ID) && getMasterchefContract(signer, chain?.id), [signer, chain])
+}
+
+export const useZapContract = () => {
+  const signer = useEthersSigner()
+  const { chain } = useNetwork()
+  return useMemo(() => chain &&
+    (chain.id === CHAIN_ID) && getZapContract(signer, chain?.id), [signer, chain])
 }

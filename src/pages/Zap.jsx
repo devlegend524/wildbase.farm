@@ -62,13 +62,15 @@ export default function Zap() {
   const updateUI = async () => {
     try {
       const rdep = (tokenABalanceRead.data || 0).toString()
-
+      console.log(rdep)
       setAvailableA(
         tokenA.lpSymbol == 'USDC' || tokenA.lpSymbol == 'USDT'
           ? ethers.utils.formatUnits(rdep, 6)
           : ethers.utils.formatEther(rdep)
       )
-    } catch {}
+    } catch (e) {
+      console.log(e)
+    }
     try {
       const read1 = (tokenBBalanceRead.data || 0).toString()
       setAvailableB(
@@ -92,7 +94,7 @@ export default function Zap() {
     return () => {
       clearInterval(fetchTimer)
     }
-  }, [])
+  }, [tokenABalanceRead])
 
   return (
     <div className='container'>

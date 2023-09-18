@@ -13,7 +13,7 @@ import TokenDisplay from 'components/TokenDisplay'
 import { getZapAddress } from 'utils/addressHelpers'
 import zapABI from 'config/abi/zap'
 import lpTokenAbi from 'config/abi/lpToken'
-
+import useZap from 'hooks/useZap'
 const customStyles = {
   content: {
     top: '50%',
@@ -32,6 +32,7 @@ export default function ZapperDepositModal(props) {
   const zapAddress = getZapAddress()
   const [open, setOpen] = useState(false)
   const { address } = useAccount()
+  const { onZap } = useZap()
   const tokenABI = props.tokenA.isTokenOnly ? erc20ABI : lpTokenAbi
 
   const [allowance, setAllowance] = useState(0)
@@ -41,33 +42,12 @@ export default function ZapperDepositModal(props) {
     address: props.tokenA.lpAddresses,
     abi: tokenABI,
     functionName: 'allowance',
-    args: [address || '0x000000000000000000000000000000000000dead'],
+    args: [address || '0x000000000000000000000000000000000000dead', zapAddress],
     chainId: 8453,
 
     onSuccess(data) {
       console.log('Success', data)
     },
-  })
-
-  const { config, error, refetch } = usePrepareContractWrite({
-    address: zapAddress,
-    abi: zapABI,
-    functionName: 'zap',
-    args: [
-      props.tokenA.lpAddresses,
-      ethers.utils.parseEther(amount.toString() || '1'),
-      props.tokenB.lpAddresses,
-    ],
-    chainId: 8453,
-  })
-
-  const { write, isSuccess, data, isLoading, reset } = useContractWrite({
-    ...config,
-  })
-
-  const { isSuccess: finished } = useWaitForTransaction({
-    chainId: 8543,
-    hash: data?.hash,
   })
 
   const { config: approveConfig } = usePrepareContractWrite({
@@ -91,18 +71,29 @@ export default function ZapperDepositModal(props) {
     setAmount('')
   }
 
-  function handleDeposit() {
+  async function handleDeposit() {
     if (props.tokenA.lpSymbol == 'USDC' || props.tokenA.lpSymbol == 'USDT') {
       if (ethers.utils.formatUnits(allowance, 6) < amount) {
         approveWrite?.()
       } else {
-        write?.()
+        await onZap(
+          props.tokenA.lpAddresses,
+          ethers.utils.parseEther(amount.toString() || '1'),
+          props.tokenB.lpAddresses
+        )
       }
     } else {
       if (ethers.utils.formatUnits(allowance, 'ether') < amount) {
+        console.log('approving...')
         approveWrite?.()
       } else {
-        write?.()
+        console.log('zapping...')
+        await onZap(
+          props.tokenA.lpAddresses,
+          ethers.utils.parseEther(amount.toString() || '1'),
+          props.tokenB.lpAddresses
+        )
+        console.log('zapped...')
       }
     }
   }
@@ -114,7 +105,7 @@ export default function ZapperDepositModal(props) {
 
   useEffect(() => {
     updateUI()
-  }, [])
+  }, [tokenAAllownceRead])
 
   return (
     <>
