@@ -52,12 +52,12 @@ export const Default = () => {
       <Text color='red'>Custom color</Text>
       <Text color='primary'>Custom color from theme</Text>
       <Text color='secondary'>with text transform</Text>
-      <Text textAlign='center'>center</Text>
-      <Text display='inline' color='textSubtle'>
+      <Text>center</Text>
+      <Text display='inline' color='white'>
         Example of{' '}
       </Text>
       <Text display='inline'>inline </Text>
-      <Text display='inline' color='textSubtle'>
+      <Text display='inline' color='white'>
         Text
       </Text>
       <Text width='250px'>

@@ -4,11 +4,7 @@ import { Text, Button, Input, Flex, Link } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import { BigNumber } from 'bignumber.js'
 
-const getBoxShadow = ({ isWarning = false, theme }) => {
-  if (isWarning) {
-    return theme.shadows.warning
-  }
-
+const getBoxShadow = ({ theme }) => {
   return theme.shadows.inset
 }
 
@@ -71,13 +67,13 @@ const ModalInput = ({
   return (
     <div style={{ position: 'relative' }}>
       <StyledTokenInput>
-        <Flex justifyContent='space-between' pl='16px'>
+        <Flex alignItems='center' justifyContent='space-between' pl='16px'>
           <Text fontSize='14px'>{inputTitle}</Text>
           <Text fontSize='14px'>
             {t('Balance: %balance%', { balance: displayBalance(max) })}
           </Text>
         </Flex>
-        <Flex alignItems='flex-end' justifyContent='space-around'>
+        <Flex alignItems='center' justifyContent='space-around'>
           <StyledInput
             pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
             inputMode='decimal'

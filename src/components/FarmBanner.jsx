@@ -60,7 +60,7 @@ export default function FarmBanner() {
     <div className='flex justify-center flex-col md:flex-row main_bg rounded-md'>
       <div className='p-3 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
         <h1 className='text-7xl'>2WILD ON BASE</h1>
-        <p className='py-4'>
+        <p className='pt-4'>
           The 2WILD token rewards users who single-stake or provide liquidity. 1
           2WILD will be minted evry block. All deposit fee and sales taxes
           automatically buyback and burn 2WILD 24/7 for prolonged sustainability
@@ -213,7 +213,7 @@ export default function FarmBanner() {
           </div>
           <div className='flex items-center justify-center'>
             <a
-              className=' w-100  flex items-center justify-center py-8 text-base hover:underline'
+              className=' w-100  flex items-center justify-center py-5 text-base hover:underline'
               href={`${
                 chain &&
                 (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)

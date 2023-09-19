@@ -2,10 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { HelpIcon, Skeleton } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
-
-const ReferenceElement = styled.div`
-  display: inline-block;
-`
+import { Tooltip } from 'react-tooltip'
 
 const MultiplierWrapper = styled.div`
   color: #0052ff;
@@ -47,7 +44,12 @@ const Multiplier = ({ multiplier }) => {
   return (
     <Container>
       <MultiplierWrapper>{displayMultiplier}</MultiplierWrapper>
-      <HelpIcon color='textSubtle' />
+      <HelpIcon
+        data-tooltip-id='liquidity-tooltip'
+        data-tooltip-content='The Multiplier represents the 
+        proportion of 2WILD rewards each farm receives'
+      />
+      <Tooltip id='liquidity-tooltip' />
     </Container>
   )
 }

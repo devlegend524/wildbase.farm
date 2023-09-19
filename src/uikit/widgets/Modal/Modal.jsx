@@ -24,7 +24,7 @@ const Modal = ({
 }) => {
   const theme = useTheme()
   return (
-    <ModalContainer minWidth={minWidth} {...props}>
+    <ModalContainer {...props}>
       <ModalHeader
         background={getThemeValue(
           `colors.${headerBackground}`,

@@ -22,7 +22,7 @@ const ApyButton = ({ lpLabel, wildPrice, apr, addLiquidityUrl }) => {
 
   return (
     <IconButton onClick={handleClickButton} variant='text' scale='sm' ml='4px'>
-      <CalculateIcon width='18px' />
+      <CalculateIcon width='18px' style={{ color: 'white' }} />
     </IconButton>
   )
 }

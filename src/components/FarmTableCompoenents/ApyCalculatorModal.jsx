@@ -78,30 +78,23 @@ const ApyCalculatorModal = ({
     <Modal title={t('ROI')} onDismiss={onDismiss}>
       {isFarm && (
         <Flex mb='24px' justifyContent='space-between'>
-          <Text color='textSubtle'>{t('APR (incl. LP rewards)')}</Text>
+          <Text color='black'>{t('APR (incl. LP rewards)')}</Text>
           <Text>{apr.toFixed(roundingDecimals)}%</Text>
         </Flex>
       )}
       <Grid>
         <GridHeaderItem>
-          <Text fontSize='12px' color='textSubtle' mb='12px'>
+          <Text fontSize='14px' color='black' mb='12px'>
             {t('Timeframe')}
           </Text>
         </GridHeaderItem>
         <GridHeaderItem>
-          <Text
-            textAlign='right'
-            fontSize='12px'
-            color='textSubtle'
-            mr='12px'
-            ml='12px'
-            mb='12px'
-          >
+          <Text fontSize='14px' color='black' mr='12px' ml='12px' mb='12px'>
             {t('ROI')}
           </Text>
         </GridHeaderItem>
         <GridHeaderItem>
-          <Text textAlign='right' fontSize='12px' color='textSubtle' mb='12px'>
+          <Text fontSize='14px' color='black' mb='12px'>
             {t('%symbol% per $1,000', { symbol: earningTokenSymbol })}
           </Text>
         </GridHeaderItem>
@@ -110,7 +103,7 @@ const ApyCalculatorModal = ({
           <Text>{t('%num%d', { num: 1 })}</Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='right' mr='12px' ml='12px'>
+          <Text mr='12px' ml='12px'>
             {getRoi({
               amountEarned: tokenEarnedPerThousand1D,
               amountInvested: oneThousandDollarsWorthOfToken,
@@ -119,14 +112,14 @@ const ApyCalculatorModal = ({
           </Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='right'>{tokenEarnedPerThousand1D}</Text>
+          <Text>{tokenEarnedPerThousand1D}</Text>
         </GridItem>
         {/* 7 day row */}
         <GridItem>
           <Text>{t('%num%d', { num: 7 })}</Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='right' mr='12px' ml='12px'>
+          <Text mr='12px' ml='12px'>
             {getRoi({
               amountEarned: tokenEarnedPerThousand7D,
               amountInvested: oneThousandDollarsWorthOfToken,
@@ -135,14 +128,14 @@ const ApyCalculatorModal = ({
           </Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='right'>{tokenEarnedPerThousand7D}</Text>
+          <Text>{tokenEarnedPerThousand7D}</Text>
         </GridItem>
         {/* 30 day row */}
         <GridItem>
           <Text>{t('%num%d', { num: 30 })}</Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='right' mr='12px' ml='12px'>
+          <Text mr='12px' ml='12px'>
             {getRoi({
               amountEarned: tokenEarnedPerThousand30D,
               amountInvested: oneThousandDollarsWorthOfToken,
@@ -151,14 +144,14 @@ const ApyCalculatorModal = ({
           </Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='right'>{tokenEarnedPerThousand30D}</Text>
+          <Text>{tokenEarnedPerThousand30D}</Text>
         </GridItem>
         {/* 365 day / APY row */}
         <GridItem style={{ maxWidth: '180px' }}>
           <Text>{t('365d (APY)')}</Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='right' mr='12px' ml='12px'>
+          <Text mr='12px' ml='12px'>
             {getRoi({
               amountEarned: tokenEarnedPerThousand365D,
               amountInvested: oneThousandDollarsWorthOfToken,
@@ -167,31 +160,19 @@ const ApyCalculatorModal = ({
           </Text>
         </GridItem>
         <GridItem>
-          <Text textAlign='right'>{tokenEarnedPerThousand365D}</Text>
+          <Text>{tokenEarnedPerThousand365D}</Text>
         </GridItem>
       </Grid>
-      <Flex justifyContent='center'>
-        <Box mb='28px' maxWidth='280px' p='4px'>
+      <Flex justifyContent='flex-start'>
+        <Box mb='28px' p='4px'>
           <BulletList>
             <li>
-              <Text
-                ml='-8px'
-                fontSize='12px'
-                textAlign='center'
-                color='textSubtle'
-                display='inline'
-              >
+              <Text ml='-8px' fontSize='14px' color='black' display='inline'>
                 {t('Calculated based on current rates.')}
               </Text>
             </li>
             <li>
-              <Text
-                ml='-8px'
-                fontSize='12px'
-                textAlign='center'
-                color='textSubtle'
-                display='inline'
-              >
+              <Text ml='-8px' fontSize='14px' color='black' display='inline'>
                 {t('Compounding %freq%x daily.', {
                   freq: compoundFrequency.toLocaleString(),
                 })}
@@ -199,13 +180,7 @@ const ApyCalculatorModal = ({
             </li>
             {isFarm && (
               <li>
-                <Text
-                  ml='-8px'
-                  fontSize='12px'
-                  textAlign='center'
-                  color='textSubtle'
-                  display='inline'
-                >
+                <Text ml='-8px' fontSize='14px' color='black' display='inline'>
                   {t(
                     'LP rewards: 0.17% trading fees, distributed proportionally among LP token holders.'
                   )}
@@ -213,16 +188,14 @@ const ApyCalculatorModal = ({
               </li>
             )}
             <li>
-              <Text
-                ml='-8px'
-                fontSize='12px'
-                textAlign='center'
-                color='textSubtle'
-                display='inline'
-              >
+              <Text ml='-8px' fontSize='14px' color='black' display='inline'>
                 {t(
-                  'All figures are estimates provided for your convenience only, and by no means represent guaranteed returns.'
+                  'All figures are estimates provided for your convenience only,'
                 )}
+              </Text>
+              <br />
+              <Text ml='-8px' fontSize='14px' color='black' display='inline'>
+                {t('and by no means represent guaranteed returns.')}
               </Text>
             </li>
             {performanceFee > 0 && (
@@ -230,9 +203,8 @@ const ApyCalculatorModal = ({
                 <Text
                   mt='14px'
                   ml='-8px'
-                  fontSize='12px'
-                  textAlign='center'
-                  color='textSubtle'
+                  fontSize='14px'
+                  color='black'
                   display='inline'
                 >
                   {t(

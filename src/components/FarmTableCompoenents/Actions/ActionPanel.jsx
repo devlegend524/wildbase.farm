@@ -59,10 +59,14 @@ const TagsContainer = styled.div`
   @media screen and (min-width: 576px) {
     margin-top: 16px;
   }
-
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+    margin-top: 0;
+    gap: 0.5rem;
+  }
   > div {
     height: 24px;
-    padding: 0 6px;
+    padding: 2px 6px;
     font-size: 14px;
     margin-right: 4px;
     border-radius: 5px;
@@ -72,34 +76,6 @@ const TagsContainer = styled.div`
     }
   }
 `
-
-const ActionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  @media screen and (min-width: 576px) {
-    flex-direction: row;
-    align-items: center;
-    flex-grow: 1;
-    flex-basis: 0;
-  }
-`
-
-const InfoContainer = styled.div`
-  display: block;
-  margin-top: auto;
-  margin-bottom: auto;
-  min-width: 200px;
-`
-
-const ValueContainer = styled.div`
-  display: block;
-
-  @media screen and (min-width: 968px) {
-    display: none;
-  }
-`
-
 const ValueWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -140,25 +116,27 @@ const ActionPanel = ({
     [tokenOnly, liquidityUrlPathParts, farm.token.address]
   )
   return (
-    <Container>
-      <InfoContainer>
-        {isActive && (
-          <StakeContainer>
-            <StyledLinkExternal href={link}>
-              {t('Get %symbol%', { symbol: lpLabel })}
-            </StyledLinkExternal>
-          </StakeContainer>
-        )}
-        <StyledLinkExternal href={scan}>
-          {t('View Contract')}
-        </StyledLinkExternal>
+    <div className='flex flex-col md:flex-row justify-between p-2 lg:p-3 max-w-screen w-full'>
+      <div className='flex flex-row md:flex-col items-center md:items-start justify-between md:justify-center w-full  lg:w-1/4'>
+        <div>
+          {isActive && (
+            <StakeContainer>
+              <StyledLinkExternal href={link}>
+                {t('Get %symbol%', { symbol: lpLabel })}
+              </StyledLinkExternal>
+            </StakeContainer>
+          )}
+          <StyledLinkExternal href={scan}>
+            {t('View Contract')}
+          </StyledLinkExternal>
+        </div>
         <TagsContainer>
           {noFees && <NoFeesTag />}
           {farm.withDepositLockDiscount && <DepositLockDicountTag />}
           {tokenOnly && <SingleStakeTag />}
         </TagsContainer>
-      </InfoContainer>
-      <ValueContainer>
+      </div>
+      <div className='flex flex-col justify-between md:hidden w-full'>
         <ValueWrapper>
           <Text color='textWhite'>{t('APR')}</Text>
           <Apr {...apr} />
@@ -171,12 +149,12 @@ const ActionPanel = ({
           <Text color='textWhite'>{t('Liquidity')}</Text>
           <Liquidity {...liquidity} />
         </ValueWrapper>
-      </ValueContainer>
-      <ActionContainer>
+      </div>
+      <div className='flex flex-col md:flex-row w-full lg:w-3/4'>
         <HarvestAction {...farm} userDataReady={userDataReady} />
         <StakedAction {...farm} userDataReady={userDataReady} />
-      </ActionContainer>
-    </Container>
+      </div>
+    </div>
   )
 }
 

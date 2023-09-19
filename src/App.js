@@ -1,4 +1,6 @@
 import './App.css';
+import 'react-tooltip/dist/react-tooltip.css'
+
 import '@rainbow-me/rainbowkit/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 

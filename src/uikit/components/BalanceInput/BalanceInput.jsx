@@ -29,7 +29,7 @@ const BalanceInput = ({
         {...inputProps}
       />
       {currencyValue && (
-        <Text fontSize='12px' textAlign='right' color='textSubtle'>
+        <Text fontSize='12px' color='white'>
           {currencyValue}
         </Text>
       )}

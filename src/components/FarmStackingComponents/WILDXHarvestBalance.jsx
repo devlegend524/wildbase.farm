@@ -10,7 +10,7 @@ import CardUsdValue from './CardUsdValue'
 import { useEthersSigner } from 'hooks/useEthers'
 
 const Block = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 14px;
   border-radius: 3px;
   padding-left: 5px;
 

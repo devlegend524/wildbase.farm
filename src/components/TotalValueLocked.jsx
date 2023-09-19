@@ -21,7 +21,7 @@ export default function TotalValueLocked() {
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
       <div className='text-3xl text-right'>Total Value Locked</div>
-      <div className='my-5'>
+      <div className='mb-5'>
         {tvlData !== null ? (
           <div color='#fff' className='text-2xl font-semibold text-right pb-3'>
             {`$${tvl}`} staked
@@ -30,7 +30,7 @@ export default function TotalValueLocked() {
           <Skeleton height={66} />
         )}
       </div>
-      <div className='text-3xl text-right mb-10'>2WILD Stats</div>
+      <div className='text-3xl text-right mb-5'>2WILD Stats</div>
       <div className='flex flex-col gap-4'>
         <div className='flex items-center justify-between'>
           <p>Market cap</p>

@@ -1,14 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import styled from 'styled-components'
-import {
-  Button,
-  useModal,
-  IconButton,
-  AddIcon,
-  MinusIcon,
-  Skeleton,
-  Text,
-} from 'uikit'
+import { useModal, IconButton, AddIcon, MinusIcon, Skeleton, Text } from 'uikit'
 import { useLocation } from 'react-router-dom'
 import { BigNumber } from 'bignumber.js'
 import Balance from 'components/Balance'
@@ -31,10 +22,7 @@ import DepositModal from '../../DepositModal'
 import WithdrawModal from '../../WithdrawModal'
 import { ActionContainer, ActionTitles, ActionContent, Earned } from './styles'
 import { useAccount } from 'wagmi'
-
-const IconButtonWrapper = styled.div`
-  display: flex;
-`
+import { Tooltip } from 'react-tooltip'
 
 const StakedAction = ({
   isTokenOnly,
@@ -137,7 +125,7 @@ const StakedAction = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <Text color='textSubtle' fontSize='20px'>
+          <Text color='white' fontSize='20px'>
             {t('Start Farming')}
           </Text>
         </ActionTitles>
@@ -149,119 +137,101 @@ const StakedAction = ({
   if (isApproved) {
     if (stakedBalance.gt(0)) {
       return (
-        <ActionContainer>
-          <ActionTitles>
-            <Text color='secondary' fontSize='20px' pr='10px'>
+        <div className='flex flex-row items-center justify-between md:justify-end gap-5 p-2 lg:p-4 w-full'>
+          <div className='flex flex-col gap-1 justify-between'>
+            <div className='text-lg font-semibold'>
               {lpSymbol}
-            </Text>
-            <Text color='secondary' fontSize='20px'>
+              &nbsp;
               {t('Staked')}
-            </Text>
-          </ActionTitles>
-          <ActionContent>
-            <div>
-              <Earned>{displayBalance()}</Earned>
-              {stakedBalance.gt(0) && lpPrice.gt(0) && (
-                <Balance
-                  fontSize='20px'
-                  color='textSubtle'
-                  decimals={2}
-                  value={getBalanceNumber(lpPrice.times(stakedBalance))}
-                  unit=' USD'
-                  prefix='~'
-                />
-              )}
             </div>
-            <IconButtonWrapper>
-              <IconButton
-                variant='secondary'
-                onClick={onPresentWithdraw}
-                mr='6px'
-              >
-                <MinusIcon color='primary' width='14px' />
-              </IconButton>
-              <IconButton
-                variant='secondary'
-                onClick={onPresentDeposit}
-                disabled={['history', 'archived'].some((item) =>
-                  location.pathname.includes(item)
-                )}
-              >
-                <AddIcon color='primary' width='14px' />
-              </IconButton>
-            </IconButtonWrapper>
-          </ActionContent>
-        </ActionContainer>
+            <Earned>{displayBalance()}</Earned>
+            {stakedBalance.gt(0) && lpPrice.gt(0) && (
+              <Balance
+                fontSize='15px'
+                color='white'
+                decimals={2}
+                value={getBalanceNumber(lpPrice.times(stakedBalance))}
+                unit=' USD'
+                prefix='~'
+              />
+            )}
+          </div>
+          <div className='flex flex-row items-center'>
+            <IconButton
+              variant='secondary'
+              data-tooltip-id='unstake-tooltip'
+              data-tooltip-content='Unstake Pool'
+              onClick={onPresentWithdraw}
+              mr='6px'
+            >
+              <MinusIcon color='primary' width='14px' />
+            </IconButton>
+            <IconButton
+              variant='secondary'
+              data-tooltip-id='stake-tooltip'
+              data-tooltip-content='Stake pool'
+              onClick={onPresentDeposit}
+              disabled={['history', 'archived'].some((item) =>
+                location.pathname.includes(item)
+              )}
+            >
+              <AddIcon color='primary' width='14px' />
+            </IconButton>
+            <Tooltip id='unstake-tooltip' />
+            <Tooltip id='stake-tooltip' />
+          </div>
+        </div>
       )
     }
 
     return (
-      <ActionContainer>
-        <ActionTitles>
-          <Text color='textWhite' fontSize='20px' pr='4px'>
-            {t('Stake').toUpperCase()}
-          </Text>
-          <Text color='secondary' fontSize='20px'>
-            {lpSymbol}
-          </Text>
-        </ActionTitles>
-        <ActionContent>
-          <Button
-            width='100%'
+      <div className='flex flex-row md:flex-col justify-between md:justify-center items-center gap-4 p-2 lg:p-4 w-full'>
+        <div className='flex justify-center font-semibold text-xl w-full'>
+          {t('Stake').toUpperCase()} {lpSymbol}
+        </div>
+        <div className='flex w-full justify-center'>
+          <button
             onClick={onPresentDeposit}
             disabled={['history', 'archived'].some((item) =>
               location.pathname.includes(item)
             )}
-            style={{
-              background: 'linear-gradient(90deg,#68a7f8 1.82%,#0052ff 100%)',
-              color: '#ffffff',
-              fontWeight: 500,
-            }}
+            className='rounded-md p-1  text-center text-white font-medium bg-blue-600 hover:bg-blue-500  max-w-[200px] w-full'
           >
             {t('Stake')}
-          </Button>
-        </ActionContent>
-      </ActionContainer>
+          </button>
+        </div>
+      </div>
     )
   }
 
   if (!userDataReady) {
     return (
-      <ActionContainer>
-        <ActionTitles>
-          <Text color='textSubtle' fontSize='20px'>
-            {t('Start Farming')}
-          </Text>
-        </ActionTitles>
-        <ActionContent>
+      <div className='flex flex-row md:flex-col justify-between md:justify-center items-center gap-4 p-2 lg:p-4 w-full'>
+        <div className='flex justify-center font-semibold text-xl w-full'>
+          {t('Start Farming')}
+        </div>
+        <div className='flex w-full justify-center'>
           <Skeleton width={180} marginBottom={28} marginTop={14} />
-        </ActionContent>
-      </ActionContainer>
+        </div>
+      </div>
     )
   }
 
   return (
-    <ActionContainer>
-      <ActionTitles>
-        <Text color='white' fontSize='20px'>
-          {t('Enable Farm')}
-        </Text>
-      </ActionTitles>
-      <ActionContent>
-        <Button
-          width='100%'
+    <div className='flex flex-row md:flex-col justify-between md:justify-center items-center gap-4 p-2 lg:p-4 w-full'>
+      <div className='flex justify-center font-semibold text-xl w-full'>
+        {t('Enable Farm')}
+      </div>
+      <div className='flex w-full justify-center'>
+        <button
           disabled={requestedApproval}
           onClick={handleApprove}
-          style={{
-            background: 'linear-gradient(90deg,#68a7f8 1.82%,#0052ff 100%)',
-            color: '#ffffff',
-            fontWeight: 500,
-          }}
+          className='rounded-md p-1  text-center text-white font-medium bg-blue-600 hover:bg-blue-500  max-w-[200px] w-full'
         >
           {requestedApproval ? t('Approving...') : t('Enable')}
-        </Button>
-      </ActionContent>
-    </ActionContainer>
+        </button>
+      </div>
+    </div>
   )
 }
 

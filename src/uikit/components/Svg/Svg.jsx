@@ -16,13 +16,13 @@ const spinStyle = css`
 
 const Svg = styled.svg`
   align-self: center; // Safari fix
-  fill: #828181;
+  fill: #ffffff;
   flex-shrink: 0;
   ${space}
 `
 
 Svg.defaultProps = {
-  color: 'text',
+  color: '#ffffff',
   width: '20px',
   xmlns: 'http://www.w3.org/2000/svg',
 }

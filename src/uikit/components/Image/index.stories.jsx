@@ -92,7 +92,7 @@ export const TokenImages = () => {
 
         return (
           <StyledBox key={token.symbol} p='16px'>
-            <Text fontSize='14px' color='textSubtle'>
+            <Text fontSize='14px' color='white'>
               {token.symbol}
             </Text>
             <TokenImage src={src} height={64} width={64} title={token.symbol} />

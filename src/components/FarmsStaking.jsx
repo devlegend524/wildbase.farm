@@ -39,33 +39,61 @@ export default function () {
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
       <div className='text-3xl text-end'>Farms & Staking</div>
-      <div className='text-base py-4'>2WILD to Harvest:</div>
+      <div className='text-base pb-2'>2WILD to Harvest:</div>
       <div className='text-sm text-gray-300'>
         <WILDXHarvestBalance farmsWithBalance={balancesWithValue} />
       </div>
-      <div className='text-base py-4'>2WILD in Wallet:</div>
+      <div className='text-base pb-2'>2WILD in Wallet:</div>
       <div className='text-sm text-gray-300'>
         <WILDXWalletBalance />
       </div>
-      <div className='mt-10'>
+      <div className='mt-5 flex flex-col md:flex-row justify-between gap-3'>
         {address ? (
-          <Button
-            id='harvest-all'
-            disabled={balancesWithValue.length <= 0 || pendingTx}
-            onClick={harvestAllFarms}
-            width='100%'
-            style={{
-              background: '#031531',
-              color: '#ddd',
-              fontWeight: 500,
-            }}
-          >
-            {pendingTx
-              ? t('Collecting 2WILD')
-              : t('Harvest all (%count%)', {
-                  count: balancesWithValue.length,
-                })}
-          </Button>
+          <>
+            <Button
+              id='harvest-all'
+              disabled={balancesWithValue.length <= 0 || pendingTx}
+              onClick={harvestAllFarms}
+              width='100%'
+              style={{
+                background: '#031531',
+                color: '#ddd',
+                fontWeight: 500,
+              }}
+            >
+              {pendingTx
+                ? t('Collecting 2WILD')
+                : t('Harvest all (%count%)', {
+                    count: balancesWithValue.length,
+                  })}
+            </Button>
+            <Button
+              id='harvest-all'
+              disabled={balancesWithValue.length <= 0 || pendingTx}
+              onClick={harvestAllFarms}
+              width='100%'
+              style={{
+                background: '#031531',
+                color: '#ddd',
+                fontWeight: 500,
+              }}
+            >
+              {pendingTx ? t('Compounding 2WILD') : t('Compound all')}
+            </Button>
+            <Button
+              id='harvest-all'
+              disabled={balancesWithValue.length <= 0 || pendingTx}
+              onClick={harvestAllFarms}
+              width='100%'
+              style={{
+                background: '#031531',
+                color: '#ddd',
+                fontWeight: 500,
+              }}
+            >
+              {pendingTx ? t('Zapping 2WILD') : t('Zap all')}
+            </Button>
+          </>
         ) : (
           <ConnectButton />
         )}

@@ -64,6 +64,7 @@ const WithdrawModal = ({ onConfirm, onDismiss, max, tokenName = '' }) => {
             onDismiss()
           }}
           width='100%'
+          style={{ alignSelf: 'center', color: 'black' }}
         >
           {pendingTx ? t('Pending Confirmation') : t('Confirm')}
         </Button>
