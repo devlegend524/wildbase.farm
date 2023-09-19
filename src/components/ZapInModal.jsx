@@ -15,7 +15,8 @@ import { useHarvest } from 'hooks/useHarvest'
 import { notify } from 'utils/toastHelper'
 import { harvestMany } from 'utils/callHelpers'
 import { useMasterchef } from 'hooks/useContract'
-
+import { useAppDispatch } from 'state'
+import { fetchFarmUserDataAsync } from 'state/farms'
 const customStyles = {
   content: {
     top: '50%',
@@ -35,42 +36,56 @@ export default function ZapInModal({ open, closeModal, earnings, pid }) {
 
   const [targetToken, setTargetToken] = useState(farms[1])
   const [pendingZapTx, setZapPendingTx] = useState(false)
-  const address = useAccount()
+  const { address } = useAccount()
   const zapAddress = getZapAddress()
   const signer = useEthersSigner()
   const wildXContract = getWILDXContract(signer)
-  const { onReward } = useHarvest(pid.length.length > 0 ? pid[0] : 0)
+  const { onReward } = useHarvest(pid.length > 0 ? pid[0] : 0)
   const { onZapForFarm } = useZapForFarm()
   const masterChefContract = useMasterchef()
+  const dispatch = useAppDispatch()
 
   async function handleDeposit() {
     if (pid.length === 0) return
     setZapPendingTx(true)
-    console.log(earnings.toString())
-    console.log(allowance.toString())
-    if (pid.length === 1) await onReward(false)
-    else await harvestMany(masterChefContract, pid, false, address)
-    const allowance = await wildXContract.allowance(address, zapAddress)
-    if (ethers.utils.formatUnits(allowance, 'ether') < earnings) {
-      console.log('approving...')
-      await zapAddress.approve(zapAddress, ethers.constants.MaxUint256)
-    } else {
-      console.log('zapping...')
+    try {
+      if (pid.length === 1) await onReward(false)
+      else await harvestMany(masterChefContract, pid, false, address)
+      const allowance = await wildXContract.allowance(address, zapAddress, {
+        from: address,
+      })
+      if (
+        Number(ethers.utils.formatUnits(allowance, 'ether')) <
+        Number(earnings.toString())
+      ) {
+        await wildXContract.approve(zapAddress, ethers.constants.MaxUint256, {
+          from: address,
+        })
+      }
       await onZapForFarm(
         farms[0].lpAddresses,
         ethers.utils.parseEther(earnings.toString() || '1'),
         farms[0].lpAddresses,
         targetToken.pid
       )
-      console.log('zapped...')
+      dispatch(
+        fetchFarmUserDataAsync({
+          account: address,
+          pids: [farms[0].pid],
+        })
+      )
+      dispatch(fetchFarmUserDataAsync({ account: address, pids: pid }))
+      notify(
+        'success',
+        'You have successfully zapped 2WILD token in ' +
+          targetToken.lpSymbol +
+          ' pool'
+      )
+      setZapPendingTx(false)
+    } catch (e) {
+      notify('error', 'Insufficient Balance to zap')
+      setZapPendingTx(false)
     }
-    notify(
-      'success',
-      'You have successfully zapped 2WILD token in ' +
-        targetToken.lpSymbol +
-        ' pool'
-    )
-    setZapPendingTx(false)
   }
 
   const handleChangeToken = (e, type) => {

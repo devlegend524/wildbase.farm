@@ -15,6 +15,8 @@ const useUnstake = (pid) => {
       const txHash = await unstake(masterChefContract, pid, amount, address, tokenDecimals)
       if (txHash)
         await txHash.wait()
+      else
+        throw new Error('Transaction failed')
     },
     [address, masterChefContract, pid, tokenDecimals],
   )

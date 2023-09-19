@@ -12,6 +12,9 @@ import TokenDisplay from 'components/TokenDisplay'
 import { getZapAddress } from 'utils/addressHelpers'
 import lpTokenAbi from 'config/abi/lpToken'
 import useZap from 'hooks/useZap'
+import Loading from './Loading'
+import { notify } from 'utils/toastHelper'
+
 const customStyles = {
   content: {
     top: '50%',
@@ -34,6 +37,7 @@ export default function ZapperDepositModal(props) {
   const tokenABI = props.tokenA.isTokenOnly ? erc20ABI : lpTokenAbi
 
   const [allowance, setAllowance] = useState(0)
+  const [pendingTx, setPendingTx] = useState(false)
   const [amount, setAmount] = useState('')
 
   const tokenAAllownceRead = useContractRead({
@@ -70,21 +74,26 @@ export default function ZapperDepositModal(props) {
   }
 
   async function handleDeposit() {
-    if (props.tokenA.lpSymbol == 'USDC' || props.tokenA.lpSymbol == 'USDT') {
-      if (ethers.utils.formatUnits(allowance, 6) < amount) {
-        approveWrite?.()
-      } else {
+    try {
+      setPendingTx(true)
+      if (props.tokenA.lpSymbol == 'USDC' || props.tokenA.lpSymbol == 'USDT') {
+        if (
+          Number(ethers.utils.formatUnits(allowance, 'ether')) < Number(amount)
+        ) {
+          approveWrite?.()
+        }
         await onZap(
           props.tokenA.lpAddresses,
           ethers.utils.parseEther(amount.toString() || '1'),
           props.tokenB.lpAddresses
         )
-      }
-    } else {
-      if (ethers.utils.formatUnits(allowance, 'ether') < amount) {
-        console.log('approving...')
-        approveWrite?.()
       } else {
+        if (
+          Number(ethers.utils.formatUnits(allowance, 'ether')) < Number(amount)
+        ) {
+          console.log('approving...')
+          approveWrite?.()
+        }
         console.log('zapping...')
         await onZap(
           props.tokenA.lpAddresses,
@@ -92,7 +101,13 @@ export default function ZapperDepositModal(props) {
           props.tokenB.lpAddresses
         )
         console.log('zapped...')
+        notify('success', 'You have successfully zapped token pair')
+        closeModal()
       }
+      setPendingTx(false)
+    } catch (e) {
+      console.log(e)
+      setPendingTx(false)
     }
   }
 
@@ -144,7 +159,9 @@ export default function ZapperDepositModal(props) {
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
-          <p className='text-right'>Available: {props.availableA}</p>
+          <p className='text-right'>
+            Available: {Number(props.availableA).toFixed(5)}
+          </p>
           <div className='flex gap-3 pt-4'>
             <button
               className='border border-gray-600 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px]'
@@ -154,10 +171,10 @@ export default function ZapperDepositModal(props) {
             </button>
             <button
               onClick={handleDeposit}
-              disabled={props.availableA < amount}
+              disabled={props.availableA < amount || pendingTx}
               className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
             >
-              Deposit {props.tokenA.lpSymbol}{' '}
+              {pendingTx ? <Loading /> : <>Deposit {props.tokenA.lpSymbol}</>}{' '}
             </button>
           </div>
         </div>

@@ -147,7 +147,7 @@ export default function Zap() {
               </select>
             </div>
             <div className='text-center'>
-              {tokenA.lpSymbol} Available : {availableA}
+              {tokenA.lpSymbol} Available : {Number(availableA).toFixed(5)}
             </div>
           </div>
         </div>
@@ -206,7 +206,7 @@ export default function Zap() {
               </select>
             </div>
             <div className='text-center'>
-              {tokenB.lpSymbol} Available : {availableB}
+              {tokenB.lpSymbol} Available : {Number(availableB).toFixed(5)}
             </div>
           </div>
         </div>

@@ -13,13 +13,18 @@ export const notify = (type, message) => {
   switch (type) {
     case type === 'success':
       toast.success(message, options);
+      break;
     case type === 'error':
       toast.error(message, options);
+      break;
     case type === 'warning':
       toast.warn(message, options);
+      break;
     case type === 'info':
       toast.info(message, options);
+      break;
     default:
       toast(message, options);
+      break;
   }
 }

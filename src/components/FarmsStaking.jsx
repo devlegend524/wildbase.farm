@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { Button } from 'uikit'
-import { useEthersSigner } from 'hooks/useEthers'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useMasterchef } from 'hooks/useContract'
 import { useFarmsWithBalance } from 'hooks/useFarmsWithBalance'
@@ -18,12 +17,10 @@ import { DEFAULT_TOKEN_DECIMAL } from 'config/config'
 export default function () {
   const [pendingTx, setPendingTx] = useState(false)
   const [pendingCompoundTx, setCompoundPendingTx] = useState(false)
-  const [earnings, setEarnings] = useState(false)
   const [open, setOpen] = useState(false)
   const [pids, setPids] = useState([])
 
   const { address } = useAccount()
-  const signer = useEthersSigner()
   const { t } = useTranslation()
   const farmsWithBalance = useFarmsWithBalance()
   const masterChefContract = useMasterchef()
@@ -31,54 +28,60 @@ export default function () {
   const balancesWithValue = farmsWithBalance.filter((balanceType) =>
     balanceType.balance.gt(0)
   )
+  const earningsSum = farmsWithBalance.reduce((accum, earning) => {
+    const earningNumber = new BigNumber(earning.balance)
+    if (earningNumber.eq(0)) {
+      return accum
+    }
+    return accum + earningNumber.div(DEFAULT_TOKEN_DECIMAL).toNumber()
+  }, 0)
   const harvestAllFarms = useCallback(async () => {
     setPendingTx(true)
     try {
-      if (pids.length > 0)
+      let _pids = []
+      // eslint-disable-next-line no-restricted-syntax
+      for (const farmWithBalance of balancesWithValue) {
+        _pids.push(farmWithBalance.pid)
+      }
+      if (_pids.length > 0)
         // eslint-disable-next-line no-await-in-loop
-        await harvestMany(masterChefContract, pids, false, signer)
+        await harvestMany(masterChefContract, _pids, false, address)
     } catch (error) {
       notify('error', error?.message)
     }
     setPendingTx(false)
-  }, [signer, balancesWithValue, masterChefContract, pids])
+  }, [address, balancesWithValue, masterChefContract])
 
   const compoundAllFarms = useCallback(async () => {
     setCompoundPendingTx(true)
     try {
-      if (pids.length > 0)
+      let _pids = []
+      // eslint-disable-next-line no-restricted-syntax
+      for (const farmWithBalance of balancesWithValue) {
+        _pids.push(farmWithBalance.pid)
+      }
+      if (_pids.length > 0)
         // eslint-disable-next-line no-await-in-loop
-        await harvestMany(masterChefContract, pids, true, signer)
+        await harvestMany(masterChefContract, _pids, true, address)
     } catch (error) {
       notify('error', error?.message)
     }
     setCompoundPendingTx(false)
-  }, [signer, balancesWithValue, masterChefContract, pids])
+  }, [address, balancesWithValue, masterChefContract])
 
   function openModal() {
-    setOpen(true)
-  }
-
-  function closeModal() {
-    setOpen(false)
-  }
-
-  useEffect(() => {
     let _pids = []
     // eslint-disable-next-line no-restricted-syntax
     for (const farmWithBalance of balancesWithValue) {
       _pids.push(farmWithBalance.pid)
     }
     setPids(_pids)
-    const earningsSum = farmsWithBalance.reduce((accum, earning) => {
-      const earningNumber = new BigNumber(earning.balance)
-      if (earningNumber.eq(0)) {
-        return accum
-      }
-      return accum + earningNumber.div(DEFAULT_TOKEN_DECIMAL).toNumber()
-    }, 0)
-    setEarnings(earningsSum)
-  }, [balancesWithValue])
+    setOpen(true)
+  }
+
+  function closeModal() {
+    setOpen(false)
+  }
 
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
@@ -147,7 +150,7 @@ export default function () {
       <ZapInModal
         open={open}
         closeModal={closeModal}
-        earnings={earnings}
+        earnings={earningsSum}
         pid={pids}
       />
     </div>

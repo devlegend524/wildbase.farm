@@ -32,6 +32,8 @@ const useStake = (pid) => {
       )
       if (txHash)
         await txHash.wait()
+      else
+        throw new Error('Transaction failed')
     },
     [address, masterChefContract, pid, tokenDecimals],
   )

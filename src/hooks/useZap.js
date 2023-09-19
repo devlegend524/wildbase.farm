@@ -12,6 +12,8 @@ const useZap = () => {
       const txHash = await zap(zapContract, tokenA, amount, tokenB, address)
       if (txHash)
         await txHash.wait()
+      else
+        throw new Error('Transaction failed')
     },
     [address, zapContract],
   )
@@ -28,6 +30,8 @@ export const useZapForFarm = () => {
       const txHash = await zapForFarm(zapContract, tokenA, amount, tokenB, pid, address)
       if (txHash)
         await txHash.wait()
+      else
+        throw new Error('Transaction failed')
     },
     [address, zapContract],
   )

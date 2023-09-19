@@ -221,7 +221,6 @@ export const useProfile = () => {
 }
 
 export const usePriceEthUsdc = () => {
-
   const ethUsdcFarm = useFarmFromPid(wethUsdcFarmPid)
   return new BigNumber(ethUsdcFarm.quoteToken.usdcPrice)
 }
@@ -341,6 +340,7 @@ export const useTotalValue = () => {
   const farms = useFarms()
   const wethPrice = usePriceEthUsdc()
   const wildPrice = usePriceWILDXUsdc()
+
   let value = new BigNumber(0)
   for (let i = 0; i < farms.data.length; i++) {
     const farm = farms.data[i]

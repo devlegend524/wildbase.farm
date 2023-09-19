@@ -56,6 +56,7 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
 
 export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, address) => {
   try {
+    console.log(amount.toString())
     return await zapContract
       .zapIntoFarmWithToken(tokenA, amount, tokenB, pid, { from: address })
   } catch (e) {
@@ -76,8 +77,7 @@ export const harvest = async (masterChefContract, pid, isCompound, address) => {
 
 export const harvestMany = async (masterChefContract, pids, isCompound, address) => {
   try {
-    return await masterChefContract
-      .harvestMany(pids, isCompound, { from: address })
+    return await masterChefContract.harvestMany(pids, isCompound, { from: address })
   } catch (e) {
     console.log(e)
     return null

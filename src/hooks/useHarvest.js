@@ -11,6 +11,8 @@ export const useHarvest = (farmPid) => {
     const txHash = await harvest(masterChefContract, farmPid, isCompound, address)
     if (txHash)
       return await txHash.wait()
+    else
+      throw new Error('Transaction failed')
   }, [address, farmPid, masterChefContract])
 
   return { onReward: handleHarvest }
