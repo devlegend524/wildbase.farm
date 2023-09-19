@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
-import { zap } from 'utils/callHelpers'
-import { useFarmFromPid } from 'state/hooks'
+import { zap, zapForFarm } from 'utils/callHelpers'
 import { useZapContract } from './useContract'
 import { useAccount } from 'wagmi'
 
@@ -20,5 +19,20 @@ const useZap = () => {
   return { onZap: handleZap }
 }
 
+export const useZapForFarm = () => {
+  const { address } = useAccount()
+  const zapContract = useZapContract()
+
+  const handleZap = useCallback(
+    async (tokenA, amount, tokenB, pid) => {
+      const txHash = await zapForFarm(zapContract, tokenA, amount, tokenB, pid, address)
+      if (txHash)
+        await txHash.wait()
+    },
+    [address, zapContract],
+  )
+
+  return { onZapForFarm: handleZap }
+}
 
 export default useZap

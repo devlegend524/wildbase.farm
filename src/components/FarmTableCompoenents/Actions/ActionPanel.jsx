@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import styled, { keyframes, css } from 'styled-components'
+import React, { useMemo, useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import { LinkExternal, Text } from 'uikit'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
@@ -16,25 +16,6 @@ import StakedAction from './StakedAction'
 import Apr from '../Apr'
 import Multiplier from '../Multiplier'
 import Liquidity from '../Liquidity'
-
-const Container = styled.div`
-  animation: ${css` 300ms linear forwards
-  `};
-  overflow: hidden;
-  background: #010f27;
-  border-width: 0px 1px 1px 1px;
-  border-style: solid;
-  border-color: #2c3550;
-  display: flex;
-  width: 100%;
-  flex-direction: column-reverse;
-  padding: 24px;
-  color: white;
-  @media screen and (min-width: 968px) {
-    flex-direction: row;
-    padding: 16px 32px;
-  }
-`
 
 const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 400;
@@ -90,7 +71,7 @@ const ActionPanel = ({
   liquidity,
   userDataReady,
 }) => {
-  const farm = details
+  const [farm, setFarm] = useState(details)
 
   const { t } = useTranslation()
   const tokenOnly = farm.isTokenOnly
@@ -115,6 +96,10 @@ const ActionPanel = ({
         : `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`,
     [tokenOnly, liquidityUrlPathParts, farm.token.address]
   )
+
+  useEffect(() => {
+    setFarm(details)
+  }, [details])
   return (
     <div className='flex flex-col md:flex-row justify-between p-2 lg:p-3 max-w-screen w-full'>
       <div className='flex flex-row md:flex-col items-center md:items-start justify-between md:justify-center w-full  lg:w-1/4'>

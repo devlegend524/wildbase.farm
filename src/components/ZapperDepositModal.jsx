@@ -7,11 +7,9 @@ import {
   useContractRead,
   usePrepareContractWrite,
   useContractWrite,
-  useWaitForTransaction,
 } from 'wagmi'
 import TokenDisplay from 'components/TokenDisplay'
 import { getZapAddress } from 'utils/addressHelpers'
-import zapABI from 'config/abi/zap'
 import lpTokenAbi from 'config/abi/lpToken'
 import useZap from 'hooks/useZap'
 const customStyles = {

@@ -3,6 +3,7 @@ import { useFarmFromPid } from 'state/hooks'
 import { stake } from 'utils/callHelpers'
 import { useMasterchef } from './useContract'
 import { useAccount } from 'wagmi'
+import { FaLessThanEqual } from 'react-icons/fa'
 
 const useStake = (pid) => {
   const { address } = useAccount()
@@ -26,7 +27,8 @@ const useStake = (pid) => {
         masterChefContract,
         pid,
         amount,
-        tokenDecimals
+        tokenDecimals,
+        false
       )
       if (txHash)
         await txHash.wait()

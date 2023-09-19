@@ -7,8 +7,8 @@ export const useHarvest = (farmPid) => {
   const { address } = useAccount()
   const masterChefContract = useMasterchef()
 
-  const handleHarvest = useCallback(async () => {
-    const txHash = await harvest(masterChefContract, farmPid, address)
+  const handleHarvest = useCallback(async (isCompound) => {
+    const txHash = await harvest(masterChefContract, farmPid, isCompound, address)
     if (txHash)
       return await txHash.wait()
   }, [address, farmPid, masterChefContract])

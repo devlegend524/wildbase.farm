@@ -213,7 +213,7 @@ export default function FarmBanner() {
           </div>
           <div className='flex items-center justify-center'>
             <a
-              className=' w-100  flex items-center justify-center py-5 text-base hover:underline'
+              className='w-100  flex items-center justify-center py-10 text-base hover:underline'
               href={`${
                 chain &&
                 (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)

@@ -64,7 +64,7 @@ export default function Zap() {
       const rdep = (tokenABalanceRead.data || 0).toString()
       console.log(rdep)
       setAvailableA(
-        tokenA.lpSymbol == 'USDC' || tokenA.lpSymbol == 'USDT'
+        tokenA.lpSymbol === 'USDC' || tokenA.lpSymbol === 'USDT'
           ? ethers.utils.formatUnits(rdep, 6)
           : ethers.utils.formatEther(rdep)
       )
@@ -74,7 +74,7 @@ export default function Zap() {
     try {
       const read1 = (tokenBBalanceRead.data || 0).toString()
       setAvailableB(
-        tokenB.lpSymbol == 'USDC' || tokenB.lpSymbol == 'USDT'
+        tokenB.lpSymbol === 'USDC' || tokenB.lpSymbol === 'USDT'
           ? ethers.utils.formatUnits(read1, 6)
           : ethers.utils.formatEther(read1)
       )
@@ -130,6 +130,7 @@ export default function Zap() {
                 name='tokenA'
                 className='bg-transparent focus-visible:outline-none w-full cursor-pointer'
                 onChange={(e) => handleChangeToken(e.target.value, '1')}
+                value={farms.indexOf(tokenA)}
               >
                 {farms.map((item, key) => {
                   return (
@@ -188,6 +189,7 @@ export default function Zap() {
                 name='tokenB'
                 className='bg-transparent focus-visible:outline-none w-full cursor-pointer'
                 onChange={(e) => handleChangeToken(e.target.value, '2')}
+                value={farms.indexOf(tokenB)}
               >
                 {farms.map((item, key) => {
                   return (

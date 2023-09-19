@@ -1,10 +1,11 @@
 import React from 'react'
 import { Text } from 'uikit'
 import BigNumber from 'bignumber.js'
+import { DEFAULT_TOKEN_DECIMAL } from 'config/config'
+
 import { useTranslation } from 'contexts/Localization'
 import { usePriceWILDXUsdc } from 'state/hooks'
 import styled from 'styled-components'
-import { DEFAULT_TOKEN_DECIMAL } from 'config/config'
 import CardValue from './CardValue'
 import CardUsdValue from './CardUsdValue'
 import { useEthersSigner } from 'hooks/useEthers'

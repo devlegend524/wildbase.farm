@@ -17,16 +17,16 @@ export const approve = async (lpContract, masterChefContract, address) => {
   )
 }
 
-
 export const stake = async (
   masterChefContract,
   pid,
   amount,
   decimals = 18,
+  isCompound
 ) => {
   try {
     return await masterChefContract
-      .deposit(pid, fromReadableAmount(amount, decimals))
+      .deposit(pid, fromReadableAmount(amount, decimals), isCompound)
   } catch (e) {
     console.log(e)
     return null
@@ -43,9 +43,9 @@ export const unstake = async (masterChefContract, pid, amount, address, decimals
     return null
   }
 }
+
 export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
   try {
-    console.log(tokenA, amount.toString(), tokenB)
     return await zapContract
       .zap(tokenA, amount, tokenB, { from: address })
   } catch (e) {
@@ -54,17 +54,35 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
   }
 }
 
-
-export const harvest = async (masterChefContract, pid, address) => {
+export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, address) => {
   try {
-    return await masterChefContract
-      .deposit(pid, '0')
+    return await zapContract
+      .zapIntoFarmWithToken(tokenA, amount, tokenB, pid, { from: address })
   } catch (e) {
     console.log(e)
     return null
   }
 }
 
+export const harvest = async (masterChefContract, pid, isCompound, address) => {
+  try {
+    return await masterChefContract
+      .deposit(pid, '0', isCompound)
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
+
+export const harvestMany = async (masterChefContract, pids, isCompound, address) => {
+  try {
+    return await masterChefContract
+      .harvestMany(pids, isCompound, { from: address })
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
 
 const chainId = parseInt(CHAIN_ID, 10)
 const wildWethFarm = farms.find((farm) => farm.pid === wildWethFarmPid)
