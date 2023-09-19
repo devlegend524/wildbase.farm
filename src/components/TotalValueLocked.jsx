@@ -21,7 +21,7 @@ export default function TotalValueLocked() {
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
       <div className='text-3xl text-right'>Total Value Locked</div>
-      <div className='mb-5'>
+      <div className='mb-10'>
         {tvlData !== null ? (
           <div color='#fff' className='text-2xl font-semibold text-right pb-3'>
             {`$${tvl}`} staked
