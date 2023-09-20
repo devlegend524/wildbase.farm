@@ -65,7 +65,7 @@ export default function ZapInModal({ open, closeModal, earnings, pid }) {
       await onZapForFarm(
         farms[0].lpAddresses,
         ethers.utils.parseEther(earnings.toString() || '1'),
-        farms[0].lpAddresses,
+        targetToken.lpAddresses,
         targetToken.pid
       )
       dispatch(
@@ -83,7 +83,7 @@ export default function ZapInModal({ open, closeModal, earnings, pid }) {
       )
       setZapPendingTx(false)
     } catch (e) {
-      notify('error', 'Insufficient Balance to zap')
+      notify('error', 'Transaction failed')
       setZapPendingTx(false)
     }
   }

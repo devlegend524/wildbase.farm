@@ -4,7 +4,7 @@ import { ethers } from 'ethers'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
 import farms from 'config/farms'
-import { getWILDXAddress } from 'utils/addressHelpers'
+import { getWILDXAddress, getMasterChefAddress } from 'utils/addressHelpers'
 import { getBalanceAmount } from './formatBalance'
 import { BIG_ZERO } from './bigNumber'
 import { web3WithArchivedNodeProvider } from './providerHelpers'
@@ -57,8 +57,13 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
 export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, address) => {
   try {
     console.log(amount.toString())
+    console.log(tokenA)
+    console.log(tokenB)
+    console.log(pid)
+    console.log(address)
+    const masterchefAddress = getMasterChefAddress()
     return await zapContract
-      .zapIntoFarmWithToken(tokenA, amount, tokenB, pid, { from: address })
+      .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, { from: address })
   } catch (e) {
     console.log(e)
     return null
