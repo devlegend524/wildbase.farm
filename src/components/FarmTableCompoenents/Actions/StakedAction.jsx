@@ -66,13 +66,21 @@ const StakedAction = ({
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
 
   const handleStake = async (amount, daysToLock) => {
-    await onStake(amount)
-    dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }))
+    try {
+      await onStake(amount)
+      dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const handleUnstake = async (amount) => {
-    await onUnstake(amount)
-    dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }))
+    try {
+      await onUnstake(amount)
+      dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const displayBalance = useCallback(() => {

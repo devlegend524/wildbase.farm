@@ -133,16 +133,16 @@ export default function Zap() {
                 value={farms.indexOf(tokenA)}
               >
                 {farms.map((item, key) => {
-                  return (
-                    <option
-                      key={key}
-                      className='bg-secondary-700'
-                      value={key}
-                      disabled={item?.lpSymbol === tokenB?.lpSymbol}
-                    >
-                      {item?.lpSymbol}
-                    </option>
-                  )
+                  if (item.lpSymbol !== 'WETH-USDC')
+                    return (
+                      <option
+                        key={key}
+                        className='bg-secondary-700'
+                        value={key}
+                      >
+                        {item?.lpSymbol}
+                      </option>
+                    )
                 })}
               </select>
             </div>
@@ -192,16 +192,16 @@ export default function Zap() {
                 value={farms.indexOf(tokenB)}
               >
                 {farms.map((item, key) => {
-                  return (
-                    <option
-                      key={key}
-                      className='bg-secondary-700'
-                      value={key}
-                      disabled={item?.lpSymbol === tokenA?.lpSymbol}
-                    >
-                      {item.lpSymbol}
-                    </option>
-                  )
+                  if (item.lpSymbol !== 'WETH-USDC')
+                    return (
+                      <option
+                        key={key}
+                        className='bg-secondary-700'
+                        value={key}
+                      >
+                        {item.lpSymbol}
+                      </option>
+                    )
                 })}
               </select>
             </div>

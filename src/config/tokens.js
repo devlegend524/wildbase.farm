@@ -4,7 +4,7 @@ const tokensList = {
   },
   wild: {
     symbol: '2WILD',
-    address: '0x0d317D14e751cCE02029E2051923A46B366b4A78', //'0x7c1f5FAC2Ed605Ba8818dEE87dC41c80674F9f68', //'0xE2f12e32A5Ae550d8F322E053a8A35E49304AE52',
+    address: '0x17697df2Abb7051B8EB2Cec5065Cb8eE2F0A7B6D', //'0x7c1f5FAC2Ed605Ba8818dEE87dC41c80674F9f68', //'0xE2f12e32A5Ae550d8F322E053a8A35E49304AE52',
     decimals: 18,
     projectLink: 'https://wildbase.farm/', // todo:
   },

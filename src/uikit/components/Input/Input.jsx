@@ -4,15 +4,7 @@ import { scales } from './types'
 /**
  * Priority: Warning --> Success
  */
-const getBoxShadow = ({ isSuccess = false, isWarning = false, theme }) => {
-  if (isWarning) {
-    return theme.shadows.warning
-  }
-
-  if (isSuccess) {
-    return theme.shadows.success
-  }
-
+const getBoxShadow = ({ theme }) => {
   return theme.shadows.inset
 }
 

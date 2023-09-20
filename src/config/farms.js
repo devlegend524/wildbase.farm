@@ -2,10 +2,10 @@ import tokens from './tokens'
 
 const farmsConfig = [
   {
-    pid: 0,
+    pid: 5,
     lpSymbol: tokens.wild.symbol,
     isTokenOnly: true,
-    lpAddresses: '0x0d317D14e751cCE02029E2051923A46B366b4A78', //'0x23dc96d1f4CAD9e21C825b7cd945F238768AE858', //'0x7c1f5FAC2Ed605Ba8818dEE87dC41c80674F9f68',
+    lpAddresses: '0x17697df2Abb7051B8EB2Cec5065Cb8eE2F0A7B6D',
     token: tokens.wild,
     quoteToken: tokens.wild,
     logoA: '/images/tokens/wildx.svg',
@@ -32,13 +32,23 @@ const farmsConfig = [
     logoB: ''
   },
   {
-    pid: 3,
+    pid: 6,
     lpSymbol: 'WETH-2WILD',
-    lpAddresses: '0x2bE9A91901B7209d52E2Dd2a2c33a6C9C5E2Ce40', //'0x248a94FE9526a10A2d6714ecdABcEC5932DeFB00',
+    lpAddresses: '0xC2e37dEC5e7b3cE968b4a616D5BfaAd41354499c',
     token: tokens.wild,
     quoteToken: tokens.weth,
     logoA: '/images/tokens/wildx.svg',
     logoB: '/images/tokens/weth.svg'
+  },
+  {
+    pid: 7,
+    lpSymbol: 'USDC-2WILD',
+    isTokenOnly: false,
+    lpAddresses: '0x5131D639de2a3080434ccfF0FB3A4250905B4De4',
+    token: tokens.wild,
+    quoteToken: tokens.usdc,
+    logoA: '/images/tokens/wildx.svg',
+    logoB: '/images/tokens/usdc.svg'
   },
   {
     pid: 4,
@@ -49,16 +59,7 @@ const farmsConfig = [
     logoA: '/images/tokens/weth.svg',
     logoB: '/images/tokens/usdc.svg'
   },
-  // {
-  //   pid: 2,
-  //   lpSymbol: tokens.alb.symbol,
-  //   isTokenOnly: true,
-  //   lpAddresses: '0x1dd2d631c92b1aCdFCDd51A0F7145A50130050C4',
-  //   token: tokens.alb,
-  //   quoteToken: tokens.weth,
-  //   logoA: '/images/tokens/alb.jpg',
-  //   logoB: ''
-  // },
+
   // {
   //   pid: 3,
   //   lpSymbol: 'WILDX-WETH',
