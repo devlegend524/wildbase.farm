@@ -86,7 +86,7 @@ const StakedAction = ({
   const displayBalance = useCallback(() => {
     const stakedBalanceBigNumber = getBalanceAmount(stakedBalance)
     if (stakedBalanceBigNumber.gt(0) && stakedBalanceBigNumber.lt(0.0001)) {
-      return getFullDisplayBalance(stakedBalance).toLocaleString()
+      return getFullDisplayBalance(stakedBalance, 18, 4).toLocaleString()
     }
     return stakedBalanceBigNumber.toFixed(4, BigNumber.ROUND_DOWN)
   }, [stakedBalance])
@@ -146,7 +146,7 @@ const StakedAction = ({
     if (stakedBalance.gt(0)) {
       return (
         <div className='flex flex-row items-center justify-between md:justify-end gap-5 p-2 lg:p-4 w-full'>
-          <div className='flex flex-col gap-1 justify-between'>
+          <div className='flex flex-col gap-1 justify-between md:min-w-[200px]'>
             <div className='text-lg font-semibold'>
               {lpSymbol}
               &nbsp;
