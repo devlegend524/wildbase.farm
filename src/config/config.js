@@ -80,12 +80,12 @@ export const socials = [
 ]
 export const BASE_EXCHANGE_URL_BY_CHAIN = {
   84531: 'https://goerli.basescan.org/',
-  8453: 'https://app.alienbase.xyz/',
+  8453: 'https://pancakeswap.finance/',
 }
 
 export const BASE_EXCHANGE_URL = BASE_EXCHANGE_URL_BY_CHAIN[CHAIN_ID]
 
-export const BASE_ADD_LIQUIDITY_URL = `${BASE_EXCHANGE_URL}/add`
+export const BASE_ADD_LIQUIDITY_URL = `${BASE_EXCHANGE_URL}/liquidity`
 export const BASE_SWAP_URL = `${BASE_EXCHANGE_URL}/swap`
 export const ARCHIVED_NODE = "https://developer-access-mainnet.base.org"
 

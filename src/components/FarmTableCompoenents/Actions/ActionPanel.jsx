@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import { LinkExternal, Text } from 'uikit'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
@@ -9,7 +9,7 @@ import {
   NoFeesTag,
   SingleStakeTag,
 } from 'components/Tags'
-import { BASE_ADD_LIQUIDITY_URL, BASE_SWAP_URL, CHAIN_ID } from 'config/config'
+import { BASE_ADD_LIQUIDITY_URL, BASE_SWAP_URL } from 'config/config'
 
 import HarvestAction from './HarvestAction'
 import StakedAction from './StakedAction'

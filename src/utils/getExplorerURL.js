@@ -1,6 +1,7 @@
 import { EXPLORER_URL } from 'config/constants'
+import { CHAIN_ID } from 'config/config'
 
-export const getScanUrl = (value, type = "address", chainId) => {
+export const getScanUrl = (value, type = "address") => {
   const prefixByType = {
     address: 'address',
     token: 'token',
@@ -10,7 +11,7 @@ export const getScanUrl = (value, type = "address", chainId) => {
   }
 
   const prefix = prefixByType[type]
-  return `${EXPLORER_URL[chainId]}/${prefix}/${value}`
+  return `${EXPLORER_URL[CHAIN_ID]}/${prefix}/${value}`
 }
 
 export const getScanAddressUrl = (address) => getScanUrl(address)
