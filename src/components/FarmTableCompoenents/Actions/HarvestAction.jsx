@@ -16,6 +16,7 @@ import { notify } from 'utils/toastHelper'
 import { useAccount } from 'wagmi'
 import ZapInModal from 'components/ZapInModal'
 import CompoundModal from 'components/CompoundModal'
+import { didUserReject } from 'utils/customHelpers'
 
 const HarvestAction = ({ pid, userData, userDataReady }) => {
   const [pendingCompoundTx, setCompoundPendingTx] = useState(false)
@@ -43,6 +44,23 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
     }
   }, [userData.earnings, userDataReady])
 
+  async function handleHavest() {
+    try {
+      setPendingTx(true)
+      await onReward(false)
+      notify('success', 'You have successfully claimed WILDX tokens')
+      dispatch(fetchFarmUserDataAsync({ address, pids: [pid] }))
+      setPendingTx(false)
+    } catch (e) {
+      if (didUserReject(e)) {
+        notify('error', 'User rejected transaction')
+      } else {
+        notify('error', 'Transaction failed')
+      }
+      setPendingTx(false)
+    }
+
+  }
 
   function openCompoundModal() {
     setOpenCompound(true)
@@ -81,13 +99,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
       <div className='flex flex-col justify-center gap-2 lg:min-w-[180px]'>
         <button
           disabled={earnings.eq(0) || pendingTx || !userDataReady}
-          onClick={async () => {
-            setPendingTx(true)
-            await onReward(false)
-            notify('success', 'You have successfully claimed 2WILD tokens')
-            dispatch(fetchFarmUserDataAsync({ address, pids: [pid] }))
-            setPendingTx(false)
-          }}
+          onClick={handleHavest}
           className='rounded-md p-1  text-center text-white font-medium bg-green-600 hover:bg-green-500'
         >
           {pendingTx ? <Loading /> : t('Harvest')}
@@ -96,7 +108,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
           <button
             className='rounded-md w-full lg:w-1/2 px-2 py-1  text-center text-white font-medium bg-blue-600 hover:bg-blue-500'
             data-tooltip-id='compound-tooltip'
-            data-tooltip-content={(earnings.eq(0) || pendingCompoundTx || !userDataReady) ? 'Stake tokens first to use it' : 'Restake your 2WILD profit in this pool'}
+            data-tooltip-content={(earnings.eq(0) || pendingCompoundTx || !userDataReady) ? 'Stake tokens first to use it' : 'Restake your WILDX profit in this pool'}
             disabled={earnings.eq(0) || pendingCompoundTx || !userDataReady}
             onClick={openCompoundModal}
           >

@@ -4,7 +4,8 @@ import {
   getWILDXAddress,
   getMasterChefAddress,
   getMulticallAddress,
-  getZapAddress
+  getZapAddress,
+  getOracleAddress
 } from 'utils/addressHelpers'
 
 // ABI
@@ -14,6 +15,7 @@ import wildAbi from 'config/abi/wild.json'
 import masterChef from 'config/abi/masterchef.json'
 import MultiCallAbi from 'config/abi/Multicall.json'
 import zapABI from 'config/abi/zap.json'
+import oracleABI from 'config/abi/oracle.json'
 import { DEFAULT_GAS_PRICE } from 'config/config'
 // import { getSettings, getGasPriceInWei } from './settings'
 
@@ -43,4 +45,7 @@ export const getMulticallContract = (provider, chainId) => {
 }
 export const getZapContract = (provider, chainId) => {
   return getContract(zapABI, getZapAddress(), provider)
+}
+export const getOracleContract = (provider, chainId) => {
+  return getContract(oracleABI, getOracleAddress(), provider)
 }

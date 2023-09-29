@@ -33,7 +33,7 @@ export default function FarmBanner() {
             type: 'ERC20',
             options: {
               address: token,
-              symbol: '2WILD',
+              symbol: 'WILDX',
               decimals: '18',
               image: `${BASE_URL}/images/tokens/wildx.svg`,
             },
@@ -59,12 +59,12 @@ export default function FarmBanner() {
   return (
     <div className='flex justify-center flex-col md:flex-row main_bg rounded-md'>
       <div className='p-3 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
-        <h1 className='text-7xl'>2WILD ON BASE</h1>
+        <h1 className='text-7xl'>WILDX ON BASE</h1>
         <p className='pt-4'>
-          The 2WILD token rewards users who single-stake or provide liquidity. 1
-          2WILD will be minted evry block. All deposit fee and sales taxes
-          automatically buyback and burn 2WILD 24/7 for prolonged sustainability
-          and price appreciation. Stay 2WILD 🤞.
+          The WILDX token rewards users who single-stake or provide liquidity. 1
+          WILDX will be minted evry block. All deposit fee and sales taxes
+          automatically buyback and burn WILDX 24/7 for prolonged sustainability
+          and price appreciation. Stay WILDX 🤞.
         </p>
       </div>
       <div className='flex justify-end p-3 md:p-6 w-fill md:w-1/2 xl:w-1/3'>
@@ -75,13 +75,13 @@ export default function FarmBanner() {
               href={`${BASE_SWAP_URL}?inputCurrency=${getWethAddress()}&outputCurrency=${getWILDXAddress()}`}
               target='_blank'
             >
-              Buy 2WILD
+              Buy WILDX
             </a>
             <button
               onClick={addWatchWILDXToken}
               className='main_btn flex items-center justify-center'
             >
-              Add 2WILD to &nbsp;
+              Add WILDX to &nbsp;
               <svg
                 viewBox='0 0 35 33'
                 color='text'
@@ -214,12 +214,11 @@ export default function FarmBanner() {
           <div className='flex items-center justify-center'>
             <a
               className='w-100  flex items-center justify-center py-10 text-base hover:underline'
-              href={`${
-                chain &&
-                (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)
+              href={`${chain &&
+                  (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)
                   ? getScanTokenUrl(wildAddress)
                   : ''
-              }: ""`}
+                }: ""`}
             >
               <span className='hidden xl:block'>
                 {formatAddress(wildAddress, 10)}

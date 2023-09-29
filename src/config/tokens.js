@@ -3,8 +3,8 @@ const tokensList = {
     symbol: 'ETH',
   },
   wild: {
-    symbol: '2WILD',
-    address: '0x4B678D9Ab356eC999Ce996c1c9971026db0fA2D2', //'0x7c1f5FAC2Ed605Ba8818dEE87dC41c80674F9f68', //'0xE2f12e32A5Ae550d8F322E053a8A35E49304AE52',
+    symbol: 'WILDX',
+    address: '0xF8Feb28ee87A9A6B6aA7eBaf1787F18E33889799', //'0x7c1f5FAC2Ed605Ba8818dEE87dC41c80674F9f68', //'0xE2f12e32A5Ae550d8F322E053a8A35E49304AE52',
     decimals: 18,
     projectLink: 'https://wildbase.farm/', // todo:
   },

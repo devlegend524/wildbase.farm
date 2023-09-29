@@ -46,7 +46,7 @@ export default function PresaleDetail({
               </p>
             </div>
             <div className='list_item'>
-              <p>Price Per 2WILD</p>
+              <p>Price Per WILDX</p>
               <p className='flex gap-1'>
                 <span
                   className={

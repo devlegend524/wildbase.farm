@@ -109,12 +109,12 @@ export default function SaleComponent({
         disabled={!hasNFT || !started || finished ? 'dissabled' : ''}
       >
         {!hasNFT
-          ? 'You must have 2WILD NFT to buy token!'
+          ? 'You must have WILDX NFT to buy token!'
           : !started
-          ? 'Presale is not started yet'
-          : finished
-          ? 'Preslae is ended'
-          : 'BUY 2WILD'}
+            ? 'Presale is not started yet'
+            : finished
+              ? 'Preslae is ended'
+              : 'BUY WILDX'}
       </button>
     </div>
   )

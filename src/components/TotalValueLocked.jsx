@@ -30,7 +30,7 @@ export default function TotalValueLocked() {
           <Skeleton height={66} />
         )}
       </div>
-      <div className='text-3xl text-right mb-5'>2WILD Stats</div>
+      <div className='text-3xl text-right mb-5'>WILDX Stats</div>
       <div className='flex flex-col gap-4'>
         <div className='flex items-center justify-between'>
           <p>Market cap</p>
@@ -71,7 +71,7 @@ export default function TotalValueLocked() {
           </div>
         </div>
         <div className='flex items-center justify-between'>
-          <p>New 2WILD/second</p>
+          <p>New WILDX/second</p>
           <div>
             {' '}
             <CardValue

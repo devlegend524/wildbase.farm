@@ -348,7 +348,7 @@ export const useTotalValue = () => {
       let val
       if (farm.quoteToken.symbol === 'WETH' && wethPrice) {
         val = wethPrice.times(farm.lpTotalInQuoteToken)
-      } else if (farm.quoteToken.symbol === '2WILD') {
+      } else if (farm.quoteToken.symbol === 'WILDX') {
         val = wildPrice.times(farm.lpTotalInQuoteToken)
       } else {
         val = farm.lpTotalInQuoteToken

@@ -72,7 +72,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
       dispatch(fetchFarmUserDataAsync({ account: address, pids: pid }))
       notify(
         'success',
-        'You have successfully compounded 2WILD to ' +
+        'You have successfully compounded WILDX to ' +
         targetToken.lpSymbol +
         ' pool'
       )
@@ -143,7 +143,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
           Pool
         </p>
         <p className='text-center my-2'>
-          Available: {Number(earnings.toString()).toFixed(3)} 2WILD
+          Available: {Number(earnings.toString()).toFixed(3)} WILDX
         </p>
         <div className='flex gap-3 pt-4'>
           <button

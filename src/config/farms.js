@@ -5,7 +5,7 @@ const farmsConfig = [
     pid: 1,
     lpSymbol: tokens.wild.symbol,
     isTokenOnly: true,
-    lpAddresses: '0x4B678D9Ab356eC999Ce996c1c9971026db0fA2D2',
+    lpAddresses: '0xF8Feb28ee87A9A6B6aA7eBaf1787F18E33889799',
     token: tokens.wild,
     quoteToken: tokens.wild,
     logoA: '/images/tokens/wildx.svg',
@@ -23,15 +23,15 @@ const farmsConfig = [
   },
   {
     pid: 0,
-    lpSymbol: 'WETH-2WILD',
-    lpAddresses: '0x59943ef5242A271e7993658A11399f127b1785be',
+    lpSymbol: 'WETH-WILDX',
+    lpAddresses: '0x2A234919D1beC99876c93D7Bd09522841A3A6bb3',
     token: tokens.wild,
     quoteToken: tokens.weth,
     logoA: '/images/tokens/wildx.svg',
     logoB: '/images/tokens/weth.svg'
   },
   {
-    pid: 4,
+    pid: 3,
     lpSymbol: 'WETH-USDC',
     lpAddresses: '0xeF24722d5daE32Dc155d961561cFFbc5f347EeE7',
     token: tokens.usdc,
@@ -52,7 +52,7 @@ const farmsConfig = [
   // {
   //   pid: 4,
   //   lpSymbol: 'WILDX-USDC',
-  //   lpAddresses: '0xeF24722d5daE32Dc155d961561cFFbc5f347EeE7',
+  //   lpAddresses: '0x570cd8A4D9aF89D073c833E8864F06d55309dC70',
   //   token: tokens.wild,
   //   quoteToken: tokens.usdc,
   // },

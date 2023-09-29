@@ -8,12 +8,13 @@ import { BigNumber } from 'bignumber.js'
 import CardValue from './CardValue'
 import CardUsdValue from './CardUsdValue'
 import { useEthersSigner } from 'hooks/useEthers'
+import { usePriceWILDXUsdc } from 'state/hooks'
 
 const WILDXWalletBalance = () => {
   const { t } = useTranslation()
   const signer = useEthersSigner()
   const { balance } = useTokenBalance(getWILDXAddress())
-  const wildPriceUsdt = new BigNumber('0.6') //usePriceWILDXUsdc()
+  const wildPriceUsdt = usePriceWILDXUsdc()
   const usdBalance = new BigNumber(
     toReadableAmount(balance.toString(), 18)
   ).multipliedBy(wildPriceUsdt)

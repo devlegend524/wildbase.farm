@@ -22,3 +22,6 @@ export const getPresaleAddress = () => {
 export const getZapAddress = () => {
   return contractAddresses.zap
 }
+export const getOracleAddress = () => {
+  return contractAddresses.oracle
+}
