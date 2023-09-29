@@ -48,7 +48,7 @@ const useTokenBalance = (tokenAddress) => {
 
 export const useTotalSupply = () => {
   const { fastRefresh } = useRefresh()
-  const [totalSupply, setTotalSupply] = useState()
+  const [totalSupply, setTotalSupply] = useState(0)
   const { chain } = useNetwork()
   const provider = useEthersProvider()
   useEffect(() => {

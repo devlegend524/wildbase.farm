@@ -11,11 +11,11 @@ import { useHarvest } from 'hooks/useHarvest'
 import { useTranslation } from 'contexts/Localization'
 import { Earned } from './styles'
 import { Tooltip } from 'react-tooltip'
-import farmsConfig from 'config/farms'
 import Loading from 'components/Loading'
 import { notify } from 'utils/toastHelper'
 import { useAccount } from 'wagmi'
 import ZapInModal from 'components/ZapInModal'
+import CompoundModal from 'components/CompoundModal'
 
 const HarvestAction = ({ pid, userData, userDataReady }) => {
   const [pendingCompoundTx, setCompoundPendingTx] = useState(false)
@@ -23,6 +23,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
   const [earnings, setEarnings] = useState(BIG_ZERO)
   const [earningsUsdt, setEarningsUsdt] = useState(0)
   const [open, setOpen] = useState(false)
+  const [openCompound, setOpenCompound] = useState(false)
   const [displayBalance, setDisplayBalance] = useState(
     userDataReady ? earnings.toLocaleString() : <Skeleton width={60} />
   )
@@ -42,17 +43,15 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
     }
   }, [userData.earnings, userDataReady])
 
-  const handleCompound = async () => {
-    await onReward(true)
-    notify('success', 'You have successfully compounded 2WILD tokens')
-    dispatch(
-      fetchFarmUserDataAsync({ account: address, pids: [farmsConfig[0].pid] })
-    )
-    farmsConfig[0].pid !== pid &&
-      dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }))
-  }
 
+  function openCompoundModal() {
+    setOpenCompound(true)
+  }
+  function closeCompoundModal() {
+    setOpenCompound(false)
+  }
   function openModal() {
+    console.log(pid)
     setOpen(true)
   }
 
@@ -97,22 +96,17 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
           <button
             className='rounded-md w-full lg:w-1/2 px-2 py-1  text-center text-white font-medium bg-blue-600 hover:bg-blue-500'
             data-tooltip-id='compound-tooltip'
-            data-tooltip-content='Restake your profit in 2WILD inside 2WILD Staking pool'
+            data-tooltip-content={(earnings.eq(0) || pendingCompoundTx || !userDataReady) ? 'Stake tokens first to use it' : 'Restake your 2WILD profit in this pool'}
             disabled={earnings.eq(0) || pendingCompoundTx || !userDataReady}
-            onClick={async () => {
-              setCompoundPendingTx(true)
-              await handleCompound()
-              dispatch(fetchFarmUserDataAsync({ address, pids: [pid] }))
-              setCompoundPendingTx(false)
-            }}
+            onClick={openCompoundModal}
           >
             {pendingCompoundTx ? <Loading /> : t('Compound')}
           </button>
           <button
             className='rounded-md w-full lg:w-1/2 px-2 py-1 text-center font-medium bg-blue-600 hover:bg-blue-500'
             data-tooltip-id='zap-tooltip'
-            data-tooltip-content='Restake your profit in 2WILD inside any Farming pool'
-            disabled={earnings.eq(0) || !userDataReady}
+            data-tooltip-content='Stake to this pool from your wallet'
+            disabled={!userDataReady}
             onClick={openModal}
           >
             {t('Zap in')}
@@ -121,12 +115,18 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
           <Tooltip id='zap-tooltip' />
         </div>
       </div>
-      <ZapInModal
+      {open && <ZapInModal
         open={open}
         closeModal={closeModal}
+        pid={pid}
+      />}
+      {openCompound && <CompoundModal
+        open={openCompound}
+        closeModal={closeCompoundModal}
         earnings={earnings}
-        pid={[pid]}
-      />
+        pid={pid}
+        isAll={false}
+      />}
     </div>
   )
 }

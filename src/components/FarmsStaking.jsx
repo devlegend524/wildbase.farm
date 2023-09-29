@@ -10,7 +10,7 @@ import { useTranslation } from 'contexts/Localization'
 import WILDXHarvestBalance from './FarmStackingComponents/WILDXHarvestBalance'
 import WILDXWalletBalance from './FarmStackingComponents/WILDXWalletBalance'
 import Loading from 'components/Loading'
-import ZapInModal from './ZapInModal'
+import CompoundModal from './CompoundModal'
 import BigNumber from 'bignumber.js'
 import { DEFAULT_TOKEN_DECIMAL } from 'config/config'
 
@@ -50,23 +50,6 @@ export default function () {
       notify('error', error?.message)
     }
     setPendingTx(false)
-  }, [address, balancesWithValue, masterChefContract])
-
-  const compoundAllFarms = useCallback(async () => {
-    setCompoundPendingTx(true)
-    try {
-      let _pids = []
-      // eslint-disable-next-line no-restricted-syntax
-      for (const farmWithBalance of balancesWithValue) {
-        _pids.push(farmWithBalance.pid)
-      }
-      if (_pids.length > 0)
-        // eslint-disable-next-line no-await-in-loop
-        await harvestMany(masterChefContract, _pids, true, address)
-    } catch (error) {
-      notify('error', error?.message)
-    }
-    setCompoundPendingTx(false)
   }, [address, balancesWithValue, masterChefContract])
 
   function openModal() {
@@ -118,19 +101,6 @@ export default function () {
             </Button>
             <Button
               id='harvest-all'
-              disabled={balancesWithValue.length <= 0 || pendingCompoundTx}
-              onClick={compoundAllFarms}
-              width='100%'
-              style={{
-                background: '#031531',
-                color: '#ddd',
-                fontWeight: 500,
-              }}
-            >
-              {pendingCompoundTx ? <Loading /> : t('Compound all')}
-            </Button>
-            <Button
-              id='harvest-all'
               disabled={balancesWithValue.length <= 0}
               onClick={openModal}
               width='100%'
@@ -140,19 +110,22 @@ export default function () {
                 fontWeight: 500,
               }}
             >
-              {t('Zap all')}
+              {t('Compound all (%count%)', {
+                  count: balancesWithValue.length,
+                })}
             </Button>
           </>
         ) : (
           <ConnectButton />
         )}
       </div>
-      <ZapInModal
+      {open && <CompoundModal
         open={open}
         closeModal={closeModal}
         earnings={earningsSum}
         pid={pids}
-      />
+        isAll={true}
+      />}
     </div>
   )
 }

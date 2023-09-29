@@ -17,6 +17,9 @@ import { harvestMany } from 'utils/callHelpers'
 import { useMasterchef } from 'hooks/useContract'
 import { useAppDispatch } from 'state'
 import { fetchFarmUserDataAsync } from 'state/farms'
+import { getFarmFromPid } from 'utils/farmHelpers'
+import { didUserReject } from 'utils/customHelpers'
+
 const customStyles = {
   content: {
     top: '50%',
@@ -31,22 +34,20 @@ const customStyles = {
   },
 }
 
-export default function ZapInModal({ open, closeModal, earnings, pid }) {
+export default function CompoundModal({ open, closeModal, earnings, pid, isAll }) {
   const { t } = useTranslation()
-
-  const [targetToken, setTargetToken] = useState(farms[1])
+  const [targetToken, setTargetToken] = useState(!isAll ? getFarmFromPid(pid) : getFarmFromPid(1))
   const [pendingZapTx, setZapPendingTx] = useState(false)
   const { address } = useAccount()
   const zapAddress = getZapAddress()
   const signer = useEthersSigner()
   const wildXContract = getWILDXContract(signer)
-  const { onReward } = useHarvest(pid.length > 0 ? pid[0] : 0)
+  const { onReward } = useHarvest(!isAll ? pid : 0)
   const { onZapForFarm } = useZapForFarm()
   const masterChefContract = useMasterchef()
   const dispatch = useAppDispatch()
 
   async function handleDeposit() {
-    if (pid.length === 0) return
     setZapPendingTx(true)
     try {
       if (pid.length === 1) await onReward(false)
@@ -68,22 +69,21 @@ export default function ZapInModal({ open, closeModal, earnings, pid }) {
         targetToken.lpAddresses,
         targetToken.pid
       )
-      dispatch(
-        fetchFarmUserDataAsync({
-          account: address,
-          pids: [farms[0].pid],
-        })
-      )
       dispatch(fetchFarmUserDataAsync({ account: address, pids: pid }))
       notify(
         'success',
-        'You have successfully zapped 2WILD token in ' +
-          targetToken.lpSymbol +
-          ' pool'
+        'You have successfully compounded 2WILD to ' +
+        targetToken.lpSymbol +
+        ' pool'
       )
+      closeModal()
       setZapPendingTx(false)
     } catch (e) {
-      notify('error', 'Transaction failed')
+      if (didUserReject(e)) {
+        notify('error', 'User rejected transaction')
+      } else {
+        notify('error', 'Transaction failed')
+      }
       setZapPendingTx(false)
     }
   }
@@ -105,25 +105,32 @@ export default function ZapInModal({ open, closeModal, earnings, pid }) {
           <ArrowForwardIcon />
           <TokenDisplay token={targetToken} modal={true} />
         </div>
-        <p className='text-center text-gray-400 text-sm py-2'>
-          Select target pool.
-        </p>
-        <div className='bg-secondary-700 rounded-full p-2 flex mb-2'>
-          <select
-            name='tokenA'
-            className='bg-transparent focus-visible:outline-none w-full cursor-pointer'
-            onChange={(e) => handleChangeToken(e.target.value)}
-          >
-            {farms.map((item, key) => {
-              if (item.lpSymbol !== '2WILD' && item.lpSymbol !== 'WETH-USDC')
-                return (
-                  <option key={key} className='bg-secondary-700' value={key}>
-                    {item?.lpSymbol}
-                  </option>
-                )
-            })}
-          </select>
-        </div>
+        {isAll ? (
+          <>
+            <p className='text-center text-gray-400 text-sm py-2'>
+              Select target pool.
+            </p>
+            <div className='bg-secondary-700 rounded-full p-2 flex mb-2'>
+              <select
+                name='tokenA'
+                className='bg-transparent focus-visible:outline-none w-full cursor-pointer'
+                onChange={(e) => handleChangeToken(e.target.value)}
+              >
+                {farms.map((item, key) => {
+                  if (item.lpSymbol !== 'WETH-USDC')
+                    return (
+                      <option key={key} className='bg-secondary-700' value={key}>
+                        {item?.lpSymbol}
+                      </option>
+                    )
+                })}
+              </select>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+
         <p className='text-center text-lg pt-4'>
           Compound {' '}
           <span className='font-semibold text-green-500 mx-1'>
@@ -131,7 +138,7 @@ export default function ZapInModal({ open, closeModal, earnings, pid }) {
           </span>
           into{' '}
           <span className='font-semibold text-green-500 mx-1'>
-            {targetToken.lpSymbol}
+            {targetToken?.lpSymbol}
           </span>{' '}
           Pool
         </p>
@@ -150,7 +157,7 @@ export default function ZapInModal({ open, closeModal, earnings, pid }) {
             className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
             disabled={Number(earnings) === 0 || pendingZapTx}
           >
-            {pendingZapTx ? <Loading /> : t('Harvest & Compound')}
+            {pendingZapTx ? <Loading /> : t('Compound')}
           </button>
         </div>
       </div>
