@@ -2,17 +2,17 @@ import tokens from './tokens'
 
 const farmsConfig = [
   {
-    pid: 5,
+    pid: 1,
     lpSymbol: tokens.wild.symbol,
     isTokenOnly: true,
-    lpAddresses: '0x17697df2Abb7051B8EB2Cec5065Cb8eE2F0A7B6D',
+    lpAddresses: '0x4B678D9Ab356eC999Ce996c1c9971026db0fA2D2',
     token: tokens.wild,
     quoteToken: tokens.wild,
     logoA: '/images/tokens/wildx.svg',
     logoB: ''
   },
   {
-    pid: 1,
+    pid: 2,
     lpSymbol: tokens.weth.symbol,
     isTokenOnly: true,
     lpAddresses: '0x4200000000000000000000000000000000000006',
@@ -22,33 +22,13 @@ const farmsConfig = [
     logoB: ''
   },
   {
-    pid: 2,
-    lpSymbol: tokens.dai.symbol,
-    isTokenOnly: true,
-    lpAddresses: '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb',
-    token: tokens.dai,
-    quoteToken: tokens.weth,
-    logoA: '/images/tokens/dai.svg',
-    logoB: ''
-  },
-  {
-    pid: 6,
+    pid: 0,
     lpSymbol: 'WETH-2WILD',
-    lpAddresses: '0xC2e37dEC5e7b3cE968b4a616D5BfaAd41354499c',
+    lpAddresses: '0x59943ef5242A271e7993658A11399f127b1785be',
     token: tokens.wild,
     quoteToken: tokens.weth,
     logoA: '/images/tokens/wildx.svg',
     logoB: '/images/tokens/weth.svg'
-  },
-  {
-    pid: 7,
-    lpSymbol: 'USDC-2WILD',
-    isTokenOnly: false,
-    lpAddresses: '0x5131D639de2a3080434ccfF0FB3A4250905B4De4',
-    token: tokens.wild,
-    quoteToken: tokens.usdc,
-    logoA: '/images/tokens/wildx.svg',
-    logoB: '/images/tokens/usdc.svg'
   },
   {
     pid: 4,
