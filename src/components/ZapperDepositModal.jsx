@@ -110,7 +110,9 @@ export default function ZapperDepositModal(props) {
       setPendingTx(false)
     }
   }
-
+  function setMaximum() {
+    setAmount(Number(props.availableA))
+  }
   async function updateUI() {
     const allownceA = (tokenAAllownceRead.data || 0).toString()
     setAllowance(allownceA)
@@ -159,8 +161,8 @@ export default function ZapperDepositModal(props) {
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
-          <p className='text-right'>
-            Available: {Number(props.availableA).toFixed(5)}
+          <p className='flex justify-end text-right'>
+            Available: <div className='cursor-pointer' onClick={setMaximum}>{Number(props.availableA).toFixed(5)}</div>
           </p>
           <div className='flex gap-3 pt-4'>
             <button
