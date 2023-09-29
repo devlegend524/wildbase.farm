@@ -355,46 +355,7 @@
   },
   {
     "inputs": [],
-    "name": "enableDynamicTax",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "getCurrentTaxRate",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getDynamicTaxRate",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getStaticTaxRate",
     "outputs": [
       {
         "internalType": "uint256",
@@ -509,38 +470,12 @@
   {
     "inputs": [
       {
-        "internalType": "bool",
-        "name": "_enableDynamicTax",
-        "type": "bool"
-      }
-    ],
-    "name": "setEnableDynamicTax",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
         "name": "_taxRate",
         "type": "uint256"
       }
     ],
     "name": "setStaticTaxRate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_taxOffice",
-        "type": "address"
-      }
-    ],
-    "name": "setTaxOffice",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -592,19 +527,6 @@
         "internalType": "string",
         "name": "",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "taxOffice",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",

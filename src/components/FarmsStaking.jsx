@@ -83,17 +83,9 @@ export default function () {
         </div>
         <div>
           {" "}
-          <div className="text-base pb-2">CURRENT TWAP:</div>
-          <div className="mb-1">
-           <CurrentTwap />
-          </div>
-          <div className="text-base pb-2">Current Sales Tax:</div>
+          <div className="text-base py-2">Current Sales Tax:</div>
           <div className="mb-1">
            <CurrentSaleTax />
-          </div>
-          <div className="text-base pb-2">Epoch 1 Starts in</div>
-          <div className="text-[40px] font-semibold text-gray-300">
-            05:59:12
           </div>
         </div>
       </div>
