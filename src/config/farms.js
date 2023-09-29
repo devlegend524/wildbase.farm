@@ -2,7 +2,7 @@ import tokens from './tokens'
 
 const farmsConfig = [
   {
-    pid: 1,
+    pid: 0,
     lpSymbol: tokens.wild.symbol,
     isTokenOnly: true,
     lpAddresses: '0xD583332c65Ac835268c5DA8c17067f5Ebe23c1c5',
@@ -12,7 +12,7 @@ const farmsConfig = [
     logoB: ''
   },
   {
-    pid: 2,
+    pid: 1,
     lpSymbol: tokens.weth.symbol,
     isTokenOnly: true,
     lpAddresses: '0x4200000000000000000000000000000000000006',
@@ -22,7 +22,7 @@ const farmsConfig = [
     logoB: ''
   },
   {
-    pid: 0,
+    pid: 2,
     lpSymbol: 'WETH-WILDX',
     lpAddresses: '0x418Cc6366f45725251ECDcceED3Bd2910aa7B23C',
     token: tokens.wild,
