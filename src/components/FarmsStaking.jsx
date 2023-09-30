@@ -83,7 +83,7 @@ export default function () {
         </div>
         <div>
           {" "}
-          <div className="text-base py-2">Current Sales Tax:</div>
+          <div className="text-base py-3">Current Sales Tax:</div>
           <div className="mb-1">
            <CurrentSaleTax />
           </div>
