@@ -11,7 +11,7 @@ const Zap = lazy(() => import('pages/Zap'))
 const PageRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Farm />,
   },
   {
     path: "/farms",
