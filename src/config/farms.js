@@ -31,9 +31,9 @@ const farmsConfig = [
     logoB: '/images/tokens/weth.svg'
   },
   {
-    pid: 3,
+    pid: 4,
     lpSymbol: 'WETH-USDC',
-    lpAddresses: '0xeF24722d5daE32Dc155d961561cFFbc5f347EeE7',
+    lpAddresses: '0x79474223AEdD0339780baCcE75aBDa0BE84dcBF9',
     token: tokens.usdc,
     quoteToken: tokens.weth,
     logoA: '/images/tokens/weth.svg',
