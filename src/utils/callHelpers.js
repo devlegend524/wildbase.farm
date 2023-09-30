@@ -8,8 +8,9 @@ import { getWILDXAddress, getMasterChefAddress } from 'utils/addressHelpers'
 import { getBalanceAmount } from './formatBalance'
 import { BIG_ZERO } from './bigNumber'
 import { web3WithArchivedNodeProvider } from './providerHelpers'
-import { fromReadableAmount } from './customHelpers'
+import { didUserReject, fromReadableAmount } from './customHelpers'
 import tokens from 'config/tokens'
+import { notify } from './toastHelper'
 
 
 export const approve = async (lpContract, masterChefContract, address) => {
@@ -29,6 +30,9 @@ export const stake = async (
       .deposit(pid, fromReadableAmount(amount, decimals), isCompound)
   } catch (e) {
     console.log(e)
+    if (didUserReject(e)) {
+      notify('error', 'User rejected transaction')
+    }
     return null
   }
 
@@ -40,6 +44,9 @@ export const unstake = async (masterChefContract, pid, amount, address, decimals
       .withdraw(pid, fromReadableAmount(amount, decimals), { from: address })
   } catch (e) {
     console.log(e)
+    if (didUserReject(e)) {
+      notify('error', 'User rejected transaction')
+    }
     return null
   }
 }
@@ -50,6 +57,9 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
       .zap(tokenA, amount, tokenB, { from: address })
   } catch (e) {
     console.log(e)
+    if (didUserReject(e)) {
+      notify('error', 'User rejected transaction')
+    }
     return null
   }
 }
@@ -66,6 +76,9 @@ export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, addre
       .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, { from: address })
   } catch (e) {
     console.log(e)
+    if (didUserReject(e)) {
+      notify('error', 'User rejected transaction')
+    }
     return null
   }
 }
@@ -76,6 +89,9 @@ export const harvest = async (masterChefContract, pid, isCompound, address) => {
       .deposit(pid, '0', isCompound)
   } catch (e) {
     console.log(e)
+    if (didUserReject(e)) {
+      notify('error', 'User rejected transaction')
+    }
     return null
   }
 }
@@ -85,6 +101,9 @@ export const harvestMany = async (masterChefContract, pids, isCompound, address)
     return await masterChefContract.harvestMany(pids, isCompound, { from: address })
   } catch (e) {
     console.log(e)
+    if (didUserReject(e)) {
+      notify('error', 'User rejected transaction')
+    }
     return null
   }
 }

@@ -5,8 +5,6 @@ import {
   useAccount,
   erc20ABI,
   useContractRead,
-  usePrepareContractWrite,
-  useContractWrite,
 } from 'wagmi'
 import TokenDisplay from 'components/TokenDisplay'
 import { getZapAddress } from 'utils/addressHelpers'
@@ -14,7 +12,9 @@ import lpTokenAbi from 'config/abi/lpToken'
 import useZap from 'hooks/useZap'
 import Loading from './Loading'
 import { notify } from 'utils/toastHelper'
-
+import { getErc20Contract, getLpContract } from 'utils/contractHelpers'
+import { useEthersSigner } from 'hooks/useEthers'
+import { didUserReject } from 'utils/customHelpers'
 const customStyles = {
   content: {
     top: '50%',
@@ -32,6 +32,7 @@ const customStyles = {
 export default function ZapperDepositModal(props) {
   const zapAddress = getZapAddress()
   const [open, setOpen] = useState(false)
+  const [isApproving, setIsApproving] = useState(false)
   const { address } = useAccount()
   const { onZap } = useZap()
   const tokenABI = props.tokenA.isTokenOnly ? erc20ABI : lpTokenAbi
@@ -39,6 +40,7 @@ export default function ZapperDepositModal(props) {
   const [allowance, setAllowance] = useState(0)
   const [pendingTx, setPendingTx] = useState(false)
   const [amount, setAmount] = useState('')
+  const signer = useEthersSigner();
 
   const tokenAAllownceRead = useContractRead({
     address: props.tokenA.lpAddresses,
@@ -52,18 +54,6 @@ export default function ZapperDepositModal(props) {
     },
   })
 
-  const { config: approveConfig } = usePrepareContractWrite({
-    address: props.tokenA.lpAddresses,
-    abi: tokenABI,
-    functionName: 'approve',
-    chainId: 8453,
-    args: [zapAddress, '1000000000000000000000000'],
-  })
-
-  const { write: approveWrite } = useContractWrite({
-    ...approveConfig,
-  })
-
   function openModal() {
     setOpen(true)
   }
@@ -75,38 +65,39 @@ export default function ZapperDepositModal(props) {
 
   async function handleDeposit() {
     try {
-      setPendingTx(true)
-      if (props.tokenA.lpSymbol == 'USDC' || props.tokenA.lpSymbol == 'USDT') {
-        if (
-          Number(ethers.utils.formatUnits(allowance, 'ether')) < Number(amount)
-        ) {
-          approveWrite?.()
+      console.log('allowance', allowance)
+      console.log('amount', amount)
+      if (
+        Number(ethers.utils.formatUnits(allowance, 'ether')) < Number(amount)
+      ) {
+        console.log('approving...')
+        setIsApproving(true)
+        let tokenContract;
+        if (props.tokenA.isTokenOnly) {
+          tokenContract = getErc20Contract(props.tokenA.lpAddresses, signer)
+        } else {
+          tokenContract = getLpContract(props.tokenA.lpAddresses, signer)
         }
-        await onZap(
-          props.tokenA.lpAddresses,
-          ethers.utils.parseEther(amount.toString() || '1'),
-          props.tokenB.lpAddresses
-        )
-      } else {
-        if (
-          Number(ethers.utils.formatUnits(allowance, 'ether')) < Number(amount)
-        ) {
-          console.log('approving...')
-          approveWrite?.()
-        }
-        console.log('zapping...')
-        await onZap(
-          props.tokenA.lpAddresses,
-          ethers.utils.parseEther(amount.toString() || '1'),
-          props.tokenB.lpAddresses
-        )
-        console.log('zapped...')
-        notify('success', 'You have successfully zapped token pair')
-        closeModal()
+        await tokenContract.approve(zapAddress, ethers.constants.MaxUint256, { from: address })
+        setIsApproving(false)
       }
+      console.log('zapping...')
+      setPendingTx(true)
+      await onZap(
+        props.tokenA.lpAddresses,
+        ethers.utils.parseEther(amount.toString() || '1'),
+        props.tokenB.lpAddresses
+      )
+      console.log('zapped...')
+      notify('success', 'You have successfully zapped token pair')
+      closeModal()
       setPendingTx(false)
     } catch (e) {
       console.log(e)
+      if (didUserReject(e)) {
+        notify('error', 'User rejected transaction')
+      }
+      setIsApproving(false)
       setPendingTx(false)
     }
   }
@@ -124,7 +115,7 @@ export default function ZapperDepositModal(props) {
 
   return (
     <>
-      <div className='flex justify-center pb-16'>
+      <div className='flex justify-center pb-16 m-2'>
         <button
           className='bg-secondary-700 rounded-lg p-3 hover:scale-105 transition ease-in-out'
           onClick={openModal}
@@ -173,10 +164,10 @@ export default function ZapperDepositModal(props) {
             </button>
             <button
               onClick={handleDeposit}
-              disabled={props.availableA < amount || pendingTx}
+              disabled={(Number(amount) <= 0 || props.availableA < amount) || pendingTx || isApproving}
               className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
             >
-              {pendingTx ? <Loading /> : <>Deposit {props.tokenA.lpSymbol}</>}{' '}
+              {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : pendingTx ? <div className='flex justify-center gap-1'><Loading /> Zapping...</div> : <>{Number(ethers.utils.formatUnits(allowance, 'ether')) < Number(amount) ? 'Approve' : 'Deposit'}</>}{' '}
             </button>
           </div>
         </div>

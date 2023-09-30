@@ -5,7 +5,7 @@ export const notify = (type, message) => {
   {
     position: toast.POSITION.BOTTOM_RIGHT,
     theme: "dark",
-    hideProgressBar: false,
+    hideProgressBar: true,
     newestOnTop: false,
     pauseOnHover: false
   }
