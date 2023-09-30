@@ -426,6 +426,11 @@
         "type": "uint16"
       },
       {
+        "internalType": "uint256",
+        "name": "_startBlock",
+        "type": "uint256"
+      },
+      {
         "internalType": "bool",
         "name": "_withUpdate",
         "type": "bool"
