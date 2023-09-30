@@ -107,8 +107,6 @@ export default function ZapInModal({ open, closeModal, pid }) {
     } catch (e) {
       if (didUserReject(e)) {
         notify('error', 'User Rejected Transaction')
-      } else {
-        notify('error', 'Transaction failed')
       }
       setZapPendingTx(false) // 21600
     }

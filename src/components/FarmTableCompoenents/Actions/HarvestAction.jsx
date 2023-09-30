@@ -54,8 +54,6 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
     } catch (e) {
       if (didUserReject(e)) {
         notify('error', 'User rejected transaction')
-      } else {
-        notify('error', 'Transaction failed')
       }
       setPendingTx(false)
     }

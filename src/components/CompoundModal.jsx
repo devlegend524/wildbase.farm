@@ -81,8 +81,6 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
     } catch (e) {
       if (didUserReject(e)) {
         notify('error', 'User rejected transaction')
-      } else {
-        notify('error', 'Transaction failed')
       }
       setZapPendingTx(false)
     }
