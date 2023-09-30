@@ -40,9 +40,8 @@ export default function Header() {
           <a
             href={item.link}
             key={index}
-            className={`p-3 hover:border-b-4 hover:boder-sky-400 ${
-              currentURL === item.link ? 'border-b-4 border-sky-500' : ''
-            } `}
+            className={`p-3 hover:border-b-4 hover:boder-sky-400 ${currentURL === item.link ? 'border-b-4 border-sky-500' : ''
+              } `}
           >
             <div>{item.name}</div>
           </a>
@@ -60,21 +59,20 @@ export default function Header() {
       <div className='flex gap-2 mr-3'>
         <div className='flex items-center'>
           <img src='/logo.png' alt='logo' className='w-[30px]' />
-          <div className='mx-2'>
+          <div className='mx-2 flex'>
             $ {tokenPrice !== 'NaN' ? tokenPrice : '0.0'}
           </div>
         </div>
         <ConnectButton />
       </div>
       {open && (
-        <div className='flex absolute justify-center top-16 left-1/2 -translate-x-1/2 bg-gray-900 w-full'>
+        <div className='flex absolute justify-center top-20 left-1/2 -translate-x-1/2 bg-gray-900 w-full'>
           {HeaderLinks.map((item, index) => (
             <a
               href={item.link}
               key={index}
-              className={`p-2 hover:border-b-4 hover:boder-sky-400 ${
-                currentURL === item.link ? 'border-b-4 border-sky-500' : ''
-              } `}
+              className={`p-2 hover:border-b-4 hover:boder-sky-400 ${currentURL === item.link ? 'border-b-4 border-sky-500' : ''
+                } `}
             >
               <div>{item.name}</div>
             </a>
