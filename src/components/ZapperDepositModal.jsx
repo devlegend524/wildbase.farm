@@ -42,18 +42,16 @@ export default function ZapperDepositModal(props) {
   const [amount, setAmount] = useState('')
   const signer = useEthersSigner();
 
-  const tokenAAllownceRead = useContractRead({
-    address: props.tokenA.lpAddresses,
-    abi: tokenABI,
-    functionName: 'allowance',
-    args: [address || '0x000000000000000000000000000000000000dead', zapAddress],
-    chainId: 8453,
-
-    onSuccess(data) {
-      console.log('Success', data)
-    },
-  })
-
+  const getAllowance = async () => {
+    let tokenContract;
+    if (props.tokenA.isTokenOnly) {
+      tokenContract = getErc20Contract(props.tokenA.lpAddresses, signer)
+    } else {
+      tokenContract = getLpContract(props.tokenA.lpAddresses, signer)
+    }
+    const tokenAllowance = await tokenContract.allowance(address, zapAddress, { from: address })
+    setAllowance(tokenAllowance.toString())
+  }
   function openModal() {
     setOpen(true)
   }
@@ -62,11 +60,8 @@ export default function ZapperDepositModal(props) {
     setOpen(false)
     setAmount('')
   }
-
-  async function handleDeposit() {
+  async function handleApprove() {
     try {
-      console.log('allowance', allowance)
-      console.log('amount', amount)
       if (
         Number(ethers.utils.formatUnits(allowance, 'ether')) < Number(amount)
       ) {
@@ -81,6 +76,16 @@ export default function ZapperDepositModal(props) {
         await tokenContract.approve(zapAddress, ethers.constants.MaxUint256, { from: address })
         setIsApproving(false)
       }
+    } catch (e) {
+      console.log(e)
+      if (didUserReject(e)) {
+        notify('error', 'User rejected transaction')
+      }
+      setIsApproving(false)
+    }
+  }
+  async function handleDeposit() {
+    try {
       console.log('zapping...')
       setPendingTx(true)
       await onZap(
@@ -97,22 +102,15 @@ export default function ZapperDepositModal(props) {
       if (didUserReject(e)) {
         notify('error', 'User rejected transaction')
       }
-      setIsApproving(false)
       setPendingTx(false)
     }
   }
   function setMaximum() {
     setAmount(Number(props.availableA))
   }
-  async function updateUI() {
-    const allownceA = (tokenAAllownceRead.data || 0).toString()
-    setAllowance(allownceA)
-  }
-
   useEffect(() => {
-    updateUI()
-  }, [tokenAAllownceRead])
-
+    getAllowance()
+  })
   return (
     <>
       <div className='flex justify-center pb-16 m-2'>
@@ -162,13 +160,21 @@ export default function ZapperDepositModal(props) {
             >
               Cancel
             </button>
-            <button
-              onClick={handleDeposit}
-              disabled={(Number(amount) <= 0 || props.availableA < amount) || pendingTx || isApproving}
-              className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
-            >
-              {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : pendingTx ? <div className='flex justify-center gap-1'><Loading /> Zapping...</div> : <>{Number(ethers.utils.formatUnits(allowance, 'ether')) < Number(amount) ? 'Approve' : 'Deposit'}</>}{' '}
-            </button>
+            {
+              Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
+                onClick={handleApprove}
+                disabled={isApproving}
+                className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+              >
+                {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : 'Approve'}{' '}
+              </button> : <button
+                onClick={handleDeposit}
+                disabled={(Number(amount) <= 0 || props.availableA < amount) || pendingTx || isApproving}
+                className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+              >
+                {pendingTx ? <div className='flex justify-center gap-1'><Loading /> Zapping...</div> : 'Deposit'}{' '}
+              </button>
+            }
           </div>
         </div>
       </Modal>

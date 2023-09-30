@@ -78,7 +78,7 @@ export default function Zap() {
           ? ethers.utils.formatUnits(read1, 6)
           : ethers.utils.formatEther(read1)
       )
-    } catch {}
+    } catch { }
   }
 
   useEffect(() => {
