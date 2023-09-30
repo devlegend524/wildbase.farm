@@ -218,7 +218,8 @@ export default function FarmBanner() {
                 (chain.id === CHAIN_ID)
                 ? getScanTokenUrl(wildAddress)
                 : ''
-                }: ""`}
+                }`}
+              target='_blank'
             >
               <span className='hidden xl:block'>
                 {formatAddress(wildAddress, 10)}
