@@ -11,11 +11,11 @@ export const getScanUrl = (value, type = "address") => {
   }
 
   const prefix = prefixByType[type]
-  return `${EXPLORER_URL[CHAIN_ID]}/${prefix}/${value}`
+  return `${EXPLORER_URL[CHAIN_ID]}${prefix}/${value}`
 }
 
 export const getScanAddressUrl = (address) => getScanUrl(address)
 export const getScanTransactionUrl = (hash) => getScanUrl(hash, 'tx')
 export const getScanBlockNumberUrl = (block) => getScanUrl(block, 'block')
 export const getScanBlockCountdownUrl = (block) => getScanUrl(block, 'blockCountdown')
-export const getScanTokenUrl = (address) => getScanUrl(address, 'token')
+export const getScanTokenUrl = (address) => getScanUrl(address, 'address')

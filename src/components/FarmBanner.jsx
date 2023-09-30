@@ -215,9 +215,9 @@ export default function FarmBanner() {
             <a
               className='w-100  flex items-center justify-center py-10 text-base hover:underline'
               href={`${chain &&
-                  (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)
-                  ? getScanTokenUrl(wildAddress)
-                  : ''
+                (chain.id === CHAIN_ID)
+                ? getScanTokenUrl(wildAddress)
+                : ''
                 }: ""`}
             >
               <span className='hidden xl:block'>
