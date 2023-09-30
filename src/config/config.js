@@ -26,7 +26,7 @@ export const HeaderLinks = [
   // },
   {
     name: 'Farms',
-    link: '/farms',
+    link: '/',
   },
   // {
   //   name: 'Presale',
