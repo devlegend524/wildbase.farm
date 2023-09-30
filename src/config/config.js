@@ -8,7 +8,7 @@ export const TESTNET_CHAIN_ID = 84531
 export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
 export const NUMBER_OF_FARMS_VISIBLE = 12
 export const wildWethFarmPid = 2;
-export const wethUsdcFarmPid = 4;
+export const wethUsdcFarmPid = 3;
 
 export const START_PRESALE = Number((new Date(
   new Date('9/10/2023 10:00:00 AM EST').toString()
