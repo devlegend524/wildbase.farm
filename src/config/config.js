@@ -11,7 +11,7 @@ export const wildWethFarmPid = 2;
 export const wethUsdcFarmPid = 3;
 
 export const START_PRESALE = Number((new Date(
-  new Date('9/10/2023 10:00:00 AM EST').toString()
+  new Date('10/1/2023 11:00:00 AM EST').toString()
 ).getTime() / 1000).toFixed(0))
 
 export const YEAR = 60 * 60 * 24 * 365
@@ -20,22 +20,22 @@ export const YEAR_BN = new BigNumber(YEAR)
 export const BASE_EXPLORER = "https://basescan.org"
 
 export const HeaderLinks = [
-  // {
-  //   name: 'Home',
-  //   link: '/',
-  // },
+  {
+    name: 'Home',
+    link: '/',
+  },
   {
     name: 'Farms',
-    link: '/',
+    link: '/farms',
   },
   // {
   //   name: 'Presale',
   //   link: '/presale',
   // },
-  {
-    name: 'Zap',
-    link: '/zap',
-  },
+  // {
+  //   name: 'Zap',
+  //   link: '/zap',
+  // },
 ];
 
 export const socials = [

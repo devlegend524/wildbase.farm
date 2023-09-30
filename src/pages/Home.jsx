@@ -8,7 +8,7 @@ export default function Home() {
   const [started, setStated] = useState(false)
 
   const Endime = new Date(
-    new Date('9/9/2023 11:00:00 AM EST').toString()
+    new Date('10/2/2023 11:00:00 AM EST').toString()
   ).getTime()
 
   const completed = () => {
@@ -23,7 +23,7 @@ export default function Home() {
         )
         const result = await res.json()
         localStorage.setItem('ethPrice', new BigNumber(result?.USD))
-      } catch (e) {}
+      } catch (e) { }
     }
     getEthPrice()
   }, [])
@@ -40,7 +40,7 @@ export default function Home() {
           <source src='/images/nft.mp4' type='video/mp4' />
         </video>
       </div>
-      <div className='m-2 flex flex-col items-center justify-center mb-10'>
+      <div className='m-2 flex flex-col items-center justify-center mb-10 text-white'>
         {started ? (
           <a className='hero_strong' href='/farms'>
             Go to Farms

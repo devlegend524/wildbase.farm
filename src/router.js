@@ -11,16 +11,16 @@ const Zap = lazy(() => import('pages/Zap'))
 const PageRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Farm />,
+    element: <Home />,
   },
   {
     path: "/farms",
     element: <Farm />,
   },
-  {
-    path: "/zap",
-    element: <Zap />,
-  },
+  // {
+  //   path: "/zap",
+  //   element: <Zap />,
+  // },
   {
     path: "*",
     element: <NotFound />,
