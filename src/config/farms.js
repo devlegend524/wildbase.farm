@@ -5,7 +5,7 @@ const farmsConfig = [
     pid: 0,
     lpSymbol: tokens.wild.symbol,
     isTokenOnly: true,
-    lpAddresses: '0x438edA4E4e63faEAB77290AF400242D7bA88794a',
+    lpAddresses: '0xC0AAc89F5DB081FA5F392B1b5b1a3dE0596B5E88',
     token: tokens.wild,
     quoteToken: tokens.wild,
     logoA: '/images/tokens/wildx.svg',
@@ -24,7 +24,7 @@ const farmsConfig = [
   {
     pid: 2,
     lpSymbol: 'WETH-WILDX',
-    lpAddresses: '0x3C6fcD437AcA93280BedB6120a8Fb6080E3D7635',
+    lpAddresses: '0x0c15EE801963c05db5cd1c41120EBfdC1F2e7338',
     token: tokens.wild,
     quoteToken: tokens.weth,
     logoA: '/images/tokens/wildx.svg',
@@ -52,7 +52,7 @@ const farmsConfig = [
   // {
   //   pid: 4,
   //   lpSymbol: 'WILDX-USDC',
-  //   lpAddresses: '0xc606a0167c6fc516a6136080bA0AD5a2204484c8',
+  //   lpAddresses: '0xf802c112E9443E8A7Cbb9289f0735266bD67238c',
   //   token: tokens.wild,
   //   quoteToken: tokens.usdc,
   // },
