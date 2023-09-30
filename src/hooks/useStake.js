@@ -21,7 +21,7 @@ const useStake = (pid) => {
       // try {
       //   proof = whitelistMerkleTree.getProof([account])
       // } catch (e) {
-      //   console.error('Whitelist check error', e)
+      //  console.log('Whitelist check error', e)
       // }
       const txHash = await stake(
         masterChefContract,

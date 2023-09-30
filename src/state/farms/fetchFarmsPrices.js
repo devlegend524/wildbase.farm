@@ -20,16 +20,16 @@ const getFarmBaseTokenPrice = (farm, quoteTokenFarm, wethPriceUsdt, wildxPriceUs
     return hasTokenPriceVsQuote ? wildxPriceUsdt.times(farm.tokenPriceVsQuote) : BIG_ZERO
   }
 
-  // We can only calculate profits without a quoteTokenFarm for BUSD/BNB farms
+  // We can only calculate profits without a quoteTokenFarm for USDC/WETH farms
   if (!quoteTokenFarm) {
     return BIG_ZERO
   }
 
   // Possible alternative farm quoteTokens:
   // UST (i.e. MIR-UST), pBTC (i.e. PNT-pBTC), BTCB (i.e. bBADGER-BTCB), ETH (i.e. SUSHI-ETH)
-  // If the farm's quote token isn't BUSD or wBNB, we then use the quote token, of the original farm's quote token
-  // i.e. for farm PNT - pBTC we use the pBTC farm's quote token - BNB, (pBTC - BNB)
-  // from the BNB - pBTC price, we can calculate the PNT - BUSD price
+  // If the farm's quote token isn't USDC or wWETH, we then use the quote token, of the original farm's quote token
+  // i.e. for farm PNT - pBTC we use the pBTC farm's quote token - WETH, (pBTC - WETH)
+  // from the WETH - pBTC price, we can calculate the PNT - USDC price
   if (quoteTokenFarm.quoteToken.symbol === 'WETH') {
     const quoteTokenInUsdc = wethPriceUsdt.times(quoteTokenFarm.tokenPriceVsQuote)
     return hasTokenPriceVsQuote && quoteTokenInUsdc

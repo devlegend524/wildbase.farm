@@ -125,7 +125,7 @@ const StakedAction = ({
 
       setRequestedApproval(false)
     } catch (e) {
-      console.error(e)
+      console.log(e)
     }
   }, [onApprove, dispatch, address, pid])
 

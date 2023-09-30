@@ -95,7 +95,7 @@ const useApproveConfirmTransaction = ({
         })
         .on('error', (error) => {
           dispatch({ type: 'approve_error', payload: error })
-          console.error('An error occurred approving transaction:', error)
+          console.log('An error occurred approving transaction:', error)
           notify('error', t('An error occurred approving transaction'))
         })
     },
@@ -110,7 +110,7 @@ const useApproveConfirmTransaction = ({
         })
         .on('error', (error) => {
           dispatch({ type: 'confirm_error', payload: error })
-          console.error('An error occurred confirming transaction:', error)
+          console.log('An error occurred confirming transaction:', error)
           notify('error', t('An error occurred confirming transaction'))
         })
     },

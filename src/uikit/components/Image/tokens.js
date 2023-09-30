@@ -436,7 +436,7 @@ const tokens = {
     projectLink: 'https://venus.io/',
   },
   wbnb: {
-    symbol: 'wBNB',
+    symbol: 'wWETH',
     address: {
       56: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
       97: '0xae13d989dac2f0debff460ac112a837c89baa7cd',
@@ -608,7 +608,7 @@ const tokens = {
     projectLink: 'https://dusk.network/',
   },
   usd: {
-    symbol: 'BUSD',
+    symbol: 'USDC',
     address: {
       56: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
       97: '',

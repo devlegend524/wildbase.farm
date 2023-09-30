@@ -66,11 +66,6 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
 
 export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, address) => {
   try {
-    console.log(amount.toString())
-    console.log(tokenA)
-    console.log(tokenB)
-    console.log(pid)
-    console.log(address)
     const masterchefAddress = getMasterChefAddress()
     return await zapContract
       .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, { from: address })
@@ -116,7 +111,7 @@ const WETH_TOKEN = new Token(chainId, tokens.weth.address, 18)
 const WILDX_WETH_TOKEN = new Token(chainId, wildWethFarm.lpAddresses, 18)
 
 /**
- * Returns the total WILDX staked in the WILDX-BNB LP
+ * Returns the total WILDX staked in the WILDX-WETH LP
  */
 export const getUserStakeInWildWethLp = async (account, block) => {
   try {
@@ -139,7 +134,7 @@ export const getUserStakeInWildWethLp = async (account, block) => {
 
     return new BigNumber(cakeLPBalance.toSignificant(18))
   } catch (error) {
-    console.error(`WILDX-BNB LP error: ${error}`)
+    console.log(`WILDX-WETH LP error: ${error}`)
     return BIG_ZERO
   }
 }
@@ -155,7 +150,7 @@ export const getUserStakeInWILDXPool = async (account, block) => {
 
     return getBalanceAmount(new BigNumber(response.amount))
   } catch (error) {
-    console.error('Error getting stake in WILDX pool', error)
+    console.log('Error getting stake in WILDX pool', error)
     return BIG_ZERO
   }
 }

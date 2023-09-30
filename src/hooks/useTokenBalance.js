@@ -25,12 +25,12 @@ const useTokenBalance = (tokenAddress) => {
   const provider = useEthersProvider()
   useEffect(() => {
     const fetchBalance = async () => {
-      const contract = getErc20Contract(tokenAddress, provider)
       try {
+        const contract = getErc20Contract(tokenAddress, provider)
         const res = await contract.balanceOf(address)
         setBalanceState({ balance: res, fetchStatus: SUCCESS })
       } catch (e) {
-        console.error(e)
+        console.log(e)
         setBalanceState((prev) => ({
           ...prev,
           fetchStatus: FAILED,
@@ -38,10 +38,10 @@ const useTokenBalance = (tokenAddress) => {
       }
     }
 
-    if (address) {
+    if (address && provider) {
       fetchBalance()
     }
-  }, [address, tokenAddress, fastRefresh, SUCCESS, FAILED])
+  }, [address, tokenAddress, fastRefresh, SUCCESS, FAILED, provider])
 
   return balanceState
 }

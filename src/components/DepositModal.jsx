@@ -92,7 +92,7 @@ const useNewUnlockTime = ({
         await response.wait()
         setNewUnlockTime(Date.now() + response * 1000)
       } catch (e) {
-        console.error(e)
+        console.log(e)
       } finally {
         setLoading(false)
       }

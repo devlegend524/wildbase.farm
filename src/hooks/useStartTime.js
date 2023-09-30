@@ -15,7 +15,7 @@ const useStartTime = () => {
         const startTime = await masterChefContract.startTime()
         setData(startTime * 1000)
       } catch (e) {
-        console.error('fetch start time error', e)
+        console.log('fetch start time error', e)
       } finally {
         setLoading(false)
       }
