@@ -49,7 +49,7 @@ const tokensList = [
     lpSymbol: 'USDC',
     isTokenOnly: true,
     decimals: 6,
-    lpAddresses: '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA',
+    lpAddresses: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
     logoA: '/images/tokens/usdc.svg',
     logoB: ''
   },

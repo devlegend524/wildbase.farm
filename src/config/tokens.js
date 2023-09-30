@@ -10,7 +10,7 @@ const tokensList = {
   },
   usdc: {
     symbol: 'USDC',
-    address: '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA', //'0x82fa51b3B9d4E2ccbdB902851B598FAe70c93809', 
+    address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', //'0x82fa51b3B9d4E2ccbdB902851B598FAe70c93809', 
     decimals: 6,
   },
   weth: {
