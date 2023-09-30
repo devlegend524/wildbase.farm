@@ -70,13 +70,17 @@ export const useWILDXPerSecond = () => {
   const provider = useEthersProvider()
   useEffect(() => {
     async function fetchWildPerSecond() {
-      const masterChefContract = getMasterchefContract(provider, chain ? chain.id : CHAIN_ID)
-      const perSecond = await masterChefContract.wildxPerBlock()
-      setWildPerSecond(ethers.utils.formatUnits(perSecond, 18))
+      try {
+        const masterChefContract = getMasterchefContract(provider)
+        const perSecond = await masterChefContract.wildxPerBlock()
+        setWildPerSecond(ethers.utils.formatUnits(perSecond, 18))
+      } catch (e) {
+        console.log(e)
+      }
     }
-
-    fetchWildPerSecond()
-  }, [fastRefresh])
+    if (provider)
+      fetchWildPerSecond()
+  }, [fastRefresh, provider])
 
   return wildxPerBlock
 }

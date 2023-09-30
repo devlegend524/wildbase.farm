@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { useAccount } from "wagmi";
 import { Button } from "uikit";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useMasterchef } from "hooks/useContract";
 import { useFarmsWithBalance } from "hooks/useFarmsWithBalance";
 import { harvestMany } from "utils/callHelpers";
-import { notify } from "utils/toastHelper";
 import { useTranslation } from "contexts/Localization";
 import WILDXHarvestBalance from "./FarmStackingComponents/WILDXHarvestBalance";
 import WILDXWalletBalance from "./FarmStackingComponents/WILDXWalletBalance";
@@ -14,10 +13,9 @@ import CompoundModal from "./CompoundModal";
 import BigNumber from "bignumber.js";
 import { DEFAULT_TOKEN_DECIMAL } from "config/config";
 import CurrentSaleTax from "./FarmStackingComponents/CurrentSaleTax";
-import CurrentTwap from "./FarmStackingComponents/CurrentTwap";
+
 export default function () {
   const [pendingTx, setPendingTx] = useState(false);
-  const [pendingCompoundTx, setCompoundPendingTx] = useState(false);
   const [open, setOpen] = useState(false);
   const [pids, setPids] = useState([]);
 
@@ -48,7 +46,7 @@ export default function () {
         // eslint-disable-next-line no-await-in-loop
         await harvestMany(masterChefContract, _pids, false, address);
     } catch (error) {
-      notify("error", error?.message);
+      console.log(error)
     }
     setPendingTx(false);
   }, [address, balancesWithValue, masterChefContract]);

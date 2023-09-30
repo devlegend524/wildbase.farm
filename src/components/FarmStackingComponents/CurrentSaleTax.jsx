@@ -6,9 +6,14 @@ export default function CurrentSaleTax() {
     const [taxRate, setTaxRate] = useState(0)
     const provider = useEthersProvider()
     const getCurrentTaxRate = async () => {
-        const wildxContract = getWILDXContract(provider)
-        const currentRate = await wildxContract.getCurrentTaxRate();
-        setTaxRate(Number(currentRate) / 100)
+        try {
+            const wildxContract = getWILDXContract(provider)
+            const currentRate = await wildxContract.getCurrentTaxRate();
+            setTaxRate(Number(currentRate) / 100)
+        } catch (e) {
+            console.log(e)
+            setTaxRate(6)
+        }
     }
     useEffect(() => {
         if (provider) getCurrentTaxRate()

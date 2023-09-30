@@ -51,8 +51,6 @@ const Input = styled.input`
 
 Input.defaultProps = {
   scale: scales.MD,
-  isSuccess: false,
-  isWarning: false,
 }
 
 export default Input

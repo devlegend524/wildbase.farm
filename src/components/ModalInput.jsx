@@ -67,13 +67,13 @@ const ModalInput = ({
   return (
     <div style={{ position: 'relative' }}>
       <StyledTokenInput>
-        <Flex alignItems='center' justifyContent='space-between' pl='16px'>
+        <div className='flex items-center justify-between pl-[16px]'>
           <Text fontSize='14px'>{inputTitle}</Text>
           <Text fontSize='14px'>
             {t('Balance: %balance%', { balance: displayBalance(max) })}
           </Text>
-        </Flex>
-        <Flex alignItems='center' justifyContent='space-around'>
+        </div>
+        <div className='flex items-center justify-acound'>
           <StyledInput
             pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
             inputMode='decimal'
@@ -87,7 +87,7 @@ const ModalInput = ({
             {t('Max')}
           </Button>
           <Text fontSize='16px'>{symbol}</Text>
-        </Flex>
+        </div>
       </StyledTokenInput>
       {isBalanceZero && (
         <StyledErrorMessage fontSize='14px' color='failure'>
