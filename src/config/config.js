@@ -11,7 +11,7 @@ export const wildWethFarmPid = 2;
 export const wethUsdcFarmPid = 3;
 
 export const START_PRESALE = Number((new Date(
-  new Date('10/1/2023 11:00:00 AM EST').toString()
+  new Date('10/1/2023 05:00:00 PM EST').toString()
 ).getTime() / 1000).toFixed(0))
 
 export const YEAR = 60 * 60 * 24 * 365
