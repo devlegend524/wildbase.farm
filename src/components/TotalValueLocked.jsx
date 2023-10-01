@@ -76,7 +76,7 @@ export default function TotalValueLocked() {
             {' '}
             <CardValue
               fontSize='20px'
-              decimals={1}
+              decimals={2}
               value={wildxPerBlock}
               color='#fffff1'
             />
