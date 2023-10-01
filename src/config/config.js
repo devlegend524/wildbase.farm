@@ -42,7 +42,7 @@ export const socials = [
   {
     icon: () => null,
     name: 'Docs',
-    href: 'https://docs.wildbase.farm',
+    href: 'https://lodgedocs.gitbook.io/wildx/',
   },
   {
     icon: () => (

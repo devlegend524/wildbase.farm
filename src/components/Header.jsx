@@ -47,7 +47,7 @@ export default function Header() {
           </a>
         ))}
         <a
-          href='https://docs.wildbase.farm'
+          href='https://lodgedocs.gitbook.io/wildx/'
           target='_blank'
           className={`p-3`}
           rel='noopener noreferrer'
@@ -78,7 +78,7 @@ export default function Header() {
             </a>
           ))}
           <a
-            href='https://docs.wildbase.farm'
+            href='https://lodgedocs.gitbook.io/wildx/'
             target='_blank'
             className={`p-2`}
             rel='noopener noreferrer'
