@@ -102,7 +102,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
         >
           {pendingTx ? <Loading /> : t('Harvest')}
         </button>
-        <div className='flex flex-col lg:flex-row gap-2 w-full'>
+        {/* <div className='flex flex-col lg:flex-row gap-2 w-full'>
           <button
             className='rounded-md w-full lg:w-1/2 px-2 py-1  text-center text-white font-medium bg-blue-600 hover:bg-blue-500'
             data-tooltip-id='compound-tooltip'
@@ -123,7 +123,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
           </button>
           <Tooltip id='compound-tooltip' />
           <Tooltip id='zap-tooltip' />
-        </div>
+        </div> */}
       </div>
       {open && <ZapInModal
         open={open}
