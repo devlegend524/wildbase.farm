@@ -44,15 +44,6 @@ const tokensList = [
     logoA: '/images/tokens/weth.svg',
     logoB: ''
   },
-  {
-    pid: 1,
-    lpSymbol: 'USDC',
-    isTokenOnly: true,
-    decimals: 6,
-    lpAddresses: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-    logoA: '/images/tokens/usdc.svg',
-    logoB: ''
-  },
 ]
 
 export default function ZapInModal({ open, closeModal, pid }) {

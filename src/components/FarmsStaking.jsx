@@ -16,6 +16,7 @@ import CurrentSaleTax from "./FarmStackingComponents/CurrentSaleTax";
 
 export default function () {
   const [pendingTx, setPendingTx] = useState(false);
+  const [compoundPendingTx, setCompoundPendingTx] = useState(false);
   const [open, setOpen] = useState(false);
   const [pids, setPids] = useState([]);
 
@@ -46,9 +47,26 @@ export default function () {
         // eslint-disable-next-line no-await-in-loop
         await harvestMany(masterChefContract, _pids, false, address);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     setPendingTx(false);
+  }, [address, balancesWithValue, masterChefContract]);
+
+  const compoundAllFarms = useCallback(async () => {
+    setCompoundPendingTx(true);
+    try {
+      let _pids = [];
+      // eslint-disable-next-line no-restricted-syntax
+      for (const farmWithBalance of balancesWithValue) {
+        _pids.push(farmWithBalance.pid);
+      }
+      if (_pids.length > 0)
+        // eslint-disable-next-line no-await-in-loop
+        await harvestMany(masterChefContract, _pids, true, address);
+    } catch (error) {
+      console.log(error);
+    }
+    setCompoundPendingTx(false);
   }, [address, balancesWithValue, masterChefContract]);
 
   function openModal() {
@@ -83,7 +101,7 @@ export default function () {
           {" "}
           <div className="text-base pt-5">Current Sales Tax:</div>
           <div className="mb-1">
-           <CurrentSaleTax />
+            <CurrentSaleTax />
           </div>
         </div>
       </div>
@@ -111,9 +129,9 @@ export default function () {
               )}
             </Button>
             <Button
-              id="harvest-all"
+              id="compound-all"
               disabled={balancesWithValue.length <= 0}
-              onClick={openModal}
+              onClick={compoundAllFarms}
               width="100%"
               style={{
                 background: "#031531",
@@ -121,9 +139,13 @@ export default function () {
                 fontWeight: 500,
               }}
             >
-              {t("Compound all (%count%)", {
-                count: balancesWithValue.length,
-              })}
+              {compoundPendingTx ? (
+                <Loading />
+              ) : (
+                t("Compound all (%count%)", {
+                  count: balancesWithValue.length,
+                })
+              )}
             </Button>
           </>
         ) : (

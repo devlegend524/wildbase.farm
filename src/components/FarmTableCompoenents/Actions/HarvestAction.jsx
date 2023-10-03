@@ -17,6 +17,8 @@ import { useAccount } from 'wagmi'
 import ZapInModal from 'components/ZapInModal'
 import CompoundModal from 'components/CompoundModal'
 import { didUserReject } from 'utils/customHelpers'
+import { harvestMany } from 'utils/callHelpers'
+import { useMasterchef } from 'hooks/useContract'
 
 const HarvestAction = ({ pid, userData, userDataReady }) => {
   const [pendingCompoundTx, setCompoundPendingTx] = useState(false)
@@ -33,6 +35,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
   const dispatch = useAppDispatch()
   const { address } = useAccount()
   const wildPrice = usePriceWILDXUsdc()
+  const masterChefContract = useMasterchef()
 
   useEffect(() => {
     const earningsBigNumber = new BigNumber(userData.earnings)
@@ -57,7 +60,21 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
       }
       setPendingTx(false)
     }
+  }
 
+  async function handleCompound() {
+    try {
+      setCompoundPendingTx(true)
+      await harvestMany(masterChefContract, [pid], true, address)
+      notify('success', 'You have successfully claimed WILDX tokens')
+      dispatch(fetchFarmUserDataAsync({ address, pids: [pid] }))
+      setCompoundPendingTx(false)
+    } catch (e) {
+      if (didUserReject(e)) {
+        notify('error', 'User rejected transaction')
+      }
+      setCompoundPendingTx(false)
+    }
   }
 
   function openCompoundModal() {
@@ -102,13 +119,13 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
         >
           {pendingTx ? <Loading /> : t('Harvest')}
         </button>
-        {/* <div className='flex flex-col lg:flex-row gap-2 w-full'>
+        <div className='flex flex-col lg:flex-row gap-2 w-full'>
           <button
             className='rounded-md w-full lg:w-1/2 px-2 py-1  text-center text-white font-medium bg-blue-600 hover:bg-blue-500'
             data-tooltip-id='compound-tooltip'
-            data-tooltip-content={(earnings.eq(0) || pendingCompoundTx || !userDataReady) ? 'Stake tokens first to use it' : 'Restake your WILDX profit in this pool'}
+            data-tooltip-content={(earnings.eq(0) || pendingCompoundTx || !userDataReady) ? 'Stake tokens first to use it' : 'Restake your WILDX profit to WILDX pool'}
             disabled={earnings.eq(0) || pendingCompoundTx || !userDataReady}
-            onClick={openCompoundModal}
+            onClick={handleCompound}
           >
             {pendingCompoundTx ? <Loading /> : t('Compound')}
           </button>
@@ -123,7 +140,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
           </button>
           <Tooltip id='compound-tooltip' />
           <Tooltip id='zap-tooltip' />
-        </div> */}
+        </div>
       </div>
       {open && <ZapInModal
         open={open}
