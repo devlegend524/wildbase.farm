@@ -65,6 +65,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
       }
       await onZapForFarm(
         farms[0].lpAddresses,
+        false,
         ethers.utils.parseEther(earnings.toString() || '1'),
         targetToken.lpAddresses,
         targetToken.pid
