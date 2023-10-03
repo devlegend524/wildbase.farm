@@ -1,12 +1,52 @@
 import React, { useState, useEffect } from 'react'
 import { START_PRESALE } from 'config/config'
 import { MdOutlineSwapHorizontalCircle } from 'react-icons/md'
-import farms from 'config/farms'
 import { useAccount, erc20ABI, useContractRead } from 'wagmi'
 import { ethers } from 'ethers'
 import ZapperDepositModal from 'components/ZapperDepositModal'
 import lpTokenAbi from 'config/abi/lpToken'
 import { toFixed } from 'utils/customHelpers'
+
+
+const farms = [
+  {
+    pid: 0,
+    lpSymbol: 'WILDx',
+    isTokenOnly: true,
+    lpAddresses: '0xbCDa0bD6Cd83558DFb0EeC9153eD9C9cfa87782E',
+    decimals: 18,
+    logoA: '/images/tokens/wildx.svg',
+    logoB: ''
+  },
+  // {
+  //   pid: 0,
+  //   lpSymbol: 'ETH',
+  //   isTokenOnly: true,
+  //   lpAddresses: '0x4200000000000000000000000000000000000006',
+  //   decimals: 18,
+  //   logoA: '/images/tokens/weth.svg',
+  //   logoB: ''
+  // },
+  {
+    pid: 1,
+    lpSymbol: 'WETH',
+    isTokenOnly: true,
+    lpAddresses: '0x4200000000000000000000000000000000000006',
+    decimals: 18,
+    logoA: 'https://svgshare.com/getbyhash/sha1-38zdMb/7WVkaVJEus7guQuBuCSU=',
+    logoB: ''
+  },
+  {
+    pid: 1,
+    lpSymbol: 'WETH-WILDX',
+    isTokenOnly: false,
+    lpAddresses: '0xeAA13b4f85A98E6CcaF65606361BD590e98DE2Cb',
+    decimals: 18,
+    logoA: '/images/tokens/wildx.svg',
+    logoB: '/images/tokens/weth.svg'
+  },
+
+]
 
 export default function Zap() {
   const [started, setStated] = useState(false)
@@ -134,16 +174,15 @@ export default function Zap() {
                 value={farms.indexOf(tokenA)}
               >
                 {farms.map((item, key) => {
-                  if (item.lpSymbol !== 'WETH-USDC')
-                    return (
-                      <option
-                        key={key}
-                        className='bg-secondary-700'
-                        value={key}
-                      >
-                        {item?.lpSymbol}
-                      </option>
-                    )
+                  return (
+                    <option
+                      key={key}
+                      className='bg-secondary-700'
+                      value={key}
+                    >
+                      {item?.lpSymbol}
+                    </option>
+                  )
                 })}
               </select>
             </div>
@@ -193,16 +232,15 @@ export default function Zap() {
                 value={farms.indexOf(tokenB)}
               >
                 {farms.map((item, key) => {
-                  if (item.lpSymbol !== 'WETH-USDC')
-                    return (
-                      <option
-                        key={key}
-                        className='bg-secondary-700'
-                        value={key}
-                      >
-                        {item.lpSymbol}
-                      </option>
-                    )
+                  return (
+                    <option
+                      key={key}
+                      className='bg-secondary-700'
+                      value={key}
+                    >
+                      {item.lpSymbol}
+                    </option>
+                  )
                 })}
               </select>
             </div>

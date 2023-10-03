@@ -51,10 +51,14 @@ export const unstake = async (masterChefContract, pid, amount, address, decimals
   }
 }
 
-export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
+export const zap = async (zapContract, tokenA, isNative, amount, tokenB, isOutNative, address) => {
   try {
-    return await zapContract
-      .zap(tokenA, amount, tokenB, { from: address })
+    if (!isNative)
+      return await zapContract
+        .zap(tokenA, amount, tokenB, isOutNative, { from: address })
+    else
+      return await zapContract
+        .zapETH(tokenB, { from: address, value: amount })
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
@@ -64,11 +68,15 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
   }
 }
 
-export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, address) => {
+export const zapForFarm = async (zapContract, tokenA, isNative, amount, tokenB, pid, address) => {
   try {
     const masterchefAddress = getMasterChefAddress()
-    return await zapContract
-      .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, { from: address })
+    if (isNative)
+      return await zapContract
+        .zapIntoFarmWithETH(tokenB, masterchefAddress, pid, { from: address, value: amount })
+    else
+      return await zapContract
+        .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, { from: address })
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
