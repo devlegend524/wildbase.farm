@@ -25,3 +25,9 @@ export const getZapAddress = () => {
 export const getOracleAddress = () => {
   return contractAddresses.oracle
 }
+export const getFactoryAddress = () => {
+  return contractAddresses.factory
+}
+export const getRouterAddress = () => {
+  return contractAddresses.router
+}

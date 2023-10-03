@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useEthersProvider, useEthersSigner } from 'hooks/useEthers'
-import { getErc20Contract, getWILDXContract, getMasterchefContract, getZapContract } from 'utils/contractHelpers'
+import { getErc20Contract, getWILDXContract, getMasterchefContract, getZapContract, getRouterContract, getFactoryContract } from 'utils/contractHelpers'
 import { useNetwork } from 'wagmi'
 import { CHAIN_ID } from 'config/config'
 /**
@@ -32,3 +32,18 @@ export const useZapContract = () => {
   return useMemo(() => chain &&
     (chain.id === CHAIN_ID) && getZapContract(signer, chain?.id), [signer, chain])
 }
+
+export const useFactoryContract = () => {
+  const provider = useEthersProvider()
+  const { chain } = useNetwork()
+  return useMemo(() => chain &&
+    (chain.id === CHAIN_ID) && getFactoryContract(provider, chain?.id), [provider, chain])
+}
+
+export const useRouterContract = () => {
+  const provider = useEthersProvider()
+  const { chain } = useNetwork()
+  return useMemo(() => chain &&
+    (chain.id === CHAIN_ID) && getRouterContract(provider, chain?.id), [provider, chain])
+}
+

@@ -84,7 +84,9 @@
 .button_bg {
   background-color: #010f27;
 }
-
+.secondary_bg {
+  background-color: #031531 !important;
+}
 body {
   margin: 0;
   background: #000000;
@@ -323,4 +325,10 @@ code {
 .ReactModal__Overlay--after-openm,
 .ReactModal__Overlay {
   background-color: #000000ad !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

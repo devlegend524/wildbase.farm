@@ -7,6 +7,7 @@ const Farm = lazy(() => import('pages/Farms'))
 const NotFound = lazy(() => import('pages/NotFound'))
 // const Presale = lazy(() => import('pages/Presale'))
 const Zap = lazy(() => import('pages/Zap'))
+const Liquidity = lazy(() => import('pages/Liquidity'))
 
 const PageRouter = createBrowserRouter([
   {
@@ -22,8 +23,12 @@ const PageRouter = createBrowserRouter([
     element: <Zap />,
   },
   {
+    path: "/liquidity",
+    element: <Liquidity />,
+  },
+  {
     path: "*",
-    element: <NotFound />,
+    element: <Farm />,
   },
 ]);
 

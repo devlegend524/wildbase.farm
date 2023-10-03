@@ -28,10 +28,10 @@ export const HeaderLinks = [
     name: 'Farms',
     link: '/farms',
   },
-  // {
-  //   name: 'Presale',
-  //   link: '/presale',
-  // },
+  {
+    name: 'Liquidity',
+    link: '/liquidity',
+  },
   {
     name: 'Zap',
     link: '/zap',
