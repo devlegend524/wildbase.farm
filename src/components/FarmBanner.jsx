@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FaExternalLinkAlt, FaRegCopy } from 'react-icons/fa'
 import { getWILDXAddress, getWethAddress } from 'utils/addressHelpers'
-import { EXPLORER_URL } from 'config/constants'
 import {
   CHAIN_ID,
   TESTNET_CHAIN_ID,
@@ -13,6 +12,7 @@ import { useNetwork } from 'wagmi'
 import { formatAddress } from 'utils/customHelpers'
 import { getScanTokenUrl } from 'utils/getExplorerURL'
 // import { useEthersProvider } from 'hooks/useEthers'
+import { useWILDXPerSecond } from 'hooks/useTokenBalance'
 
 export default function FarmBanner() {
   const [isCopied, setIsCopied] = useState(false)
@@ -20,6 +20,7 @@ export default function FarmBanner() {
   const { chain } = useNetwork()
   const token = getWILDXAddress()
   // const provider = useEthersProvider()
+  const wildPerBlock = useWILDXPerSecond()
 
   const addWatchWILDXToken = useCallback(async () => {
     const provider = window.ethereum
@@ -61,10 +62,11 @@ export default function FarmBanner() {
       <div className='p-3 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
         <h1 className='text-7xl'>WILDX ON BASE</h1>
         <p className='pt-4'>
-          The WILDX token rewards users who single-stake or provide liquidity. 1
+          The WILDX token rewards users who single-stake or provide liquidity. <br />
+          <span className='font-semibold'>{wildPerBlock} </span>
           WILDX will be minted evry block. All deposit fee and sales taxes
           automatically buyback and burn WILDX 24/7 for prolonged sustainability
-          and price appreciation. Stay WILDX 🤞.
+          and price appreciation.<br /> Stay WILDX 🤞.
         </p>
       </div>
       <div className='flex justify-end p-3 md:p-6 w-fill md:w-1/2 xl:w-1/3'>
