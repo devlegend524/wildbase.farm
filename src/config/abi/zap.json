@@ -412,6 +412,11 @@
       },
       {
         "internalType": "address",
+        "name": "factory",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "_mainToken",
         "type": "address"
       },

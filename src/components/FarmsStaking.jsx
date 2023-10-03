@@ -52,22 +52,22 @@ export default function () {
     setPendingTx(false);
   }, [address, balancesWithValue, masterChefContract]);
 
-  const compoundAllFarms = useCallback(async () => {
-    setCompoundPendingTx(true);
-    try {
-      let _pids = [];
-      // eslint-disable-next-line no-restricted-syntax
-      for (const farmWithBalance of balancesWithValue) {
-        _pids.push(farmWithBalance.pid);
-      }
-      if (_pids.length > 0)
-        // eslint-disable-next-line no-await-in-loop
-        await harvestMany(masterChefContract, _pids, true, address);
-    } catch (error) {
-      console.log(error);
-    }
-    setCompoundPendingTx(false);
-  }, [address, balancesWithValue, masterChefContract]);
+  // const compoundAllFarms = useCallback(async () => {
+  //   setCompoundPendingTx(true);
+  //   try {
+  //     let _pids = [];
+  //     // eslint-disable-next-line no-restricted-syntax
+  //     for (const farmWithBalance of balancesWithValue) {
+  //       _pids.push(farmWithBalance.pid);
+  //     }
+  //     if (_pids.length > 0)
+  //       // eslint-disable-next-line no-await-in-loop
+  //       await harvestMany(masterChefContract, _pids, true, address);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setCompoundPendingTx(false);
+  // }, [address, balancesWithValue, masterChefContract]);
 
   function openModal() {
     let _pids = [];
@@ -130,8 +130,8 @@ export default function () {
             </Button>
             <Button
               id="compound-all"
-              disabled={balancesWithValue.length <= 0}
-              onClick={compoundAllFarms}
+              // disabled={balancesWithValue.length <= 0}
+              onClick={openModal}
               width="100%"
               style={{
                 background: "#031531",

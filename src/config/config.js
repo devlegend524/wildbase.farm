@@ -32,10 +32,10 @@ export const HeaderLinks = [
   //   name: 'Presale',
   //   link: '/presale',
   // },
-  // {
-  //   name: 'Zap',
-  //   link: '/zap',
-  // },
+  {
+    name: 'Zap',
+    link: '/zap',
+  },
 ];
 
 export const socials = [

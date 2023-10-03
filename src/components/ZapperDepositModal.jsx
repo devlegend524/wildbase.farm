@@ -15,6 +15,7 @@ import { notify } from 'utils/toastHelper'
 import { getErc20Contract, getLpContract } from 'utils/contractHelpers'
 import { useEthersSigner } from 'hooks/useEthers'
 import { didUserReject } from 'utils/customHelpers'
+import { toFixed } from 'utils/customHelpers'
 const customStyles = {
   content: {
     top: '50%',
@@ -106,8 +107,9 @@ export default function ZapperDepositModal(props) {
     }
   }
   function setMaximum() {
-    setAmount(Number(props.availableA))
+    setAmount(toFixed(props.availableA, 5))
   }
+
   useEffect(() => {
     getAllowance()
   })
@@ -151,7 +153,7 @@ export default function ZapperDepositModal(props) {
             />
           </div>
           <p className='flex justify-end text-right'>
-            Available: <div className='cursor-pointer' onClick={setMaximum}>{Number(props.availableA).toFixed(5)}</div>
+            Available: <div className='cursor-pointer' onClick={setMaximum}>{toFixed(props.availableA, 5)}</div>
           </p>
           <div className='flex gap-3 pt-4'>
             <button
@@ -169,7 +171,7 @@ export default function ZapperDepositModal(props) {
                 {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : 'Approve'}{' '}
               </button> : <button
                 onClick={handleDeposit}
-                disabled={(Number(amount) <= 0 || props.availableA < amount) || pendingTx || isApproving}
+                disabled={(Number(amount) <= 0 || Number(props.availableA) < Number(amount)) || pendingTx || isApproving}
                 className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
               >
                 {pendingTx ? <div className='flex justify-center gap-1'><Loading /> Zapping...</div> : 'Deposit'}{' '}

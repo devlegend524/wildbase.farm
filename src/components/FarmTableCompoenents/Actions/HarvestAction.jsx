@@ -62,20 +62,20 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
     }
   }
 
-  async function handleCompound() {
-    try {
-      setCompoundPendingTx(true)
-      await harvestMany(masterChefContract, [pid], true, address)
-      notify('success', 'You have successfully claimed WILDX tokens')
-      dispatch(fetchFarmUserDataAsync({ address, pids: [pid] }))
-      setCompoundPendingTx(false)
-    } catch (e) {
-      if (didUserReject(e)) {
-        notify('error', 'User rejected transaction')
-      }
-      setCompoundPendingTx(false)
-    }
-  }
+  // async function handleCompound() {
+  //   try {
+  //     setCompoundPendingTx(true)
+  //     await harvestMany(masterChefContract, [pid], true, address)
+  //     notify('success', 'You have successfully claimed WILDX tokens')
+  //     dispatch(fetchFarmUserDataAsync({ address, pids: [pid] }))
+  //     setCompoundPendingTx(false)
+  //   } catch (e) {
+  //     if (didUserReject(e)) {
+  //       notify('error', 'User rejected transaction')
+  //     }
+  //     setCompoundPendingTx(false)
+  //   }
+  // }
 
   function openCompoundModal() {
     setOpenCompound(true)
@@ -125,7 +125,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
             data-tooltip-id='compound-tooltip'
             data-tooltip-content={(earnings.eq(0) || pendingCompoundTx || !userDataReady) ? 'Stake tokens first to use it' : 'Restake your WILDX profit to WILDX pool'}
             disabled={earnings.eq(0) || pendingCompoundTx || !userDataReady}
-            onClick={handleCompound}
+            onClick={openCompoundModal}
           >
             {pendingCompoundTx ? <Loading /> : t('Compound')}
           </button>

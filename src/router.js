@@ -17,10 +17,10 @@ const PageRouter = createBrowserRouter([
     path: "/farms",
     element: <Farm />,
   },
-  // {
-  //   path: "/zap",
-  //   element: <Zap />,
-  // },
+  {
+    path: "/zap",
+    element: <Zap />,
+  },
   {
     path: "*",
     element: <NotFound />,

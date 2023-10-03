@@ -6,6 +6,7 @@ import { useAccount, erc20ABI, useContractRead } from 'wagmi'
 import { ethers } from 'ethers'
 import ZapperDepositModal from 'components/ZapperDepositModal'
 import lpTokenAbi from 'config/abi/lpToken'
+import { toFixed } from 'utils/customHelpers'
 
 export default function Zap() {
   const [started, setStated] = useState(false)
@@ -147,7 +148,7 @@ export default function Zap() {
               </select>
             </div>
             <div className='text-center'>
-              {tokenA.lpSymbol} Available : {Number(availableA).toFixed(5)}
+              {tokenA.lpSymbol} Available : {toFixed(availableA, 5)}
             </div>
           </div>
         </div>
