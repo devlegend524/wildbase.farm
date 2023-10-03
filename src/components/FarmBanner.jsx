@@ -62,11 +62,9 @@ export default function FarmBanner() {
       <div className='p-3 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
         <h1 className='text-7xl'>EARN WILDx</h1>
         <p className='pt-4'>
-          The WILDX token rewards users who single-stake or provide liquidity. <br />
-          <span className='font-semibold'>{wildPerBlock} </span>
-          WILDX will be minted evry block. All deposit fee and sales taxes
-          automatically buyback and burn WILDX 24/7 for prolonged sustainability
-          and price appreciation.<br /> Stay WILDX 🤞.
+          Zap into one of the farms to earn WILDx as we prepare a new ecosystem of yield opportunities on BASE.
+          All WILDx sales taxes are burned to reduce inflation and there are no non-native coins for whales to milk.
+          Stay WILD and enjoy the yield! 🤞.
         </p>
       </div>
       <div className='flex justify-end p-3 md:p-6 w-fill md:w-1/2 xl:w-1/3'>
