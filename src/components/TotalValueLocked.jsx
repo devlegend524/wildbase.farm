@@ -4,7 +4,10 @@ import { useTotalSupply, useWILDXPerSecond } from 'hooks/useTokenBalance'
 import { usePriceWILDXUsdc, useTotalValue } from 'state/hooks'
 import CardValue from './FarmStackingComponents/CardValue'
 import { Skeleton } from 'uikit'
-import { convertCurrency } from 'utils/customHelpers'
+import { convertCurrency, toReadableAmount } from 'utils/customHelpers'
+import { useContractRead } from 'wagmi';
+import { getWILDXAddress } from 'utils/addressHelpers'
+import wildABI from 'config/abi/wild.json'
 
 export default function TotalValueLocked() {
   const { t } = useTranslation()
@@ -16,8 +19,19 @@ export default function TotalValueLocked() {
   const totalSupply = useTotalSupply()
   const wildxPerBlock = useWILDXPerSecond()
 
-  const totalMinted = totalSupply
-  const marketCap = totalSupply * wildUsdcPrice
+  const tokenABalanceRead = useContractRead({
+    address: getWILDXAddress(),
+    abi: wildABI,
+    functionName: 'balanceOf',
+    args: ['0x000000000000000000000000000000000000dead'],
+    chainId: 8453,
+    onSuccess(data) {
+      console.log('Success', data)
+    },
+  })
+  console.log(tokenABalanceRead?.data)
+  const totalMinted = totalSupply - toReadableAmount(tokenABalanceRead?.data, 18)
+  const marketCap = totalMinted * wildUsdcPrice
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
       <div className='text-3xl text-right'>Total Value Locked</div>
@@ -50,7 +64,7 @@ export default function TotalValueLocked() {
             {totalSupply && (
               <CardValue
                 fontSize='20px'
-                value={totalSupply}
+                value={totalMinted}
                 decimals={1}
                 color='#fffff1'
               />
@@ -64,7 +78,20 @@ export default function TotalValueLocked() {
               <CardValue
                 fontSize='20px'
                 decimals={1}
-                value={totalMinted}
+                value={totalSupply}
+                color='#fffff1'
+              />
+            )}
+          </div>
+        </div>
+        <div className='flex items-center justify-between'>
+          <p>Total Burned</p>
+          <div>
+            {totalMinted && (
+              <CardValue
+                fontSize='20px'
+                decimals={1}
+                value={toReadableAmount(tokenABalanceRead?.data, 18)}
                 color='#fffff1'
               />
             )}
