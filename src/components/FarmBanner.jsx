@@ -60,7 +60,7 @@ export default function FarmBanner() {
   return (
     <div className='flex justify-center flex-col md:flex-row main_bg rounded-md'>
       <div className='p-3 md:p-12 md:w-1/2 xl:w-2/3 w-full text-center md:text-left'>
-        <h1 className='text-7xl'>WILDX ON BASE</h1>
+        <h1 className='text-7xl'>EARN WILDx</h1>
         <p className='pt-4'>
           The WILDX token rewards users who single-stake or provide liquidity. <br />
           <span className='font-semibold'>{wildPerBlock} </span>
