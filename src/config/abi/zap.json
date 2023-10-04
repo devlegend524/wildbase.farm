@@ -814,13 +814,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "withdrawETH",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -836,11 +829,6 @@
         "internalType": "address",
         "name": "_targetToken",
         "type": "address"
-      },
-      {
-        "internalType": "bool",
-        "name": "_targetIsNative",
-        "type": "bool"
       }
     ],
     "name": "zap",
@@ -852,25 +840,6 @@
       }
     ],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_targetToken",
-        "type": "address"
-      }
-    ],
-    "name": "zapETH",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "amountOut",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -899,11 +868,6 @@
         "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "_targetIsNative",
-        "type": "bool"
       }
     ],
     "name": "zapIntoACWithToken",
@@ -933,11 +897,6 @@
         "internalType": "address",
         "name": "_boardroom",
         "type": "address"
-      },
-      {
-        "internalType": "bool",
-        "name": "_targetIsNative",
-        "type": "bool"
       }
     ],
     "name": "zapIntoBoardroomWithToken",
@@ -972,45 +931,11 @@
         "internalType": "address",
         "name": "_boardroomManager",
         "type": "address"
-      },
-      {
-        "internalType": "bool",
-        "name": "_targetIsNative",
-        "type": "bool"
       }
     ],
     "name": "zapIntoBoardroomsWithToken",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_targetToken",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_farm",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_pid",
-        "type": "uint256"
-      }
-    ],
-    "name": "zapIntoFarmWithETH",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "amountOut",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -1039,11 +964,6 @@
         "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "_targetIsNative",
-        "type": "bool"
       }
     ],
     "name": "zapIntoFarmWithToken",
