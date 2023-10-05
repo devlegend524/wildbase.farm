@@ -24,7 +24,9 @@ export const convertCurrency = (labelValue) => {
         ? (Number(labelValue) / 1.0e3).toFixed(2) + 'K'
         : Number(labelValue);
 };
-
+export function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 export const toFixed = (num, fixed) => {
   var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
   return num.toString().match(re)[0];

@@ -19,6 +19,7 @@ import { useAppDispatch } from 'state'
 import { fetchFarmUserDataAsync } from 'state/farms'
 import { getFarmFromPid } from 'utils/farmHelpers'
 import { didUserReject } from 'utils/customHelpers'
+import { sleep } from 'utils/customHelpers'
 
 const customStyles = {
   content: {
@@ -87,7 +88,8 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
     setZapPendingTx(true)
     try {
       if (pid.length === 1) await onReward(false)
-      else await harvestMany(masterChefContract, [pid], false, address)
+      else await harvestMany(masterChefContract, pid, false, address)
+      await sleep(2000)
       await onZapForFarm(
         farms[0].lpAddresses,
         false,

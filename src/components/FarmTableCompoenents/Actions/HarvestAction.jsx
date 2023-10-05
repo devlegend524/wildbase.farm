@@ -77,6 +77,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
   // }
 
   function openCompoundModal() {
+    console.log(pid)
     setOpenCompound(true)
   }
   function closeCompoundModal() {
@@ -150,7 +151,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
         open={openCompound}
         closeModal={closeCompoundModal}
         earnings={earnings}
-        pid={pid}
+        pid={[pid]}
         isAll={false}
       />}
     </div>
