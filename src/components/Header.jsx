@@ -29,7 +29,7 @@ export default function Header() {
   }
   return (
     <header className='flex justify-between items-center p-1 h-[100px]'>
-      <div>
+      <div className='flex'>
         <div className='block md:hidden' onClick={() => showNav()}>
           <Hamburger />
         </div>
