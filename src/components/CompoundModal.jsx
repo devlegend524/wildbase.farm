@@ -90,6 +90,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
       else await harvestMany(masterChefContract, [pid], false, address)
       await onZapForFarm(
         farms[0].lpAddresses,
+        false,
         ethers.utils.parseEther(earnings.toString() || '1'),
         targetToken.lpAddresses,
         targetToken.pid

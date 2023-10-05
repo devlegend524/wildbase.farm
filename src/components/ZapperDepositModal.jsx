@@ -86,12 +86,15 @@ export default function ZapperDepositModal(props) {
     }
   }
   async function handleDeposit() {
+    if (props.tokenA === props.tokenB) return;
     try {
       setPendingTx(true)
       await onZap(
         props.tokenA.lpAddresses,
+        props.tokenA.lpSymbol === 'ETH' ? true : false,
         ethers.utils.parseEther(amount.toString() || '1'),
-        props.tokenB.lpAddresses
+        props.tokenB.lpAddresses,
+        props.tokenB.lpSymbol === 'ETH' ? true : false,
       )
       closeModal()
       setPendingTx(false)
@@ -160,7 +163,7 @@ export default function ZapperDepositModal(props) {
               Cancel
             </button>
             {
-              Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
+              props.tokenA.lpSymbol !== 'ETH' && Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
                 onClick={handleApprove}
                 disabled={isApproving}
                 className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'

@@ -19,7 +19,6 @@ import { useAppDispatch } from 'state'
 import { fetchFarmUserDataAsync } from 'state/farms'
 import { getFarmFromPid } from 'utils/farmHelpers'
 import { didUserReject, fromReadableAmount, toReadableAmount } from 'utils/customHelpers'
-import { Input } from 'uikit'
 
 const customStyles = {
   content: {
@@ -36,12 +35,21 @@ const customStyles = {
 }
 const tokensList = [
   {
+    pid: 0,
+    lpSymbol: 'ETH',
+    isTokenOnly: true,
+    lpAddresses: '0x4200000000000000000000000000000000000006',
+    decimals: 18,
+    logoA: '/images/tokens/weth.svg',
+    logoB: ''
+  },
+  {
     pid: 1,
     lpSymbol: 'WETH',
     isTokenOnly: true,
     lpAddresses: '0x4200000000000000000000000000000000000006',
     decimals: 18,
-    logoA: '/images/tokens/weth.svg',
+    logoA: 'https://svgshare.com/getbyhash/sha1-38zdMb/7WVkaVJEus7guQuBuCSU=',
     logoB: ''
   },
 ]
@@ -84,6 +92,14 @@ export default function ZapInModal({ open, closeModal, pid }) {
         await tokenContract.approve(zapAddress, ethers.constants.MaxUint256, {
           from: address,
         })
+        if (
+          Number(ethers.utils.formatUnits(allowance, inputToken.decimals)) <
+          Number(amount.toString())
+        ) {
+          await tokenContract.approve(zapAddress, ethers.constants.MaxUint256, {
+            from: address,
+          })
+        }
       }
       setIsApproving(false)
     } catch (e) {
@@ -101,6 +117,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
     try {
       await onZapForFarm(
         inputToken.lpAddresses,
+        inputToken.lpSymbol === 'ETH' ? true : false,
         fromReadableAmount(amount.toString(), inputToken.decimals),
         targetToken.lpAddresses,
         targetToken.pid
@@ -124,12 +141,17 @@ export default function ZapInModal({ open, closeModal, pid }) {
   const getBalance = async (token) => {
     try {
       setLoadingBalance(true)
-      const tokenContract = getErc20Contract(token.lpAddresses, signer)
-      const balance1 = await tokenContract.balanceOf(address);
-      setBalance(toReadableAmount(balance1, token.decimals))
+      if (token.lpSymbol === 'ETH') {
+        const balance = await signer.getBalance();
+        setBalance(toReadableAmount(balance, token.decimals))
+      } else {
+        const tokenContract = getErc20Contract(token.lpAddresses, signer)
+        const balance1 = await tokenContract.balanceOf(address);
+        setBalance(toReadableAmount(balance1, token.decimals))
+      }
       setLoadingBalance(false)
     } catch (e) {
-      setBalance(0)
+      setBalance('')
       setLoadingBalance(false)
     }
   }
@@ -176,7 +198,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
             onChange={(e) => handleChangeToken(e.target.value)}
           >
             {tokensList.map((item, key) => {
-              if (item.lpSymbol === 'WETH' || item.lpSymbol === 'USDC')
+              if (item.lpSymbol === 'WETH' || item.lpSymbol === 'ETH')
                 return (
                   <option key={key} className='bg-secondary-700' value={key}>
                     {item?.lpSymbol}

@@ -57,7 +57,7 @@ export const unstake = async (masterChefContract, pid, amount, address, decimals
   }
 }
 
-export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
+export const zap = async (zapContract, tokenA, isNative, amount, tokenB, isOutNative, address) => {
   try {
     const tx = await zapContract
       .zap(tokenA, amount, tokenB, { from: address })
@@ -72,7 +72,7 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
   }
 }
 
-export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, address) => {
+export const zapForFarm = async (zapContract, tokenA, isNative, amount, tokenB, pid, address) => {
   try {
     const masterchefAddress = getMasterChefAddress()
     const tx = await zapContract

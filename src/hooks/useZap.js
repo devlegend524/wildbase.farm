@@ -8,8 +8,8 @@ const useZap = () => {
   const zapContract = useZapContract()
 
   const handleZap = useCallback(
-    async (tokenA, amount, tokenB) => {
-      const txHash = await zap(zapContract, tokenA, amount, tokenB, address)
+    async (tokenA, isNative, amount, tokenB, isOutNative) => {
+      const txHash = await zap(zapContract, tokenA, isNative, amount, tokenB, isOutNative, address)
       if (txHash)
         await txHash.wait()
       else
@@ -26,8 +26,8 @@ export const useZapForFarm = () => {
   const zapContract = useZapContract()
 
   const handleZap = useCallback(
-    async (tokenA, amount, tokenB, pid) => {
-      const txHash = await zapForFarm(zapContract, tokenA, amount, tokenB, pid, address)
+    async (tokenA, isNative, amount, tokenB, pid) => {
+      const txHash = await zapForFarm(zapContract, tokenA, isNative, amount, tokenB, pid, address)
       if (txHash)
         await txHash.wait()
       else

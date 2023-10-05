@@ -29,7 +29,7 @@ export default function TotalValueLocked() {
       console.log('Success', data)
     },
   })
-  console.log(tokenABalanceRead?.data)
+
   const totalMinted = totalSupply - toReadableAmount(tokenABalanceRead?.data, 18)
   const marketCap = totalMinted * wildUsdcPrice
   return (
