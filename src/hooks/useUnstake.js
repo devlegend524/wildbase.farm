@@ -12,11 +12,7 @@ const useUnstake = (pid) => {
 
   const handleUnstake = useCallback(
     async (amount) => {
-      const txHash = await unstake(masterChefContract, pid, amount, address, tokenDecimals)
-      if (txHash)
-        await txHash.wait()
-      else
-        throw new Error('Transaction failed')
+      await unstake(masterChefContract, pid, amount, address, tokenDecimals)
     },
     [address, masterChefContract, pid, tokenDecimals],
   )

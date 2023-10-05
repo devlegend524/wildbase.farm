@@ -176,7 +176,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
       style={customStyles}
       ariaHideApp={false}
     >
-      <div className='min-w-[350px] max-w-[500px] w-full p-6 rounded-lg'>
+      <div className='min-w-[350px] max-w-[500px] w-full p-6 rounded-xl'>
         <div className='flex justify-around items-center'>
           <TokenDisplay token={inputToken} modal={true} />
           <ArrowForwardIcon />

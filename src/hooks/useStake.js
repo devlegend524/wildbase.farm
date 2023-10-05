@@ -23,17 +23,13 @@ const useStake = (pid) => {
       // } catch (e) {
       //  console.log('Whitelist check error', e)
       // }
-      const txHash = await stake(
+      await stake(
         masterChefContract,
         pid,
         amount,
         tokenDecimals,
         false
       )
-      if (txHash)
-        await txHash.wait()
-      else
-        throw new Error('Transaction failed')
     },
     [address, masterChefContract, pid, tokenDecimals],
   )

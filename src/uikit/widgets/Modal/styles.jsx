@@ -8,14 +8,15 @@ import { IconButton } from '../../components/Button'
 export const ModalHeader = styled.div`
   align-items: center;
   background: transparent;
-  border-bottom: 1px solid #c3c3c3;
+  border-bottom: 1px solid #347cf736;
   display: flex;
   padding: 12px 24px;
-  background-color: #ffffff;
+  background-color: #031531;
 `
 
 export const ModalTitle = styled(Flex)`
   align-items: center;
+  color: #fff;
   flex: 1;
 `
 
@@ -23,7 +24,7 @@ export const ModalBody = styled(Flex)`
   flex-direction: column;
   max-height: 90vh;
   overflow-y: auto;
-  background-color: #ffffff;
+  background-color: #031531;
 `
 
 export const ModalCloseButton = ({ onDismiss }) => {
@@ -50,8 +51,8 @@ export const ModalContainer = styled(Box)`
   overflow: hidden;
   background: #FAF9FA;
   box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);
-  border: 1px solid #E7E3EB;
-  border-radius: 2px;
+  border: 1px solid #347cf736;
+  border-radius: 10px;
   width: 100%;
   max-height: 100vh;
   z-index: 10000;

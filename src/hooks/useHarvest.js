@@ -8,11 +8,7 @@ export const useHarvest = (farmPid) => {
   const masterChefContract = useMasterchef()
 
   const handleHarvest = useCallback(async (isCompound) => {
-    const txHash = await harvest(masterChefContract, farmPid, isCompound, address)
-    if (txHash)
-      return await txHash.wait()
-    else
-      throw new Error('Transaction failed')
+    await harvest(masterChefContract, farmPid, isCompound, address)
   }, [address, farmPid, masterChefContract])
 
   return { onReward: handleHarvest }

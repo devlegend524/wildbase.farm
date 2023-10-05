@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Text, Button, Input, Flex, Link } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import { BigNumber } from 'bignumber.js'
+import { background } from 'styled-system';
 
 const getBoxShadow = ({ theme }) => {
   return theme.shadows.inset
@@ -22,6 +23,8 @@ const StyledInput = styled(Input)`
   flex: 1;
   margin: 0 8px;
   padding: 0 8px;
+  background-color: #1c417b;
+  color: #fff;
 
   @media screen and (min-width: 370px) {
     width: 80px;
@@ -65,11 +68,11 @@ const ModalInput = ({
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', color: 'white' }}>
       <StyledTokenInput>
-        <div className='flex items-center justify-between pl-[16px]'>
-          <Text fontSize='14px'>{inputTitle}</Text>
-          <Text fontSize='14px'>
+        <div className='flex items-center justify-between pl-[16px] pb-2'>
+          <Text fontSize='15px' color="textWhite">{inputTitle}</Text>
+          <Text fontSize='15px' color="textWhite">
             {t('Balance: %balance%', { balance: displayBalance(max) })}
           </Text>
         </div>
@@ -86,7 +89,7 @@ const ModalInput = ({
           <Button scale='sm' onClick={onSelectMax} mr='8px'>
             {t('Max')}
           </Button>
-          <Text fontSize='16px'>{symbol}</Text>
+          <Text fontSize='16px' color="textWhite">{symbol}</Text>
         </div>
       </StyledTokenInput>
       {isBalanceZero && (

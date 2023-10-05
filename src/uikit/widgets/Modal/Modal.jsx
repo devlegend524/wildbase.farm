@@ -33,7 +33,7 @@ const Modal = ({
       >
         <ModalTitle>
           {onBack && <ModalBackButton onBack={onBack} />}
-          <Heading color='#616161'>{title}</Heading>
+          <Heading color='#fff'>{title}</Heading>
         </ModalTitle>
         {!hideCloseButton && <ModalCloseButton onDismiss={onDismiss} />}
       </ModalHeader>

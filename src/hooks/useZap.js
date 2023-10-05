@@ -9,11 +9,7 @@ const useZap = () => {
 
   const handleZap = useCallback(
     async (tokenA, isNative, amount, tokenB, isOutNative) => {
-      const txHash = await zap(zapContract, tokenA, isNative, amount, tokenB, isOutNative, address)
-      if (txHash)
-        await txHash.wait()
-      else
-        throw new Error('Transaction failed')
+      await zap(zapContract, tokenA, isNative, amount, tokenB, isOutNative, address)
     },
     [address, zapContract],
   )
@@ -27,11 +23,7 @@ export const useZapForFarm = () => {
 
   const handleZap = useCallback(
     async (tokenA, isNative, amount, tokenB, pid) => {
-      const txHash = await zapForFarm(zapContract, tokenA, isNative, amount, tokenB, pid, address)
-      if (txHash)
-        await txHash.wait()
-      else
-        throw new Error('Transaction failed')
+      await zapForFarm(zapContract, tokenA, isNative, amount, tokenB, pid, address)
     },
     [address, zapContract],
   )

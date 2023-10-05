@@ -117,7 +117,7 @@ export default function ZapperDepositModal(props) {
     <>
       <div className='flex justify-center pb-16 m-2'>
         <button
-          className='bg-secondary-700 rounded-lg p-3 hover:scale-105 transition ease-in-out'
+          className='bg-secondary-700 rounded-xl p-3 hover:scale-105 transition ease-in-out'
           onClick={openModal}
         >
           {props.tokenA.lpSymbol} into {props.tokenB.lpSymbol}
@@ -130,7 +130,7 @@ export default function ZapperDepositModal(props) {
         style={customStyles}
         ariaHideApp={false}
       >
-        <div className='min-w-[350px] max-w-[500px] w-full p-6 rounded-lg'>
+        <div className='min-w-[350px] max-w-[500px] w-full p-6 rounded-xl'>
           <div className='flex justify-around'>
             <TokenDisplay token={props.tokenA} modal={true} />
             <TokenDisplay token={props.tokenB} modal={true} />

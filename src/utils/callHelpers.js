@@ -29,7 +29,7 @@ export const stake = async (
     const tx = await masterChefContract
       .deposit(pid, fromReadableAmount(amount, decimals), isCompound)
     await tx.wait()
-    return notify('success', 'Transaction successful!')
+    notify('success', 'Transaction successful!')
 
   } catch (e) {
     console.log(e)
@@ -46,7 +46,7 @@ export const unstake = async (masterChefContract, pid, amount, address, decimals
     const tx = await masterChefContract
       .withdraw(pid, fromReadableAmount(amount, decimals), { from: address })
     await tx.wait()
-    return notify('success', 'Transaction successful!')
+    notify('success', 'Transaction successful!')
 
   } catch (e) {
     console.log(e)
@@ -63,12 +63,12 @@ export const zap = async (zapContract, tokenA, isNative, amount, tokenB, isOutNa
       const tx = await zapContract
         .zapETH(tokenB, { from: address, value: amount })
       await tx.wait()
-      return notify('success', 'Zap successful!')
+      notify('success', 'Zap successful!')
     } else {
       const tx = await zapContract
         .zap(tokenA, amount, tokenB, isOutNative, { from: address })
       await tx.wait()
-      return notify('success', 'Zap successful!')
+      notify('success', 'Zap successful!')
     }
 
   } catch (e) {
@@ -87,7 +87,7 @@ export const zapForFarm = async (zapContract, tokenA, isNative, amount, tokenB, 
       const tx = await zapContract
         .zapIntoFarmWithETH(tokenB, masterchefAddress, pid, { from: address, value: amount })
       await tx.wait()
-      return notify('success', 'Transaction successful!')
+      notify('success', 'Transaction successful!')
     } else {
       const tx = await zapContract
         .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, false, { from: address })
@@ -109,7 +109,7 @@ export const harvest = async (masterChefContract, pid, isCompound, address) => {
     const tx = await masterChefContract
       .deposit(pid, '0', isCompound)
     await tx.wait()
-    return notify('success', 'Harvest successful!')
+    notify('success', 'Harvest successful!')
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
@@ -123,7 +123,7 @@ export const harvestMany = async (masterChefContract, pids, isCompound, address)
   try {
     const tx = await masterChefContract.harvestMany(pids, isCompound, { from: address })
     await tx.wait();
-    return notify('success', 'Harvest All successful!')
+    notify('success', 'Harvest All successful!')
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
