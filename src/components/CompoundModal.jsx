@@ -86,8 +86,11 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   async function handleDeposit() {
     setZapPendingTx(true)
     try {
+      console.log('harvesting...')
+
       if (pid.length === 1) await onReward(false)
-      else await harvestMany(masterChefContract, pid, false, address)
+      else await harvestMany(masterChefContract, [pid], false, address)
+      console.log('harvested...')
       await onZapForFarm(
         farms[0].lpAddresses,
         ethers.utils.parseEther(earnings.toString() || '1'),
