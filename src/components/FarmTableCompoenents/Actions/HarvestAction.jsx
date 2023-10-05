@@ -51,7 +51,6 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
     try {
       setPendingTx(true)
       await onReward(false)
-      notify('success', 'You have successfully claimed WILDX tokens')
       dispatch(fetchFarmUserDataAsync({ address, pids: [pid] }))
       setPendingTx(false)
     } catch (e) {

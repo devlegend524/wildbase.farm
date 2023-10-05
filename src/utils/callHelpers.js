@@ -14,7 +14,7 @@ import { notify } from './toastHelper'
 
 
 export const approve = async (lpContract, masterChefContract, address) => {
-  return lpContract.approve(masterChefContract.address, ethers.constants.MaxUint256, { from: address }
+  return await lpContract.approve(masterChefContract.address, ethers.constants.MaxUint256, { from: address }
   )
 }
 
@@ -26,8 +26,11 @@ export const stake = async (
   isCompound
 ) => {
   try {
-    return await masterChefContract
+    const tx = await masterChefContract
       .deposit(pid, fromReadableAmount(amount, decimals), isCompound)
+    await tx.wait()
+    return notify('success', 'Transaction successful!')
+
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
@@ -40,8 +43,11 @@ export const stake = async (
 
 export const unstake = async (masterChefContract, pid, amount, address, decimals = 18) => {
   try {
-    return await masterChefContract
+    const tx = await masterChefContract
       .withdraw(pid, fromReadableAmount(amount, decimals), { from: address })
+    await tx.wait()
+    return notify('success', 'Transaction successful!')
+
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
@@ -53,8 +59,10 @@ export const unstake = async (masterChefContract, pid, amount, address, decimals
 
 export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
   try {
-    return await zapContract
+    const tx = await zapContract
       .zap(tokenA, amount, tokenB, { from: address })
+    await tx.wait()
+    return notify('success', 'Zap successful!')
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
@@ -67,8 +75,10 @@ export const zap = async (zapContract, tokenA, amount, tokenB, address) => {
 export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, address) => {
   try {
     const masterchefAddress = getMasterChefAddress()
-    return await zapContract
+    const tx = await zapContract
       .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, { from: address })
+    await tx.wait()
+    return notify('success', 'Transaction successful!')
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
@@ -80,8 +90,10 @@ export const zapForFarm = async (zapContract, tokenA, amount, tokenB, pid, addre
 
 export const harvest = async (masterChefContract, pid, isCompound, address) => {
   try {
-    return await masterChefContract
+    const tx = await masterChefContract
       .deposit(pid, '0', isCompound)
+    await tx.wait()
+    return notify('success', 'Harvest successful!')
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
@@ -93,7 +105,9 @@ export const harvest = async (masterChefContract, pid, isCompound, address) => {
 
 export const harvestMany = async (masterChefContract, pids, isCompound, address) => {
   try {
-    return await masterChefContract.harvestMany(pids, isCompound, { from: address })
+    const tx = await masterChefContract.harvestMany(pids, isCompound, { from: address })
+    await tx.wait();
+    return notify('success', 'Harvest All successful!')
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {

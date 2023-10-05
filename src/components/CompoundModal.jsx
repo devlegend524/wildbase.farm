@@ -36,7 +36,7 @@ const customStyles = {
 
 export default function CompoundModal({ open, closeModal, earnings, pid, isAll }) {
   const { t } = useTranslation()
-  const [targetToken, setTargetToken] = useState(!isAll ? getFarmFromPid(pid) : getFarmFromPid(1))
+  const [targetToken, setTargetToken] = useState(!isAll ? getFarmFromPid(pid) : getFarmFromPid(0))
   const [pendingZapTx, setZapPendingTx] = useState(false)
   const { address } = useAccount()
   const zapAddress = getZapAddress()
@@ -70,12 +70,6 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
         targetToken.pid
       )
       dispatch(fetchFarmUserDataAsync({ account: address, pids: pid }))
-      notify(
-        'success',
-        'You have successfully compounded WILDX to ' +
-        targetToken.lpSymbol +
-        ' pool'
-      )
       closeModal()
       setZapPendingTx(false)
     } catch (e) {

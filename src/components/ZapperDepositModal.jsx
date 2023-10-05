@@ -87,15 +87,12 @@ export default function ZapperDepositModal(props) {
   }
   async function handleDeposit() {
     try {
-      console.log('zapping...')
       setPendingTx(true)
       await onZap(
         props.tokenA.lpAddresses,
         ethers.utils.parseEther(amount.toString() || '1'),
         props.tokenB.lpAddresses
       )
-      console.log('zapped...')
-      notify('success', 'You have successfully zapped token pair')
       closeModal()
       setPendingTx(false)
     } catch (e) {

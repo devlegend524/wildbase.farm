@@ -78,7 +78,7 @@ export default function TotalValueLocked() {
               <CardValue
                 fontSize='20px'
                 decimals={1}
-                value={totalSupply}
+                value={Number(totalSupply) - Number(500000)}
                 color='#fffff1'
               />
             )}
@@ -91,7 +91,7 @@ export default function TotalValueLocked() {
               <CardValue
                 fontSize='20px'
                 decimals={1}
-                value={toReadableAmount(tokenABalanceRead?.data, 18)}
+                value={Number(toReadableAmount(tokenABalanceRead?.data, 18)) - Number(500000)}
                 color='#fffff1'
               />
             )}

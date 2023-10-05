@@ -52,7 +52,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
   const [inputToken, setInputToken] = useState(tokensList[0])
   const [pendingZapTx, setZapPendingTx] = useState(false)
   const [loadingBalance, setLoadingBalance] = useState(false)
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState('')
   const [balance, setBalance] = useState(0)
   const { address } = useAccount()
   const zapAddress = getZapAddress()
@@ -87,12 +87,6 @@ export default function ZapInModal({ open, closeModal, pid }) {
         targetToken.pid
       )
       dispatch(fetchFarmUserDataAsync({ account: address, pids: pid }))
-      notify(
-        'success',
-        'You have successfully zapped ' + inputToken.lpSymbol + ' token in ' +
-        targetToken.lpSymbol +
-        ' pool'
-      )
       closeModal()
       setZapPendingTx(false)
     } catch (e) {
@@ -129,7 +123,6 @@ export default function ZapInModal({ open, closeModal, pid }) {
 
   const onChange = (e) => {
     if (Number(e.target.value) > Number(balance)) {
-      notify('warning', 'Insufficient Balance')
       return;
     }
     setAmount(e.target.value)
@@ -186,7 +179,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
             max='1'
             type="text"
             onChange={(e) => onChange(e)}
-            placeholder='0'
+            placeholder='0.000'
             className='bg-transparent focus-visible:outline-none w-full text-right px-2'
             value={amount}
           />
