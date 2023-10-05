@@ -3,12 +3,9 @@ import Modal from 'react-modal'
 import { ethers } from 'ethers'
 import {
   useAccount,
-  erc20ABI,
-  useContractRead,
 } from 'wagmi'
 import TokenDisplay from 'components/TokenDisplay'
 import { getZapAddress } from 'utils/addressHelpers'
-import lpTokenAbi from 'config/abi/lpToken'
 import useZap from 'hooks/useZap'
 import Loading from './Loading'
 import { notify } from 'utils/toastHelper'
@@ -16,6 +13,7 @@ import { getErc20Contract, getLpContract } from 'utils/contractHelpers'
 import { useEthersSigner } from 'hooks/useEthers'
 import { didUserReject } from 'utils/customHelpers'
 import { toFixed } from 'utils/customHelpers'
+import useRefresh from 'hooks/useRefresh'
 const customStyles = {
   content: {
     top: '50%',
@@ -36,12 +34,12 @@ export default function ZapperDepositModal(props) {
   const [isApproving, setIsApproving] = useState(false)
   const { address } = useAccount()
   const { onZap } = useZap()
-  const tokenABI = props.tokenA.isTokenOnly ? erc20ABI : lpTokenAbi
 
   const [allowance, setAllowance] = useState(0)
   const [pendingTx, setPendingTx] = useState(false)
   const [amount, setAmount] = useState('')
   const signer = useEthersSigner();
+  const { fastRefresh } = useRefresh()
 
   const getAllowance = async () => {
     let tokenContract;
@@ -74,8 +72,10 @@ export default function ZapperDepositModal(props) {
         } else {
           tokenContract = getLpContract(props.tokenA.lpAddresses, signer)
         }
-        await tokenContract.approve(zapAddress, ethers.constants.MaxUint256, { from: address })
+        const tx = await tokenContract.approve(zapAddress, ethers.constants.MaxUint256, { from: address })
+        await tx.wait()
         setIsApproving(false)
+        getAllowance()
       }
     } catch (e) {
       console.log(e)
@@ -112,7 +112,7 @@ export default function ZapperDepositModal(props) {
 
   useEffect(() => {
     getAllowance()
-  })
+  }, [fastRefresh])
   return (
     <>
       <div className='flex justify-center pb-16 m-2'>
@@ -152,9 +152,9 @@ export default function ZapperDepositModal(props) {
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
-          <p className='flex justify-end text-right'>
+          <div className='flex justify-end text-right'>
             Available: <div className='cursor-pointer' onClick={setMaximum}>{toFixed(props.availableA, 5)}</div>
-          </p>
+          </div>
           <div className='flex gap-3 pt-4'>
             <button
               className='border border-gray-600 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px]'

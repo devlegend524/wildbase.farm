@@ -37,7 +37,7 @@ const customStyles = {
 
 export default function CompoundModal({ open, closeModal, earnings, pid, isAll }) {
   const { t } = useTranslation()
-  const [targetToken, setTargetToken] = useState(!isAll ? getFarmFromPid(pid) : getFarmFromPid(0))
+  const [targetToken, setTargetToken] = useState(!isAll ? getFarmFromPid(pid[0]) : getFarmFromPid(0))
   const [pendingZapTx, setZapPendingTx] = useState(false)
   const [allowance, setAllowance] = useState(0)
   const [isApproving, setIsApproving] = useState(false)
@@ -46,7 +46,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   const zapAddress = getZapAddress()
   const signer = useEthersSigner()
   const wildXContract = getWILDXContract(signer)
-  const { onReward } = useHarvest(!isAll ? pid : 0)
+  const { onReward } = useHarvest(!isAll ? pid[0] : 0)
   const { onZapForFarm } = useZapForFarm()
   const masterChefContract = useMasterchef()
 

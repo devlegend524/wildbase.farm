@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { START_PRESALE } from 'config/config'
 import { MdOutlineSwapHorizontalCircle } from 'react-icons/md'
-import { useAccount, erc20ABI, useContractRead } from 'wagmi'
+import { useAccount, erc20ABI, useContractRead, useBalance } from 'wagmi'
 import { ethers } from 'ethers'
 import ZapperDepositModal from 'components/ZapperDepositModal'
 import lpTokenAbi from 'config/abi/lpToken'
 import { toFixed } from 'utils/customHelpers'
-
+import useRefresh from 'hooks/useRefresh';
 
 const farms = [
   {
@@ -18,15 +18,15 @@ const farms = [
     logoA: '/images/tokens/wildx.svg',
     logoB: ''
   },
-  // {
-  //   pid: 0,
-  //   lpSymbol: 'ETH',
-  //   isTokenOnly: true,
-  //   lpAddresses: '0x4200000000000000000000000000000000000006',
-  //   decimals: 18,
-  //   logoA: '/images/tokens/weth.svg',
-  //   logoB: ''
-  // },
+  {
+    pid: 0,
+    lpSymbol: 'ETH',
+    isTokenOnly: true,
+    lpAddresses: '0x4200000000000000000000000000000000000006',
+    decimals: 18,
+    logoA: '/images/tokens/weth.svg',
+    logoB: ''
+  },
   {
     pid: 1,
     lpSymbol: 'WETH',
@@ -58,9 +58,14 @@ export default function Zap() {
   const [tokenB, setTokenB] = useState(farms[1])
   const [availableB, setAvailableB] = useState(0)
 
+  const fastRefresh = useRefresh()
   const tokenABI = (token) => {
     return token?.isTokenOnly ? erc20ABI : lpTokenAbi
   }
+
+  const { data } = useBalance({
+    address: address,
+  })
 
   const tokenABalanceRead = useContractRead({
     address: tokenA.lpAddresses,
@@ -103,28 +108,39 @@ export default function Zap() {
   const updateUI = async () => {
     try {
       const rdep = (tokenABalanceRead.data || 0).toString()
-      console.log(rdep)
-      setAvailableA(
-        tokenA.lpSymbol === 'USDC' || tokenA.lpSymbol === 'USDT'
-          ? ethers.utils.formatUnits(rdep, 6)
-          : ethers.utils.formatEther(rdep)
-      )
+      if (tokenA.lpSymbol === 'ETH') {
+        setAvailableA(
+          data?.formatted
+        )
+      } else {
+        setAvailableA(
+          tokenA.lpSymbol === 'USDC' || tokenA.lpSymbol === 'USDT'
+            ? ethers.utils.formatUnits(rdep, 6)
+            : ethers.utils.formatEther(rdep)
+        )
+      }
+
     } catch (e) {
       console.log(e)
     }
     try {
       const read1 = (tokenBBalanceRead.data || 0).toString()
-      setAvailableB(
-        tokenB.lpSymbol === 'USDC' || tokenB.lpSymbol === 'USDT'
-          ? ethers.utils.formatUnits(read1, 6)
-          : ethers.utils.formatEther(read1)
-      )
+      if (tokenB.lpSymbol === 'ETH') {
+        setAvailableB(
+          data?.formatted
+        )
+      } else {
+        setAvailableB(
+          tokenB.lpSymbol === 'USDC' || tokenB.lpSymbol === 'USDT'
+            ? ethers.utils.formatUnits(read1, 6)
+            : ethers.utils.formatEther(read1)
+        )
+      }
     } catch { }
   }
 
   useEffect(() => {
     updateUI()
-
     const fetchTimer = setInterval(() => {
       if (Date.now() / 1000 >= START_PRESALE) {
         setStated(true)
@@ -135,7 +151,7 @@ export default function Zap() {
     return () => {
       clearInterval(fetchTimer)
     }
-  }, [tokenABalanceRead])
+  }, [tokenABalanceRead, tokenBBalanceRead, data, fastRefresh])
 
   return (
     <div className='container'>
@@ -245,7 +261,7 @@ export default function Zap() {
               </select>
             </div>
             <div className='text-center'>
-              {tokenB.lpSymbol} Available : {Number(availableB).toFixed(5)}
+              {tokenB.lpSymbol} Available : {toFixed(availableB, 5)}
             </div>
           </div>
         </div>

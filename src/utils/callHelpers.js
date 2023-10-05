@@ -59,10 +59,18 @@ export const unstake = async (masterChefContract, pid, amount, address, decimals
 
 export const zap = async (zapContract, tokenA, isNative, amount, tokenB, isOutNative, address) => {
   try {
-    const tx = await zapContract
-      .zap(tokenA, amount, tokenB, { from: address })
-    await tx.wait()
-    return notify('success', 'Zap successful!')
+    if (isNative) {
+      const tx = await zapContract
+        .zapETH(tokenB, { from: address, value: amount })
+      await tx.wait()
+      return notify('success', 'Zap successful!')
+    } else {
+      const tx = await zapContract
+        .zap(tokenA, amount, tokenB, isOutNative, { from: address })
+      await tx.wait()
+      return notify('success', 'Zap successful!')
+    }
+
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {
@@ -75,10 +83,18 @@ export const zap = async (zapContract, tokenA, isNative, amount, tokenB, isOutNa
 export const zapForFarm = async (zapContract, tokenA, isNative, amount, tokenB, pid, address) => {
   try {
     const masterchefAddress = getMasterChefAddress()
-    const tx = await zapContract
-      .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, { from: address })
-    await tx.wait()
-    return notify('success', 'Transaction successful!')
+    if (isNative) {
+      const tx = await zapContract
+        .zapIntoFarmWithETH(tokenB, masterchefAddress, pid, { from: address, value: amount })
+      await tx.wait()
+      return notify('success', 'Transaction successful!')
+    } else {
+      const tx = await zapContract
+        .zapIntoFarmWithToken(tokenA, amount, tokenB, masterchefAddress, pid, false, { from: address })
+      await tx.wait()
+      return notify('success', 'Transaction successful!')
+    }
+
   } catch (e) {
     console.log(e)
     if (didUserReject(e)) {

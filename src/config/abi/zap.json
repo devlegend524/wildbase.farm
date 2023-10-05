@@ -146,81 +146,6 @@
         "type": "uint256"
       }
     ],
-    "name": "ZapIntoAC",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "_recipient",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "_inputToken",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "ZapIntoBoardroom",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "_recipient",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_lpAmount",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_ssAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "ZapIntoBoardrooms",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "_recipient",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "_pid",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
     "name": "ZapIntoFarm",
     "type": "event"
   },
@@ -276,25 +201,6 @@
     "name": "addTaxFreeLiquidity",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "excludedAddresses",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -427,16 +333,6 @@
       },
       {
         "internalType": "address",
-        "name": "_shareToken",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_shareTokenLP",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
         "name": "_weth",
         "type": "address"
       }
@@ -449,24 +345,6 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      },
-      {
-        "internalType": "bool",
-        "name": "_isExcluded",
-        "type": "bool"
-      }
-    ],
-    "name": "setExcludedAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address[]",
         "name": "_accounts",
         "type": "address[]"
@@ -496,24 +374,6 @@
       }
     ],
     "name": "setOperatorStatus",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address[]",
-        "name": "_accounts",
-        "type": "address[]"
-      },
-      {
-        "internalType": "bool[]",
-        "name": "_operatorStatuses",
-        "type": "bool[]"
-      }
-    ],
-    "name": "setShareTokenWhitelistType",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -544,12 +404,35 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_taxRateRatio",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_type",
+        "type": "uint8"
       }
     ],
-    "name": "setTaxRateRatio",
+    "name": "setTokenType",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_tokens",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_type",
+        "type": "uint8"
+      }
+    ],
+    "name": "setTokensType",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -567,71 +450,9 @@
         "type": "uint8[]"
       }
     ],
-    "name": "setTokenType",
+    "name": "setTokensTypes",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address[]",
-        "name": "_tokens",
-        "type": "address[]"
-      },
-      {
-        "internalType": "uint8",
-        "name": "_type",
-        "type": "uint8"
-      }
-    ],
-    "name": "setTokenType",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_token",
-        "type": "address"
-      },
-      {
-        "internalType": "uint8",
-        "name": "_type",
-        "type": "uint8"
-      }
-    ],
-    "name": "setTokenType",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "shareToken",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "shareTokenLP",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -756,19 +577,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "taxRateRatio",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -829,6 +637,11 @@
         "internalType": "address",
         "name": "_targetToken",
         "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "_targetIsNative",
+        "type": "bool"
       }
     ],
     "name": "zap",
@@ -846,14 +659,23 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_inputToken",
+        "name": "_targetToken",
         "type": "address"
-      },
+      }
+    ],
+    "name": "zapETH",
+    "outputs": [
       {
         "internalType": "uint256",
-        "name": "_amount",
+        "name": "amountOut",
         "type": "uint256"
-      },
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       {
         "internalType": "address",
         "name": "_targetToken",
@@ -861,7 +683,7 @@
       },
       {
         "internalType": "address",
-        "name": "_strategyManager",
+        "name": "_farm",
         "type": "address"
       },
       {
@@ -870,7 +692,7 @@
         "type": "uint256"
       }
     ],
-    "name": "zapIntoACWithToken",
+    "name": "zapIntoFarmWithETH",
     "outputs": [
       {
         "internalType": "uint256",
@@ -878,64 +700,7 @@
         "type": "uint256"
       }
     ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_inputToken",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "_boardroom",
-        "type": "address"
-      }
-    ],
-    "name": "zapIntoBoardroomWithToken",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "amountOut",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_inputToken",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_lpRatio",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "_boardroomManager",
-        "type": "address"
-      }
-    ],
-    "name": "zapIntoBoardroomsWithToken",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -964,6 +729,11 @@
         "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_targetIsNative",
+        "type": "bool"
       }
     ],
     "name": "zapIntoFarmWithToken",

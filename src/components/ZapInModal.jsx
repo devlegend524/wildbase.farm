@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import TokenDisplay from 'components/TokenDisplay'
 import { getZapAddress } from 'utils/addressHelpers'
-import farms from 'config/farms'
 import { useZapForFarm } from 'hooks/useZap'
 import Modal from 'react-modal'
 import { ethers } from 'ethers'
@@ -11,10 +10,7 @@ import { useTranslation } from 'contexts/Localization'
 import { useEthersSigner } from 'hooks/useEthers'
 import { useAccount } from 'wagmi'
 import { getErc20Contract } from 'utils/contractHelpers'
-import { useHarvest } from 'hooks/useHarvest'
 import { notify } from 'utils/toastHelper'
-import { harvestMany } from 'utils/callHelpers'
-import { useMasterchef } from 'hooks/useContract'
 import { useAppDispatch } from 'state'
 import { fetchFarmUserDataAsync } from 'state/farms'
 import { getFarmFromPid } from 'utils/farmHelpers'
@@ -34,15 +30,15 @@ const customStyles = {
   },
 }
 const tokensList = [
-  // {
-  //   pid: 0,
-  //   lpSymbol: 'ETH',
-  //   isTokenOnly: true,
-  //   lpAddresses: '0x4200000000000000000000000000000000000006',
-  //   decimals: 18,
-  //   logoA: '/images/tokens/weth.svg',
-  //   logoB: ''
-  // },
+  {
+    pid: 0,
+    lpSymbol: 'ETH',
+    isTokenOnly: true,
+    lpAddresses: '0x4200000000000000000000000000000000000006',
+    decimals: 18,
+    logoA: '/images/tokens/weth.svg',
+    logoB: ''
+  },
   {
     pid: 1,
     lpSymbol: 'WETH',
@@ -68,9 +64,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
   const { address } = useAccount()
   const zapAddress = getZapAddress()
   const signer = useEthersSigner()
-  const { onReward } = useHarvest(pid)
   const { onZapForFarm } = useZapForFarm()
-  const masterChefContract = useMasterchef()
   const dispatch = useAppDispatch()
 
   const getAllowance = async () => {
@@ -239,7 +233,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
             Cancel
           </button>
           {
-            Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
+            inputToken.lpSymbol !== 'ETH' && Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
               onClick={handleApprove}
               disabled={isApproving}
               className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
