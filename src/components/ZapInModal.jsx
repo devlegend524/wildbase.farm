@@ -51,7 +51,10 @@ export default function ZapInModal({ open, closeModal, pid }) {
   const [targetToken, setTargetToken] = useState(pid ? getFarmFromPid(pid) : getFarmFromPid(1))
   const [inputToken, setInputToken] = useState(tokensList[0])
   const [pendingZapTx, setZapPendingTx] = useState(false)
+  const [isApproving, setIsApproving] = useState(false)
   const [loadingBalance, setLoadingBalance] = useState(false)
+  const [allowance, setAllowance] = useState(0)
+
   const [amount, setAmount] = useState('')
   const [balance, setBalance] = useState(0)
   const { address } = useAccount()
@@ -62,16 +65,18 @@ export default function ZapInModal({ open, closeModal, pid }) {
   const masterChefContract = useMasterchef()
   const dispatch = useAppDispatch()
 
-  async function handleDeposit() {
-    if (pid.length === 0) return
-    setZapPendingTx(true)
+  const getAllowance = async () => {
+    const tokenContract = getErc20Contract(inputToken.lpAddresses, signer)
+    const allowance = await tokenContract.allowance(address, zapAddress, {
+      from: address,
+    })
+    setAllowance(allowance.toString())
+  }
+
+  async function handleApprove() {
     try {
-      if (pid.length === 1) await onReward(false)
-      else await harvestMany(masterChefContract, pid, false, address)
+      setIsApproving(true)
       const tokenContract = getErc20Contract(inputToken.lpAddresses, signer)
-      const allowance = await tokenContract.allowance(address, zapAddress, {
-        from: address,
-      })
       if (
         Number(ethers.utils.formatUnits(allowance, inputToken.decimals)) <
         Number(amount.toString())
@@ -80,6 +85,20 @@ export default function ZapInModal({ open, closeModal, pid }) {
           from: address,
         })
       }
+      setIsApproving(false)
+    } catch (e) {
+      console.log(e)
+      if (didUserReject(e)) {
+        notify('error', 'User rejected transaction')
+      }
+      setIsApproving(false)
+    }
+  }
+
+  async function handleDeposit() {
+    if (pid.length === 0) return
+    setZapPendingTx(true)
+    try {
       await onZapForFarm(
         inputToken.lpAddresses,
         fromReadableAmount(amount.toString(), inputToken.decimals),
@@ -119,6 +138,10 @@ export default function ZapInModal({ open, closeModal, pid }) {
     setTargetToken(getFarmFromPid(pid))
     getBalance(tokensList[0])
   }, [pid, signer])
+
+  useEffect(() => {
+    getAllowance()
+  })
 
 
   const onChange = (e) => {
@@ -193,13 +216,23 @@ export default function ZapInModal({ open, closeModal, pid }) {
           >
             Cancel
           </button>
-          <button
-            onClick={handleDeposit}
-            className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
-            disabled={Number(amount) === 0 || pendingZapTx}
-          >
-            {pendingZapTx ? <Loading /> : t('Zap in')}
-          </button>
+          {
+            Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
+              onClick={handleApprove}
+              disabled={isApproving}
+              className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+            >
+              {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : 'Approve'}{' '}
+            </button> :
+              <button
+                onClick={handleDeposit}
+                className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+                disabled={Number(amount) === 0 || pendingZapTx}
+              >
+                {pendingZapTx ? <Loading /> : t('Zap in')}
+              </button>
+          }
+
         </div>
       </div>
     </Modal>

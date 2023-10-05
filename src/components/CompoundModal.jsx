@@ -38,6 +38,9 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   const { t } = useTranslation()
   const [targetToken, setTargetToken] = useState(!isAll ? getFarmFromPid(pid) : getFarmFromPid(0))
   const [pendingZapTx, setZapPendingTx] = useState(false)
+  const [allowance, setAllowance] = useState(0)
+  const [isApproving, setIsApproving] = useState(false)
+
   const { address } = useAccount()
   const zapAddress = getZapAddress()
   const signer = useEthersSigner()
@@ -45,13 +48,19 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   const { onReward } = useHarvest(!isAll ? pid : 0)
   const { onZapForFarm } = useZapForFarm()
   const masterChefContract = useMasterchef()
+
   const dispatch = useAppDispatch()
 
-  async function handleDeposit() {
-    setZapPendingTx(true)
+  const getAllowance = async () => {
+    const allowance = await wildXContract.allowance(address, zapAddress, {
+      from: address,
+    })
+    setAllowance(allowance.toString())
+  }
+
+  async function handleApprove() {
     try {
-      if (pid.length === 1) await onReward(false)
-      else await harvestMany(masterChefContract, pid, false, address)
+      setIsApproving(true)
       const allowance = await wildXContract.allowance(address, zapAddress, {
         from: address,
       })
@@ -59,10 +68,26 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
         Number(ethers.utils.formatUnits(allowance, 'ether')) <
         Number(earnings.toString())
       ) {
-        await wildXContract.approve(zapAddress, ethers.constants.MaxUint256, {
+        const tx = await wildXContract.approve(zapAddress, ethers.constants.MaxUint256, {
           from: address,
         })
+        await tx.wait()
       }
+      setIsApproving(false)
+    } catch (e) {
+      console.log(e)
+      if (didUserReject(e)) {
+        notify('error', 'User rejected transaction')
+      }
+      setIsApproving(false)
+    }
+  }
+
+  async function handleDeposit() {
+    setZapPendingTx(true)
+    try {
+      if (pid.length === 1) await onReward(false)
+      else await harvestMany(masterChefContract, pid, false, address)
       await onZapForFarm(
         farms[0].lpAddresses,
         ethers.utils.parseEther(earnings.toString() || '1'),
@@ -83,6 +108,10 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   const handleChangeToken = (e, type) => {
     setTargetToken(farms[Number(e)])
   }
+
+  useEffect(() => {
+    getAllowance()
+  })
 
   return (
     <Modal
@@ -144,13 +173,23 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
           >
             Cancel
           </button>
-          <button
-            onClick={handleDeposit}
-            className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
-            disabled={Number(earnings) === 0 || pendingZapTx}
-          >
-            {pendingZapTx ? <Loading /> : t('Compound')}
-          </button>
+          {
+            Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
+              onClick={handleApprove}
+              disabled={isApproving}
+              className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+            >
+              {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : 'Approve'}{' '}
+            </button> :
+              <button
+                onClick={handleDeposit}
+                className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+                disabled={Number(earnings) === 0 || pendingZapTx}
+              >
+                {pendingZapTx ? <Loading /> : t('Compound')}
+              </button>
+          }
+
         </div>
       </div>
     </Modal>
