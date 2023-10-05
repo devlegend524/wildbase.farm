@@ -24,10 +24,7 @@ export default function TotalValueLocked() {
     abi: wildABI,
     functionName: 'balanceOf',
     args: ['0x000000000000000000000000000000000000dead'],
-    chainId: 8453,
-    onSuccess(data) {
-      console.log('Success', data)
-    },
+    chainId: 8453
   })
 
   const totalMinted = totalSupply - toReadableAmount(tokenABalanceRead?.data, 18)
