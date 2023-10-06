@@ -107,7 +107,7 @@ export default function Zap() {
 
   const updateUI = async () => {
     try {
-      const rdep = (tokenABalanceRead.data || 0).toString()
+      const rdep = Number(tokenABalanceRead.data || 0).toString()
       if (tokenA.lpSymbol === 'ETH') {
         setAvailableA(
           data?.formatted
@@ -124,7 +124,7 @@ export default function Zap() {
       console.log(e)
     }
     try {
-      const read1 = (tokenBBalanceRead.data || 0).toString()
+      const read1 = Number(tokenBBalanceRead.data || 0).toString()
       if (tokenB.lpSymbol === 'ETH') {
         setAvailableB(
           data?.formatted

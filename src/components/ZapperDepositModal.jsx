@@ -49,7 +49,7 @@ export default function ZapperDepositModal(props) {
       tokenContract = getLpContract(props.tokenA.lpAddresses, signer)
     }
     const tokenAllowance = await tokenContract.allowance(address, zapAddress, { from: address })
-    setAllowance(tokenAllowance.toString())
+    setAllowance(tokenAllowance?.toString())
   }
   function openModal() {
     setOpen(true)
