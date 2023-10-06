@@ -8,7 +8,7 @@ export function fromReadableAmount(amount, decimals) {
 export function toReadableAmount(rawAmount, decimals) {
   if (!rawAmount) return 0;
   return Number(
-    ethers.utils.formatUnits(rawAmount, decimals).toString()
+    ethers.utils.formatUnits(rawAmount, decimals)?.toString()
   ).toFixed(5);
 }
 export const formatAddress = (address, segment) => {
