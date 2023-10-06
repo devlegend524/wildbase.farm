@@ -8,7 +8,7 @@ export const useHarvest = (farmPid) => {
   const masterChefContract = useMasterchef()
 
   const handleHarvest = useCallback(async (isCompound) => {
-    await harvest(masterChefContract, farmPid, isCompound, address)
+    return await harvest(masterChefContract, farmPid, isCompound, address)
   }, [address, farmPid, masterChefContract])
 
   return { onReward: handleHarvest }

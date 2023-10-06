@@ -46,7 +46,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   const zapAddress = getZapAddress()
   const signer = useEthersSigner()
   const wildXContract = getWILDXContract(signer)
-  const { onReward } = useHarvest(!isAll ? pid[0] : 0)
+  const { onReward } = useHarvest(pid[0])
   const { onZapForFarm } = useZapForFarm()
   const masterChefContract = useMasterchef()
 
@@ -87,8 +87,13 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   async function handleDeposit() {
     setZapPendingTx(true)
     try {
-      if (pid.length === 1) await onReward(false)
-      else await harvestMany(masterChefContract, pid, false, address)
+      if (isAll) {
+        console.log('harvest all...', pid)
+        await harvestMany(masterChefContract, pid, false, address)
+      } else {
+        console.log('harvest single...', pid)
+        await onReward(false)
+      }
       await sleep(2000)
       await onZapForFarm(
         farms[0].lpAddresses,
