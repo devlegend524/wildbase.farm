@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className='flex justify-around items-center p-1 h-[70px]'>
       <div className='text-md'>
-        @{moment().format('YYYY')} WildBase.FARM <span className='font-semibold mx-2'>( v3.2.0 )</span> All Rights Reserved.
+        @{moment().format('YYYY')} WildBase.FARM <span className='font-semibold mx-2'>( v3.2.1 )</span> All Rights Reserved.
       </div>
       <div className='hidden md:flex gap-4'>
         {socials.map((item, index) => {
