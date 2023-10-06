@@ -85,12 +85,13 @@ export default function Liquidity() {
         setPendingTx(true)
         try {
             console.log('adding liquidity...')
-            await zapContract.addTaxFreeLiquidity(
+            const tx = await zapContract.addTaxFreeLiquidity(
                 fromToken.lpAddresses,
                 toToken.lpAddresses,
                 fromReadableAmount(sellAmount, 18),
                 fromReadableAmount(buyAmount, 18)
             )
+            await tx.wait()
             refresh()
         } catch (e) {
             console.log(e)
