@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { START_PRESALE } from 'config/config'
 import { MdOutlineSwapHorizontalCircle } from 'react-icons/md'
-import { useAccount, erc20ABI, useContractRead, useBalance } from 'wagmi'
-import { ethers } from 'ethers'
+import { useAccount } from 'wagmi'
 import ZapperDepositModal from 'components/ZapperDepositModal'
-import lpTokenAbi from 'config/abi/lpToken'
 import { toFixed } from 'utils/customHelpers'
-import useRefresh from 'hooks/useRefresh';
 import { useEthersSigner } from 'hooks/useEthers'
 import { toReadableAmount } from 'utils/customHelpers'
 import { getErc20Contract } from 'utils/contractHelpers'
+
 const farms = [
   {
     pid: 0,
@@ -51,7 +48,6 @@ const farms = [
 ]
 
 export default function Zap() {
-  const [started, setStated] = useState(false)
   const { address } = useAccount()
 
   const [tokenA, setTokenA] = useState(farms[0])
@@ -60,16 +56,7 @@ export default function Zap() {
   const [tokenB, setTokenB] = useState(farms[1])
   const [availableB, setAvailableB] = useState(0)
 
-  const fastRefresh = useRefresh()
   const signer = useEthersSigner()
-
-  const tokenABI = (token) => {
-    return token?.isTokenOnly ? erc20ABI : lpTokenAbi
-  }
-
-  const { data } = useBalance({
-    address: address,
-  })
 
   const getBalance = async (token, type) => {
     try {
@@ -103,9 +90,11 @@ export default function Zap() {
 
 
   useEffect(() => {
-    getBalance(tokenA, 'A')
-    getBalance(tokenB, 'B')
-  }, [tokenA, tokenB, fastRefresh])
+    if (tokenA && tokenB && signer) {
+      getBalance(tokenA, 'A')
+      getBalance(tokenB, 'B')
+    }
+  })
 
   return (
     <div className='container'>
