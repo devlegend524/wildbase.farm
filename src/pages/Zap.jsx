@@ -7,7 +7,9 @@ import ZapperDepositModal from 'components/ZapperDepositModal'
 import lpTokenAbi from 'config/abi/lpToken'
 import { toFixed } from 'utils/customHelpers'
 import useRefresh from 'hooks/useRefresh';
-
+import { useEthersSigner } from 'hooks/useEthers'
+import { toReadableAmount } from 'utils/customHelpers'
+import { getErc20Contract } from 'utils/contractHelpers'
 const farms = [
   {
     pid: 0,
@@ -59,6 +61,8 @@ export default function Zap() {
   const [availableB, setAvailableB] = useState(0)
 
   const fastRefresh = useRefresh()
+  const signer = useEthersSigner()
+
   const tokenABI = (token) => {
     return token?.isTokenOnly ? erc20ABI : lpTokenAbi
   }
@@ -67,29 +71,21 @@ export default function Zap() {
     address: address,
   })
 
-  const tokenABalanceRead = useContractRead({
-    address: tokenA.lpAddresses,
-    abi: tokenABI(tokenA),
-    functionName: 'balanceOf',
-    args: [address || '0x000000000000000000000000000000000000dead'],
-    chainId: 8453,
-
-    onSuccess(data) {
-      console.log('Success', data)
-    },
-  })
-
-  const tokenBBalanceRead = useContractRead({
-    address: tokenB.lpAddresses,
-    abi: tokenABI(tokenB),
-    functionName: 'balanceOf',
-    args: [address || '0x000000000000000000000000000000000000dead'],
-    chainId: 8453,
-
-    onSuccess(data) {
-      console.log('Success', data)
-    },
-  })
+  const getBalance = async (token, type) => {
+    try {
+      if (token.lpSymbol === 'ETH') {
+        const balance = await signer.getBalance();
+        type === 'A' ? setAvailableA(toReadableAmount(balance, token.decimals)) : setAvailableB(toReadableAmount(balance, token.decimals))
+      } else {
+        const tokenContract = getErc20Contract(token.lpAddresses, signer)
+        const balance1 = await tokenContract.balanceOf(address);
+        setAvailableA(toReadableAmount(balance1, token.decimals))
+        type === 'A' ? setAvailableA(toReadableAmount(balance1, token.decimals)) : setAvailableB(toReadableAmount(balance1, token.decimals))
+      }
+    } catch (e) {
+      type === 'A' ? setAvailableA('') : setAvailableB('')
+    }
+  }
 
   const handleChangeToken = (e, type) => {
     if (type === '1') {
@@ -105,53 +101,11 @@ export default function Zap() {
     setTokenB(temp)
   }
 
-  const updateUI = async () => {
-    try {
-      const rdep = Number(tokenABalanceRead.data || 0).toString()
-      if (tokenA.lpSymbol === 'ETH') {
-        setAvailableA(
-          data?.formatted
-        )
-      } else {
-        setAvailableA(
-          tokenA.lpSymbol === 'USDC' || tokenA.lpSymbol === 'USDT'
-            ? ethers.utils.formatUnits(rdep, 6)
-            : ethers.utils.formatEther(rdep)
-        )
-      }
-
-    } catch (e) {
-      console.log(e)
-    }
-    try {
-      const read1 = Number(tokenBBalanceRead.data || 0).toString()
-      if (tokenB.lpSymbol === 'ETH') {
-        setAvailableB(
-          data?.formatted
-        )
-      } else {
-        setAvailableB(
-          tokenB.lpSymbol === 'USDC' || tokenB.lpSymbol === 'USDT'
-            ? ethers.utils.formatUnits(read1, 6)
-            : ethers.utils.formatEther(read1)
-        )
-      }
-    } catch { }
-  }
 
   useEffect(() => {
-    updateUI()
-    const fetchTimer = setInterval(() => {
-      if (Date.now() / 1000 >= START_PRESALE) {
-        setStated(true)
-        clearInterval(fetchTimer)
-      }
-    }, [3000])
-
-    return () => {
-      clearInterval(fetchTimer)
-    }
-  }, [tokenABalanceRead, tokenBBalanceRead, data, fastRefresh])
+    getBalance(tokenA, 'A')
+    getBalance(tokenB, 'B')
+  }, [tokenA, tokenB, fastRefresh])
 
   return (
     <div className='container'>
