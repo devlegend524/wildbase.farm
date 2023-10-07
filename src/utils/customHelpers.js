@@ -28,6 +28,7 @@ export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 export const toFixed = (num, fixed) => {
+  if (Number(num) === 0) return 0;
   var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
   return num.toString().match(re)[0];
 }

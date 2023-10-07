@@ -107,7 +107,7 @@ export default function ZapperDepositModal(props) {
     }
   }
   function setMaximum() {
-    setAmount(toFixed(props.availableA, 5))
+    setAmount(props.availableA > 0 ? toFixed(props.availableA, 5) : 0)
   }
 
   useEffect(() => {
@@ -153,7 +153,7 @@ export default function ZapperDepositModal(props) {
             />
           </div>
           <div className='flex justify-end text-right'>
-            Available: <div className='cursor-pointer' onClick={setMaximum}>{toFixed(props.availableA, 5)}</div>
+            Available: <div className='cursor-pointer' onClick={setMaximum}>{props.availableA > 0 ? toFixed(props.availableA, 5) : 0}</div>
           </div>
           <div className='flex gap-3 pt-4'>
             <button

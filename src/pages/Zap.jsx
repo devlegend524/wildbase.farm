@@ -58,21 +58,38 @@ export default function Zap() {
 
   const signer = useEthersSigner()
 
-  const getBalance = async (token, type) => {
+  const getTokenBBalance = async (token) => {
     try {
       if (token.lpSymbol === 'ETH') {
         const balance = await signer.getBalance();
-        type === 'A' ? setAvailableA(toReadableAmount(balance, token.decimals)) : setAvailableB(toReadableAmount(balance, token.decimals))
+        setAvailableB(toReadableAmount(balance, token.decimals))
+      } else {
+        const tokenContract = getErc20Contract(token.lpAddresses, signer)
+        const balance1 = await tokenContract.balanceOf(address);
+        setAvailableB(toReadableAmount(balance1, token.decimals))
+      }
+    } catch (e) {
+      console.log(e)
+      setAvailableB('')
+    }
+  }
+
+  const getTokenABalance = async (token) => {
+    try {
+      if (token.lpSymbol === 'ETH') {
+        const balance = await signer.getBalance();
+        setAvailableA(toReadableAmount(balance, token.decimals))
       } else {
         const tokenContract = getErc20Contract(token.lpAddresses, signer)
         const balance1 = await tokenContract.balanceOf(address);
         setAvailableA(toReadableAmount(balance1, token.decimals))
-        type === 'A' ? setAvailableA(toReadableAmount(balance1, token.decimals)) : setAvailableB(toReadableAmount(balance1, token.decimals))
       }
     } catch (e) {
-      type === 'A' ? setAvailableA('') : setAvailableB('')
+      console.log(e)
+      setAvailableA('')
     }
   }
+
 
   const handleChangeToken = (e, type) => {
     if (type === '1') {
@@ -87,15 +104,30 @@ export default function Zap() {
     setTokenA(tokenB)
     setTokenB(temp)
   }
-
+  useEffect(() => {
+    if (signer) {
+      console.log(tokenA)
+      getTokenABalance(tokenA)
+    }
+  }, [tokenA, signer])
 
   useEffect(() => {
-    if (tokenA && tokenB && signer) {
-      getBalance(tokenA, 'A')
-      getBalance(tokenB, 'B')
+    if (signer) {
+      getTokenBBalance(tokenB)
+    }
+  }, [tokenB, signer])
+
+  useEffect(() => {
+    setTokenA(farms[0])
+    setTokenB(farms[1])
+  }, [])
+
+  useEffect(() => {
+    if (signer) {
+      getTokenABalance(tokenA)
+      getTokenBBalance(tokenB)
     }
   })
-
   return (
     <div className='container'>
       <div className='presale_banner pb-16'>ZAPPER</div>
@@ -146,7 +178,7 @@ export default function Zap() {
               </select>
             </div>
             <div className='text-center'>
-              {tokenA.lpSymbol} Available : {toFixed(availableA, 5)}
+              {tokenA.lpSymbol} Available : {availableA > 0 ? toFixed(availableA, 5) : 0}
             </div>
           </div>
         </div>
@@ -204,7 +236,7 @@ export default function Zap() {
               </select>
             </div>
             <div className='text-center'>
-              {tokenB.lpSymbol} Available : {toFixed(availableB, 5)}
+              {tokenB.lpSymbol} Available : {availableB > 0 ? toFixed(availableB, 5) : 0}
             </div>
           </div>
         </div>
