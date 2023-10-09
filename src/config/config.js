@@ -20,21 +20,21 @@ export const YEAR_BN = new BigNumber(YEAR)
 export const BASE_EXPLORER = "https://basescan.org"
 
 export const HeaderLinks = [
-  {
-    name: 'Home',
-    link: '/',
-  },
+  // {
+  //   name: 'Home',
+  //   link: '/',
+  // },
   {
     name: 'Farms',
-    link: '/farms',
+    link: '/',
   },
   {
     name: 'Liquidity',
     link: '/liquidity',
   },
   {
-    name: 'Zap',
-    link: '/zap',
+    name: 'Swap',
+    link: '/swap',
   },
 ];
 
