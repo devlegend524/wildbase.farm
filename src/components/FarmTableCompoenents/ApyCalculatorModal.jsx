@@ -78,32 +78,32 @@ const ApyCalculatorModal = ({
     <Modal title={t('ROI')} onDismiss={onDismiss}>
       {isFarm && (
         <Flex mb='24px' justifyContent='space-between'>
-          <Text color='black'>{t('APR (incl. LP rewards)')}</Text>
-          <Text>{apr.toFixed(roundingDecimals)}%</Text>
+          <Text color='textWhite'>{t('APR (incl. LP rewards)')}</Text>
+          <Text color='textWhite'>{apr.toFixed(roundingDecimals)}%</Text>
         </Flex>
       )}
       <Grid>
         <GridHeaderItem>
-          <Text fontSize='14px' color='black' mb='12px'>
+          <Text fontSize='14px' color='textWhite' mb='12px'>
             {t('Timeframe')}
           </Text>
         </GridHeaderItem>
         <GridHeaderItem>
-          <Text fontSize='14px' color='black' mr='12px' ml='12px' mb='12px'>
+          <Text fontSize='14px' color='textWhite' mr='12px' ml='12px' mb='12px'>
             {t('ROI')}
           </Text>
         </GridHeaderItem>
         <GridHeaderItem>
-          <Text fontSize='14px' color='black' mb='12px'>
+          <Text fontSize='14px' color='textWhite' mb='12px'>
             {t('%symbol% per $1,000', { symbol: earningTokenSymbol })}
           </Text>
         </GridHeaderItem>
         {/* 1 day row */}
         <GridItem>
-          <Text>{t('%num%d', { num: 1 })}</Text>
+          <Text color='textWhite'>{t('%num%d', { num: 1 })}</Text>
         </GridItem>
         <GridItem>
-          <Text mr='12px' ml='12px'>
+          <Text color='textWhite' mr='12px' ml='12px'>
             {getRoi({
               amountEarned: tokenEarnedPerThousand1D,
               amountInvested: oneThousandDollarsWorthOfToken,
@@ -112,14 +112,14 @@ const ApyCalculatorModal = ({
           </Text>
         </GridItem>
         <GridItem>
-          <Text>{tokenEarnedPerThousand1D}</Text>
+          <Text color='textWhite'>{tokenEarnedPerThousand1D}</Text>
         </GridItem>
         {/* 7 day row */}
         <GridItem>
-          <Text>{t('%num%d', { num: 7 })}</Text>
+          <Text color='textWhite'>{t('%num%d', { num: 7 })}</Text>
         </GridItem>
         <GridItem>
-          <Text mr='12px' ml='12px'>
+          <Text color='textWhite' mr='12px' ml='12px'>
             {getRoi({
               amountEarned: tokenEarnedPerThousand7D,
               amountInvested: oneThousandDollarsWorthOfToken,
@@ -128,14 +128,14 @@ const ApyCalculatorModal = ({
           </Text>
         </GridItem>
         <GridItem>
-          <Text>{tokenEarnedPerThousand7D}</Text>
+          <Text color='textWhite'>{tokenEarnedPerThousand7D}</Text>
         </GridItem>
         {/* 30 day row */}
         <GridItem>
-          <Text>{t('%num%d', { num: 30 })}</Text>
+          <Text color='textWhite'>{t('%num%d', { num: 30 })}</Text>
         </GridItem>
         <GridItem>
-          <Text mr='12px' ml='12px'>
+          <Text color='textWhite' mr='12px' ml='12px'>
             {getRoi({
               amountEarned: tokenEarnedPerThousand30D,
               amountInvested: oneThousandDollarsWorthOfToken,
@@ -144,14 +144,14 @@ const ApyCalculatorModal = ({
           </Text>
         </GridItem>
         <GridItem>
-          <Text>{tokenEarnedPerThousand30D}</Text>
+          <Text color='textWhite'>{tokenEarnedPerThousand30D}</Text>
         </GridItem>
         {/* 365 day / APY row */}
         <GridItem style={{ maxWidth: '180px' }}>
-          <Text>{t('365d (APY)')}</Text>
+          <Text color='textWhite'>{t('365d (APY)')}</Text>
         </GridItem>
         <GridItem>
-          <Text mr='12px' ml='12px'>
+          <Text color='textWhite' mr='12px' ml='12px'>
             {getRoi({
               amountEarned: tokenEarnedPerThousand365D,
               amountInvested: oneThousandDollarsWorthOfToken,
@@ -160,19 +160,19 @@ const ApyCalculatorModal = ({
           </Text>
         </GridItem>
         <GridItem>
-          <Text>{tokenEarnedPerThousand365D}</Text>
+          <Text color='textWhite'>{tokenEarnedPerThousand365D}</Text>
         </GridItem>
       </Grid>
       <Flex justifyContent='flex-start'>
         <Box mb='28px' p='4px'>
           <BulletList>
             <li>
-              <Text ml='-8px' fontSize='14px' color='black' display='inline'>
+              <Text ml='-8px' fontSize='14px' color='textWhite' display='inline'>
                 {t('Calculated based on current rates.')}
               </Text>
             </li>
             <li>
-              <Text ml='-8px' fontSize='14px' color='black' display='inline'>
+              <Text ml='-8px' fontSize='14px' color='textWhite' display='inline'>
                 {t('Compounding %freq%x daily.', {
                   freq: compoundFrequency.toLocaleString(),
                 })}
@@ -180,7 +180,7 @@ const ApyCalculatorModal = ({
             </li>
             {isFarm && (
               <li>
-                <Text ml='-8px' fontSize='14px' color='black' display='inline'>
+                <Text ml='-8px' fontSize='14px' color='textWhite' display='inline'>
                   {t(
                     'LP rewards: 0.17% trading fees, distributed proportionally among LP token holders.'
                   )}
@@ -188,13 +188,13 @@ const ApyCalculatorModal = ({
               </li>
             )}
             <li>
-              <Text ml='-8px' fontSize='14px' color='black' display='inline'>
+              <Text ml='-8px' fontSize='14px' color='textWhite' display='inline'>
                 {t(
                   'All figures are estimates provided for your convenience only,'
                 )}
               </Text>
               <br />
-              <Text ml='-8px' fontSize='14px' color='black' display='inline'>
+              <Text ml='-8px' fontSize='14px' color='textWhite' display='inline'>
                 {t('and by no means represent guaranteed returns.')}
               </Text>
             </li>
@@ -204,7 +204,7 @@ const ApyCalculatorModal = ({
                   mt='14px'
                   ml='-8px'
                   fontSize='14px'
-                  color='black'
+                  color='textWhite'
                   display='inline'
                 >
                   {t(
