@@ -33,7 +33,10 @@ export default function Header() {
         <div className='block md:hidden' onClick={() => showNav()}>
           <Hamburger />
         </div>
-        <img src='/logo.png' alt='logo' className='hidden md:block w-[100px]' />
+        <a
+          href='/'>
+          <img src='/logo.gif' alt='logo' className='hidden md:block w-[80px]' />
+        </a>
       </div>
       <div className='hidden xl:flex gap-4 absolute left-1/2 -translate-x-1/2'>
         {HeaderLinks.map((item, index) => (
