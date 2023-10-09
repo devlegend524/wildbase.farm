@@ -55,6 +55,7 @@ export default function Zap() {
 
   const [tokenB, setTokenB] = useState(farms[1])
   const [availableB, setAvailableB] = useState(0)
+  const [isFinished, setIsFinished] = useState(false)
 
   const signer = useEthersSigner()
 
@@ -127,7 +128,14 @@ export default function Zap() {
       getTokenABalance(tokenA)
       getTokenBBalance(tokenB)
     }
-  })
+  }, [isFinished])
+
+  useEffect(() => {
+    if (isFinished) {
+      getTokenABalance(tokenA)
+      getTokenBBalance(tokenB)
+    }
+  }, [isFinished])
   return (
     <div className='container'>
       <div className='presale_banner pb-16'>ZAPPER</div>
@@ -246,6 +254,7 @@ export default function Zap() {
         tokenB={tokenB}
         availableA={availableA}
         availableB={availableB}
+        setIsFinished={setIsFinished}
       />
     </div>
   )

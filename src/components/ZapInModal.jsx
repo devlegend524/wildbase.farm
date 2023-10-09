@@ -167,7 +167,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
     setAmount(e.target.value)
   }
   const setMaxAmount = () => {
-    setAmount(balance)
+    setAmount(Number(balance) - Number(0.00001))
   }
   return (
     <Modal

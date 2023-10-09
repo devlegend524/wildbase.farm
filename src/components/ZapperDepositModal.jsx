@@ -57,6 +57,7 @@ export default function ZapperDepositModal(props) {
 
   function closeModal() {
     setOpen(false)
+    props.setIsFinished(true)
     setAmount('')
   }
   async function handleApprove() {
@@ -107,7 +108,7 @@ export default function ZapperDepositModal(props) {
     }
   }
   function setMaximum() {
-    setAmount(props.availableA > 0 ? toFixed(props.availableA, 5) : 0)
+    setAmount(props.availableA > 0 ? toFixed(Number(props.availableA) - Number(0.00001), 5) : 0)
   }
 
   useEffect(() => {
