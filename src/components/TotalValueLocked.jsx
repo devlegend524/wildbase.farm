@@ -62,7 +62,7 @@ export default function TotalValueLocked() {
       <div className='text-3xl text-right mb-5'>WILDX Stats</div>
       <div className='flex flex-col gap-4'>
         <div className='flex items-center justify-between'>
-          <p>Liquidity</p>
+          <p className='font-semibold'>Liquidity</p>
           <div className='h-30 '>
             {liquidity > 0 ? (
               <span className='text-[20px] font-semibold'>
@@ -74,7 +74,7 @@ export default function TotalValueLocked() {
           </div>
         </div>
         <div className='flex items-center justify-between'>
-          <p>Market cap</p>
+          <p className='font-semibold'>Market Cap</p>
           <div className='h-30 '>
             {marketCap > 0 ? (
               <span className='text-[20px] font-semibold'>
@@ -86,20 +86,20 @@ export default function TotalValueLocked() {
           </div>
         </div>
         <div className='flex items-center justify-between'>
-          <p>Total Minted</p>
+          <p className='font-semibold'>Total Burned</p>
           <div>
-            {totalMinted && (
+            {toReadableAmount(tokenABalanceRead?.data, 18) && (
               <CardValue
                 fontSize='20px'
                 decimals={1}
-                value={Number(totalSupply) - Number(500000)}
+                value={Number(toReadableAmount(tokenABalanceRead?.data, 18))}
                 color='#fffff1'
               />
             )}
           </div>
         </div>
         <div className='flex items-center justify-between'>
-          <p>Circulating Supply</p>
+          <p className='font-semibold'>Circulating Supply</p>
           <div>
             {totalSupply && (
               <CardValue
