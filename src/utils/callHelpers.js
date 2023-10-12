@@ -147,9 +147,9 @@ export const getUserStakeInWildWethLp = async (account, block) => {
   try {
     const masterContract = getMasterchefContract(web3WithArchivedNodeProvider, CHAIN_ID)
     const wildWethContract = getLpContract(wildWethFarm.lpAddresses, web3WithArchivedNodeProvider)
-    const totalSupplyLP = await wildWethContract.totalSupply().call(undefined, block)
-    const reservesLP = await wildWethContract.getReserves().call(undefined, block)
-    const wildWethBalance = await masterContract.userInfo(wildWethFarm, account).call(undefined, block)
+    const totalSupplyLP = await wildWethContract.totalSupply()
+    const reservesLP = await wildWethContract.getReserves()
+    const wildWethBalance = await masterContract.userInfo(wildWethFarm, account)
 
     const pair = new Pair(
       new TokenAmount(WILDX_TOKEN, reservesLP._reserve0.toString()),
@@ -176,7 +176,7 @@ export const getUserStakeInWILDXPool = async (account, block) => {
   try {
 
     const masterContract = getMasterchefContract(web3WithArchivedNodeProvider, CHAIN_ID)
-    const response = await masterContract.userInfo(0, account).call(undefined, block)
+    const response = await masterContract.userInfo(0, account)
 
     return getBalanceAmount(new BigNumber(response.amount))
   } catch (error) {
