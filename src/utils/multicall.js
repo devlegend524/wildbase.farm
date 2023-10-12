@@ -16,7 +16,7 @@ const multicall = async (abi, calls, options) => {
     const itf = new Interface(abi)
     const calldata = calls.map((call) => [call.address.toLowerCase(), itf.encodeFunctionData(call.name, call.params)])
 
-    const { returnData } = await multi.aggregate(calldata)
+    const { returnData } = await multi.methods.aggregate(calldata).call(undefined, options?.blockNumber)
     const res = returnData.map((call, i) => itf.decodeFunctionResult(calls[i].name, call))
 
     return res
@@ -38,7 +38,7 @@ export const multicallv2 = async (abi, calls, options) => {
   const calldata = calls.map((call) => [call.address.toLowerCase(), itf.encodeFunctionData(call.name, call.params)])
   const returnData = await multi
     .tryAggregate(options.requireSuccess === undefined ? true : options.requireSuccess, calldata)
-
+    .call(undefined, options.blockNumber)
   const res = returnData.map((call, i) => {
     const [result, data] = call
     return result ? itf.decodeFunctionResult(calls[i].name, data) : null
