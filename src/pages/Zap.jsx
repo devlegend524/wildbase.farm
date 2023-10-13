@@ -56,7 +56,14 @@ export default function Zap() {
   const [tokenB, setTokenB] = useState(farms[1])
   const [availableB, setAvailableB] = useState(0)
   const [isFinished, setIsFinished] = useState(false)
+  const [open, setOpen] = useState(false)
+  function openModal() {
+    setOpen(true)
+  }
 
+  function closeModal() {
+    setOpen(false)
+  }
   const signer = useEthersSigner()
 
   const getTokenBBalance = async (token) => {
@@ -249,13 +256,26 @@ export default function Zap() {
           </div>
         </div>
       </div>
-      <ZapperDepositModal
-        tokenA={tokenA}
-        tokenB={tokenB}
-        availableA={availableA}
-        availableB={availableB}
-        setIsFinished={setIsFinished}
-      />
+      <div className='flex justify-center pb-16 m-2'>
+        <button
+          className='bg-secondary-700 rounded-xl p-3 hover:scale-105 transition ease-in-out'
+          onClick={openModal}
+        >
+          {tokenA.lpSymbol} into {tokenB.lpSymbol}
+        </button>
+      </div>
+      {open &&
+        <ZapperDepositModal
+          open={open}
+          tokenA={tokenA}
+          tokenB={tokenB}
+          availableA={availableA}
+          availableB={availableB}
+          setIsFinished={setIsFinished}
+          closeModal={closeModal}
+        />
+      }
+
     </div>
   )
 }

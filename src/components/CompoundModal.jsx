@@ -41,6 +41,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   const [pendingZapTx, setZapPendingTx] = useState(false)
   const [allowance, setAllowance] = useState(0)
   const [isApproving, setIsApproving] = useState(false)
+  const [isCheckingAllowance, setIsCheckingAllowance] = useState(false)
 
   const { address } = useAccount()
   const zapAddress = getZapAddress()
@@ -53,10 +54,12 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
   const dispatch = useAppDispatch()
 
   const getAllowance = async () => {
+    setIsCheckingAllowance(true)
     const allowance = await wildXContract.allowance(address, zapAddress, {
       from: address,
     })
     setAllowance(allowance.toString())
+    setIsCheckingAllowance(false)
   }
 
   async function handleApprove() {
@@ -75,6 +78,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
         await tx.wait()
       }
       setIsApproving(false)
+      getAllowance()
     } catch (e) {
       console.log(e)
       if (didUserReject(e)) {
@@ -119,7 +123,7 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
 
   useEffect(() => {
     getAllowance()
-  })
+  }, [])
 
   return (
     <Modal
@@ -182,20 +186,25 @@ export default function CompoundModal({ open, closeModal, earnings, pid, isAll }
             Cancel
           </button>
           {
-            Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
-              onClick={handleApprove}
-              disabled={isApproving}
-              className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+            isCheckingAllowance ? <button
+              className='border flex justify-center disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
             >
-              {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : 'Approve'}{' '}
+              <Loading /> Loading...
             </button> :
-              <button
-                onClick={handleDeposit}
+              Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
+                onClick={handleApprove}
+                disabled={isApproving}
                 className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
-                disabled={Number(earnings) === 0 || pendingZapTx}
               >
-                {pendingZapTx ? <Loading /> : t('Compound')}
-              </button>
+                {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : 'Approve'}{' '}
+              </button> :
+                <button
+                  onClick={handleDeposit}
+                  className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+                  disabled={Number(earnings) === 0 || pendingZapTx}
+                >
+                  {pendingZapTx ? <Loading /> : t('Compound')}
+                </button>
           }
 
         </div>

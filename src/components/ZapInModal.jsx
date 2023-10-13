@@ -58,6 +58,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
   const [isApproving, setIsApproving] = useState(false)
   const [loadingBalance, setLoadingBalance] = useState(false)
   const [allowance, setAllowance] = useState(0)
+  const [isCheckingAllowance, setIsCheckingAllowance] = useState(false)
 
   const [amount, setAmount] = useState('')
   const [balance, setBalance] = useState(0)
@@ -68,11 +69,13 @@ export default function ZapInModal({ open, closeModal, pid }) {
   const dispatch = useAppDispatch()
 
   const getAllowance = async () => {
+    setIsCheckingAllowance(true)
     const tokenContract = getErc20Contract(inputToken.lpAddresses, signer)
     const allowance = await tokenContract.allowance(address, zapAddress, {
       from: address,
     })
     setAllowance(allowance.toString())
+    setIsCheckingAllowance(false)
   }
 
   async function handleApprove() {
@@ -96,6 +99,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
         }
       }
       setIsApproving(false)
+      getAllowance()
     } catch (e) {
       console.log(e)
       if (didUserReject(e)) {
@@ -157,7 +161,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
 
   useEffect(() => {
     getAllowance()
-  })
+  }, [])
 
 
   const onChange = (e) => {
@@ -233,20 +237,25 @@ export default function ZapInModal({ open, closeModal, pid }) {
             Cancel
           </button>
           {
-            inputToken.lpSymbol !== 'ETH' && Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
-              onClick={handleApprove}
-              disabled={isApproving}
-              className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+            isCheckingAllowance ? <button
+              className='border flex justify-center disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
             >
-              {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : 'Approve'}{' '}
+              <Loading /> Loading...
             </button> :
-              <button
-                onClick={handleDeposit}
+              inputToken.lpSymbol !== 'ETH' && Number(ethers.utils.formatUnits(allowance, 'ether')) === 0 ? <button
+                onClick={handleApprove}
+                disabled={isApproving}
                 className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
-                disabled={Number(amount) === 0 || pendingZapTx}
               >
-                {pendingZapTx ? <Loading /> : t('Zap in')}
-              </button>
+                {isApproving ? <div className='flex justify-center gap-1'><Loading /> Approving...</div> : 'Approve'}{' '}
+              </button> :
+                <button
+                  onClick={handleDeposit}
+                  className='border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700'
+                  disabled={Number(amount) === 0 || pendingZapTx}
+                >
+                  {pendingZapTx ? <Loading /> : t('Zap in')}
+                </button>
           }
 
         </div>
