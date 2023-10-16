@@ -171,13 +171,6 @@ const ApyCalculatorModal = ({
                 {t('Calculated based on current rates.')}
               </Text>
             </li>
-            <li>
-              <Text ml='-8px' fontSize='14px' color='textWhite' display='inline'>
-                {t('Compounding %freq%x daily.', {
-                  freq: compoundFrequency.toLocaleString(),
-                })}
-              </Text>
-            </li>
             {isFarm && (
               <li>
                 <Text ml='-8px' fontSize='14px' color='textWhite' display='inline'>
