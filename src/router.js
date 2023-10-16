@@ -22,10 +22,10 @@ const PageRouter = createBrowserRouter([
     path: "/swap",
     element: <Zap />,
   },
-  {
-    path: "/liquidity",
-    element: <Liquidity />,
-  },
+  // {
+  //   path: "/liquidity",
+  //   element: <Liquidity />,
+  // },
   {
     path: "*",
     element: <Farm />,
