@@ -112,7 +112,8 @@ export const useUSDCPriceFromToken = (tokenSymbol) => {
 
 export const useLpTokenPrice = (symbol) => {
   const farm = useFarmFromLpSymbol(symbol)
-  const farmTokenPriceInUsd = useUSDCPriceFromPid(farm.pid)
+  console.log(farm)
+  const farmTokenPriceInUsd = usePriceWILDXUsdc()[0]
 
   let lpTokenPrice = BIG_ZERO
 
