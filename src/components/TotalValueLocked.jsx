@@ -15,7 +15,9 @@ export default function TotalValueLocked() {
   const tvl = tvlData
     ? tvlData.toLocaleString('en-US', { maximumFractionDigits: 1 })
     : 0
-  const wildUsdcPrice = usePriceWILDXUsdc().toNumber()
+  const wildUsdcPrice = usePriceWILDXUsdc()[0].toNumber()
+  const liquidity = usePriceWILDXUsdc()[1]
+  const marketCap = usePriceWILDXUsdc()[2]
   const wethPrice = usePriceEthUsdc().toNumber()
 
   const totalSupply = useTotalSupply()
@@ -45,8 +47,6 @@ export default function TotalValueLocked() {
 
 
   const totalMinted = totalSupply - toReadableAmount(tokenABalanceRead?.data, 18)
-  const liquidity = toReadableAmount(wildxBalanceRead?.data, 18) * wildUsdcPrice * 0.98 + toReadableAmount(wethBalanceRead?.data, 18) * wethPrice
-  const marketCap = totalMinted * wildUsdcPrice
   return (
     <div className='flex-1 main_bg p-8 rounded-md'>
       <div className='text-3xl text-right'>Total Value Locked</div>

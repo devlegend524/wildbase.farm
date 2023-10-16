@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'state'
@@ -226,10 +226,29 @@ export const usePriceEthUsdc = () => {
 }
 
 export const usePriceWILDXUsdc = () => {
-  const wildEthFarm = useFarmFromPid(wildWethFarmPid)
-  return new BigNumber(wildEthFarm.token.usdcPrice)
+  // const wildEthFarm = useFarmFromPid(wildWethFarmPid)
+  const [priceUsd, setPriceUsd] = useState(0);
+  const [liquidity, setLiquidity] = useState(0);
+  const [marketCap, setMarketCap] = useState(0);
+  const { fastRefresh } = useRefresh()
+  // https://api.dexscreener.com/latest/dex/search?q=WILDx
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const returned = await (await fetch('https://api.dexscreener.com/latest/dex/search?q=WILDx')).json()
+        if (returned && returned.pairs) {
+          setPriceUsd(returned?.pairs[0].priceUsd)
+          setLiquidity(returned?.pairs[0]?.liquidity?.usd)
+          setMarketCap(returned?.pairs[0]?.fdv)
+        }
+      } catch { }
+    }
+    fetchData()
+  }, [fastRefresh])
+  if (priceUsd)
+    return [new BigNumber(priceUsd), liquidity, marketCap]
+  else return [new BigNumber(0), 0, 0]
 }
-
 
 // Block
 export const useBlock = () => {
@@ -339,7 +358,7 @@ export const useGetLastOraclePrice = () => {
 export const useTotalValue = () => {
   const farms = useFarms()
   const wethPrice = usePriceEthUsdc()
-  const wildPrice = usePriceWILDXUsdc()
+  const wildPrice = usePriceWILDXUsdc()[0]
 
   let value = new BigNumber(0)
   for (let i = 0; i < farms.data.length; i++) {

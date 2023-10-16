@@ -9,7 +9,7 @@ export default function Header() {
   const currentURL = window.location.pathname
   const [open, setOpen] = useState(false)
   const [tokenPrice, setTokenPrice] = useState()
-  const wildPrice = usePriceWILDXUsdc()
+  const wildPrice = usePriceWILDXUsdc()[0]
   const { fastRefresh } = useRefresh()
 
   useEffect(() => {

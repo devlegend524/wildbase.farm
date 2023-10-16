@@ -34,7 +34,7 @@ const HarvestAction = ({ pid, userData, userDataReady }) => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { address } = useAccount()
-  const wildPrice = usePriceWILDXUsdc()
+  const wildPrice = usePriceWILDXUsdc()[0]
   const masterChefContract = useMasterchef()
 
   useEffect(() => {

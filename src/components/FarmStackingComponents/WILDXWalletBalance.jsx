@@ -14,7 +14,7 @@ const WILDXWalletBalance = () => {
   const { t } = useTranslation()
   const signer = useEthersSigner()
   const { balance } = useTokenBalance(getWILDXAddress())
-  const wildPriceUsdt = usePriceWILDXUsdc()
+  const wildPriceUsdt = usePriceWILDXUsdc()[0]
   const usdBalance = new BigNumber(
     toReadableAmount(balance.toString(), 18)
   ).multipliedBy(wildPriceUsdt)

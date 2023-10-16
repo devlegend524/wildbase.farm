@@ -30,7 +30,7 @@ const WILDXHarvestBalance = ({ farmsWithBalance }) => {
     }
     return accum + earningNumber.div(DEFAULT_TOKEN_DECIMAL).toNumber()
   }, 0)
-  const wildPriceUsdt = usePriceWILDXUsdc()
+  const wildPriceUsdt = usePriceWILDXUsdc()[0]
   const earningsUsdt = new BigNumber(earningsSum)
     .multipliedBy(wildPriceUsdt)
     .toNumber()

@@ -26,7 +26,7 @@ export default function Farms() {
   const isActive = !isInactive && !isArchived
   usePollFarmsData(isArchived)
 
-  const wildPrice = usePriceWILDXUsdc()
+  const wildPrice = usePriceWILDXUsdc()[0]
   const loadMoreRef = useRef()
 
   const [userDataReady, setUserDataReady] = useState('hot')
