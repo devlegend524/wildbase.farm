@@ -5,7 +5,7 @@ export const contractAddresses = {
   oracle: "0xB0d0BbF3391C69D9aD23c4bAb4785D47Fe721bCc",
   router: "0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb",
   factory: "0x02a84c1b3BBD7401a5f7fa98a384EBC70bB5749E",
-  nft: "0xCB17B34adDa29fCf3eb65222224cD827471bD602",
+  nft: "0xd6A29828AB9Cf10A342347217f8988ee5c1cc175",
 };
 
 export const EXPLORER_URL = {
