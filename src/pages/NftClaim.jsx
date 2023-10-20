@@ -51,7 +51,7 @@ export default function Zap() {
   return (
     <div className="container">
       <div className="flex justify-center gap-4 mt-24">
-        {myTokenIds ? (
+        {myTokenIds && myTokenIds.length > 0 ? (
           myTokenIds.map((tokenId, index) => (
             <div className="w-[200px] h-[200px]">
               <NFTCard key={index} tokenId={tokenId} />
