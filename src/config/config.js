@@ -1,23 +1,25 @@
-import BigNumber from 'bignumber.js'
-import { BIG_TEN } from 'utils/bigNumber'
+import BigNumber from "bignumber.js";
+import { BIG_TEN } from "utils/bigNumber";
 
-export const DEFAULT_GAS_LIMIT = 2000000
-export const DEFAULT_GAS_PRICE = 2
-export const CHAIN_ID = 8453
-export const TESTNET_CHAIN_ID = 84531
-export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
-export const NUMBER_OF_FARMS_VISIBLE = 12
+export const DEFAULT_GAS_LIMIT = 2000000;
+export const DEFAULT_GAS_PRICE = 2;
+export const CHAIN_ID = 8453;
+export const TESTNET_CHAIN_ID = 84531;
+export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18);
+export const NUMBER_OF_FARMS_VISIBLE = 12;
 export const wildWethFarmPid = 2;
 export const wethUsdcFarmPid = 3;
 
-export const START_PRESALE = Number((new Date(
-  new Date('10/1/2023 05:00:00 PM EST').toString()
-).getTime() / 1000).toFixed(0))
+export const START_PRESALE = Number(
+  (
+    new Date(new Date("10/1/2023 05:00:00 PM EST").toString()).getTime() / 1000
+  ).toFixed(0)
+);
 
-export const YEAR = 60 * 60 * 24 * 365
-export const YEAR_BN = new BigNumber(YEAR)
+export const YEAR = 60 * 60 * 24 * 365;
+export const YEAR_BN = new BigNumber(YEAR);
 
-export const BASE_EXPLORER = "https://basescan.org"
+export const BASE_EXPLORER = "https://basescan.org";
 
 export const HeaderLinks = [
   // {
@@ -25,35 +27,56 @@ export const HeaderLinks = [
   //   link: '/',
   // },
   {
-    name: 'Farms',
-    link: '/',
+    name: "Farms",
+    link: "/",
   },
   // {
   //   name: 'Liquidity',
   //   link: '/liquidity',
   // },
   {
-    name: 'Swap',
-    link: '/swap',
+    name: "Swap",
+    link: "/swap",
+  },
+  {
+    name: "Claim",
+    link: "/nft-claim",
   },
 ];
 
 export const socials = [
   {
     icon: () => null,
-    name: 'Docs',
-    href: 'https://lodgedocs.gitbook.io/wildx/',
+    name: "Docs",
+    href: "https://lodgedocs.gitbook.io/wildx/",
   },
   {
     icon: () => (
-      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="-35.20005 -41.33325 305.0671 247.9995"><path d="M229.763 25.817c-2.699-10.162-10.65-18.165-20.748-20.881C190.716 0 117.333 0 117.333 0S43.951 0 25.651 4.936C15.553 7.652 7.6 15.655 4.903 25.817 0 44.236 0 82.667 0 82.667s0 38.429 4.903 56.85C7.6 149.68 15.553 157.681 25.65 160.4c18.3 4.934 91.682 4.934 91.682 4.934s73.383 0 91.682-4.934c10.098-2.718 18.049-10.72 20.748-20.882 4.904-18.421 4.904-56.85 4.904-56.85s0-38.431-4.904-56.85" fill="#9199B0" /><path d="M93.333 117.559l61.333-34.89-61.333-34.894z" fill="#000" /></svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="25"
+        height="20"
+        viewBox="-35.20005 -41.33325 305.0671 247.9995"
+      >
+        <path
+          d="M229.763 25.817c-2.699-10.162-10.65-18.165-20.748-20.881C190.716 0 117.333 0 117.333 0S43.951 0 25.651 4.936C15.553 7.652 7.6 15.655 4.903 25.817 0 44.236 0 82.667 0 82.667s0 38.429 4.903 56.85C7.6 149.68 15.553 157.681 25.65 160.4c18.3 4.934 91.682 4.934 91.682 4.934s73.383 0 91.682-4.934c10.098-2.718 18.049-10.72 20.748-20.882 4.904-18.421 4.904-56.85 4.904-56.85s0-38.431-4.904-56.85"
+          fill="#9199B0"
+        />
+        <path d="M93.333 117.559l61.333-34.89-61.333-34.894z" fill="#000" />
+      </svg>
     ),
-    name: 'Youtube',
-    href: 'https://youtube.com/@lodgecapital',
+    name: "Youtube",
+    href: "https://youtube.com/@lodgecapital",
   },
   {
     icon: () => (
-      <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width="17"
+        height="14"
+        viewBox="0 0 17 14"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -62,33 +85,39 @@ export const socials = [
         />
       </svg>
     ),
-    name: 'Telegram',
-    href: 'http://t.me/lodgecapital',
+    name: "Telegram",
+    href: "http://t.me/lodgecapital",
   },
   {
     icon: () => (
-      <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width="16"
+        height="13"
+        viewBox="0 0 16 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M15.2753 2.17153C15.4265 1.99553 15.237 1.74324 15.0148 1.80977C14.7741 1.8818 14.6022 1.51336 14.7613 1.31898C14.8398 1.2231 14.9127 1.12253 14.9795 1.01767C15.1326 0.777575 14.8599 0.538969 14.5983 0.651439C14.3015 0.779061 13.9932 0.884425 13.6752 0.966913C13.4477 1.02593 13.2125 0.942954 13.0325 0.791856C12.4757 0.324435 11.7571 0.0447998 10.9835 0.0447998C9.22256 0.0447998 7.80486 1.47413 7.80486 3.22638C7.80486 3.59348 7.51505 3.93417 7.15101 3.88683C5.39061 3.65787 3.7915 2.92096 2.50025 1.82635C1.88002 1.30057 0.887036 1.41934 0.887036 2.23244C0.887036 2.97168 1.1425 3.65458 1.5661 4.1947C1.74773 4.42628 1.5932 4.78984 1.31652 4.68951C1.1695 4.6362 1.02779 4.57272 0.893459 4.50073C0.879623 4.49331 0.862794 4.50328 0.862794 4.51898C0.862794 5.76619 1.58063 6.84294 2.61743 7.36766C2.80641 7.4633 2.78902 7.74904 2.57722 7.74904C2.30956 7.74904 2.08709 8.01514 2.21654 8.24941C2.36471 8.51757 2.54997 8.76265 2.76541 8.9774C3.34294 9.55309 3.57914 10.7847 2.79615 11.0124C2.22707 11.178 1.62515 11.2671 1.0034 11.2671C0.819312 11.2671 0.737577 11.523 0.900212 11.6092C2.16022 12.2774 3.59384 12.6509 5.12171 12.6509C10.9748 12.6509 14.1748 7.80238 14.1748 3.59971C14.1748 3.56824 14.1746 3.53702 14.1741 3.506C14.1712 3.30817 14.2622 3.12081 14.4173 2.99798C14.7301 2.75019 15.016 2.47345 15.2753 2.17153Z"
           fill="#9199B0"
         />
       </svg>
     ),
-    name: 'Twitter',
-    href: ' https://x.com/lodgecapital',
+    name: "Twitter",
+    href: " https://x.com/lodgecapital",
   },
-]
+];
 export const BASE_EXCHANGE_URL_BY_CHAIN = {
-  84531: 'https://goerli.basescan.org/',
-  8453: 'https://pancakeswap.finance/',
-}
+  84531: "https://goerli.basescan.org/",
+  8453: "https://pancakeswap.finance/",
+};
 
-export const BASE_EXCHANGE_URL = BASE_EXCHANGE_URL_BY_CHAIN[CHAIN_ID]
+export const BASE_EXCHANGE_URL = BASE_EXCHANGE_URL_BY_CHAIN[CHAIN_ID];
 
-export const BASE_ADD_LIQUIDITY_URL = `${BASE_EXCHANGE_URL}/liquidity`
-export const BASE_SWAP_URL = `${BASE_EXCHANGE_URL}/swap`
-export const ARCHIVED_NODE = "https://developer-access-mainnet.base.org"
+export const BASE_ADD_LIQUIDITY_URL = `${BASE_EXCHANGE_URL}/liquidity`;
+export const BASE_SWAP_URL = `${BASE_EXCHANGE_URL}/swap`;
+export const ARCHIVED_NODE = "https://developer-access-mainnet.base.org";
 
 // export const YEAR = 60 * 60 * 24 * 365
 // export const YEAR_BN = new BigNumber(YEAR)
-export const BASE_URL = 'https://app.wildbase.farm'
+export const BASE_URL = "https://app.wildbase.farm";
