@@ -76,7 +76,7 @@ export default function Zap() {
 
         {address && nfts ? (
           <p className="mt-3 text-center text-2xl">
-            You have {nfts} NFTs to claime.
+            You have {nfts} NFT(s) to claim.
           </p>
         ) : (
           ""
